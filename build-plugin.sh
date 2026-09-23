@@ -30,7 +30,11 @@ mkdir -p "$DIST_DIR"
 # Step 2: install dependencies and build the Svelte apps
 echo -e "${YELLOW}📦 Installing dependencies...${NC}"
 cd app
-npm install --legacy-peer-deps
+if [ "${CI}" = "true" ]; then
+    npm ci --legacy-peer-deps
+else
+    npm install --legacy-peer-deps
+fi
 echo -e "${YELLOW}🔨 Building Svelte components...${NC}"
 npm run build
 cd ..

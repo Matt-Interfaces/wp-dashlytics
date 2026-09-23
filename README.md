@@ -48,6 +48,23 @@ bash build-plugin.sh
 
 The resulting installable ZIP is written to `dist/dashlytics-{VERSION}.zip`.
 
+### Automated Releases
+
+Pushing a Git tag `vX.Y.Z` triggers `.github/workflows/release.yml`:
+
+1. Runs PHPCS and the Svelte build.
+2. Executes `build-plugin.sh` to create `dist/dashlytics-X.Y.Z.zip`.
+3. Creates a GitHub Release and attaches the ZIP automatically.
+
+Example:
+
+```bash
+git tag -a v0.8.4 -m "Release 0.8.4"
+git push origin refs/tags/v0.8.4
+```
+
+No manual ZIP upload is needed.
+
 ### Dependency Notes
 
 | Package | Version | Purpose | Maintenance |
@@ -57,11 +74,11 @@ The resulting installable ZIP is written to `dist/dashlytics-{VERSION}.zip`.
 | `svelte` | `^4.2.x` | UI framework | Migration to Svelte 5 is planned separately |
 | `rollup` | `^4.x` | Bundler | Latest compatible minor |
 
-The plugin uses the `dashlytics` text domain. A `.pot` template is available under `languages/`.
+The plugin uses the `dashlytics` text domain. Translation files are available under `languages/`.
 
 ### Plugin Updates
 
-Until the plugin is published on WordPress.org, updates are delivered through GitHub Releases via the vendored [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker). WordPress will show update notifications exactly like it does for repository plugins.
+Until the plugin is published on WordPress.org, updates are delivered through GitHub Releases via the vendored [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker). WordPress will show update notifications exactly like it does for repository plugins, as long as the release has the matching `vX.Y.Z` tag and the ZIP asset attached.
 
 ## License
 

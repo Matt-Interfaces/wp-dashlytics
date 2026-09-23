@@ -12,9 +12,31 @@ This document describes the step-by-step path to move WP Dashlytics into the Wor
 | Update mechanism | ✅ Done | Plugin Update Checker v5 vendored, GitHub `Matt-Interfaces/wp-dashlytics` |
 | Translation files | ✅ Done | `.pot` template + `de_DE` and `en_US` `.po/.mo` |
 | PHPCS / WPCS | ✅ Done | Clean run, PUC excluded from linting |
+| Automated GitHub release workflow | ✅ Done | `.github/workflows/release.yml` builds and attaches ZIP on tag push |
 | WordPress.org submission | ⏳ Open | Requires SVN repo, assets, review |
 
-## 2. Code Quality & Standards
+## 2. Automated Release Workflow
+
+Pushing a Git tag `vX.Y.Z` triggers `.github/workflows/release.yml`:
+
+1. Runs PHPCS and the Svelte build.
+2. Executes `build-plugin.sh` to create `dist/dashlytics-X.Y.Z.zip`.
+3. Creates a GitHub Release and attaches the ZIP automatically.
+
+To release a new version locally:
+
+```bash
+# Bump version in dashlytics-matomo.php, build-plugin.sh and readme.txt
+git add .
+git commit -m "chore(release): bump version to 0.8.4"
+git tag -a v0.8.4 -m "Release 0.8.4"
+git push origin main
+git push origin refs/tags/v0.8.4
+```
+
+The Plugin Update Checker inside the installed plugin checks `https://github.com/Matt-Interfaces/wp-dashlytics/releases/latest` and shows a native WordPress update notification when a newer release exists.
+
+## 3. Code Quality & Standards
 
 Run the checks locally:
 
@@ -29,14 +51,14 @@ Remaining tasks before submission:
 - [ ] Security audit: nonces, capabilities, sanitization.
 - [ ] Keep PHP compatible from 7.4 up to current 8.4.
 
-## 3. Internationalization
+## 4. Internationalization
 
 - Use text domain `dashlytics` consistently.
 - Update `languages/dashlytics.pot` before every release.
 - Maintain `dashlytics-de_DE.po/mo` and `dashlytics-en_US.po/mo`.
 - For additional languages, add `dashlytics-{locale}.po/mo` files and register them in `build-plugin.sh`.
 
-## 4. readme.txt & Assets
+## 5. readme.txt & Assets
 
 - [ ] Keep `Tested up to` on the current WordPress version (currently `6.7`).
 - [ ] Reduce marketing fluff in the description.
@@ -45,7 +67,7 @@ Remaining tasks before submission:
 - [ ] Create and name screenshots: `screenshot-1.png`, etc. See `SCREENSHOTS.md`.
 - [ ] Ensure the released ZIP contains no `.gitignore`, `vendor/`, source maps or dev files.
 
-## 5. WordPress.org Submission
+## 6. WordPress.org Submission
 
 ### Step 1: Prepare Account
 - Create an account at https://wordpress.org/ with the appropriate username.
@@ -75,7 +97,7 @@ svn ci -m "Initial release 0.8.3"
 3. `svn cp trunk tags/X.Y.Z`
 4. `svn ci -m "Release X.Y.Z"`
 
-## 6. Decisions
+## 7. Decisions
 
 | Topic | Decision | Reason |
 |---|---|---|
@@ -84,10 +106,10 @@ svn ci -m "Initial release 0.8.3"
 | n8n as update server | No | Not established, complex |
 | Remove PUC when? | After WP.org approval | WP.org becomes primary channel |
 
-## 7. Next Actions
+## 8. Next Actions
 
-1. Create the `Matt-Interfaces/wp-dashlytics` repository on GitHub and push the current main branch + `v0.8.3` tag.
-2. Create a GitHub Release for `v0.8.3` and attach `dist/dashlytics-0.8.3.zip`.
+1. ✅ Create the `Matt-Interfaces/wp-dashlytics` repository on GitHub and push the current main branch + `v0.8.3` tag.
+2. ✅ Create a GitHub Release for `v0.8.3` and attach `dist/dashlytics-0.8.3.zip`.
 3. Upload to a WordPress test instance and verify the update notification works.
 4. Remove `console.*` calls from the Svelte build for WP.org readiness.
 5. Prepare WordPress.org submission.

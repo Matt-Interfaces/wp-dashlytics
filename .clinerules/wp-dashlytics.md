@@ -17,6 +17,7 @@ This repository is a **WordPress plugin** that renders Matomo Analytics data ins
 | Updates | Vendored Plugin Update Checker pointing to GitHub `Matt-Interfaces/wp-dashlytics` |
 | Code standards | WPCS via `composer.json` + `phpcs.xml.dist` |
 | CI | GitHub Actions `.github/workflows/ci.yml` (PHPCS + Svelte build) |
+| CD | GitHub Actions `.github/workflows/release.yml` (build + attach ZIP to release) |
 
 ## Repository boundaries
 
