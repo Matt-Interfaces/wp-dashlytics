@@ -3,7 +3,7 @@
  * Plugin Name: WP Dashlytics - Matomo Analytics Widget
  * Plugin URI: https://matt-interfaces.ch/wp-dashlytics
  * Description: View Matomo Analytics data directly in your WordPress dashboard. Simple integration, data-driven decisions.
- * Version: 0.8.3
+ * Version: 0.8.4
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * Author: Christopher Matt

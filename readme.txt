@@ -4,7 +4,7 @@ Donate link: https://matt-interfaces.ch/zahlen
 Tags: matomo, analytics, dashboard, statistics, widget, piwik, tracking
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 0.8.3
+Stable tag: 0.8.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
