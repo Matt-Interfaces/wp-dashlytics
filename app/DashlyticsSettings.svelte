@@ -925,7 +925,7 @@ onMount(() => {
                                 <span class="dashlytics-support-link-icon">🌐</span>
                                 <span>{i18n.pluginWebsite || 'Plugin-Website'}</span>
                             </a>
-                            <a href="https://github.com/mattinterfaces/wp-dashlytics" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link" aria-label="GitHub Repository für WP Dashlytics öffnen">
+                            <a href="https://github.com/Matt-Interfaces/wp-dashlytics" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link" aria-label="GitHub Repository für WP Dashlytics öffnen">
                                 <span class="dashlytics-support-link-icon">📦</span>
                                 <span>{i18n.githubRepository || 'GitHub Repository'}</span>
                             </a>

@@ -41,7 +41,7 @@ require_once DASHLYTICS_PLUGIN_PATH . 'includes/plugin-update-checker/plugin-upd
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 $dashlytics_update_checker = PucFactory::buildUpdateChecker(
-	'https://github.com/mattinterfaces/wp-dashlytics/',
+	'https://github.com/Matt-Interfaces/wp-dashlytics/',
 	DASHLYTICS_PLUGIN_FILE,
 	'dashlytics'
 );

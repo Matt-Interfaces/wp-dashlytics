@@ -20,7 +20,7 @@ A lightweight WordPress plugin that brings your Matomo analytics data into the W
 
 ## Installation
 
-1. Download the latest ZIP from the [releases page](https://github.com/mattinterfaces/wp-dashlytics/releases).
+1. Download the latest ZIP from the [releases page](https://github.com/Matt-Interfaces/wp-dashlytics/releases).
 2. In WordPress, go to **Plugins → Add New → Upload Plugin** and activate it.
 3. Open **WP Dashlytics** in the admin menu.
 4. Connect Matomo automatically (if *Matomo for WordPress* is installed) or enter URL, Site ID and API token manually.

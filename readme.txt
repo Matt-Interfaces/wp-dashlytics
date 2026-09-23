@@ -1,5 +1,5 @@
 === WP Dashlytics - Matomo Analytics Widget ===
-Contributors: mattinterfaces
+Contributors: matt-interfaces
 Donate link: https://matt-interfaces.ch/zahlen
 Tags: matomo, analytics, dashboard, statistics, widget, piwik, tracking
 Requires at least: 5.8
@@ -165,7 +165,7 @@ Für Datenschutzinformationen zu Matomo besuchen Sie: https://matomo.org/privacy
 = Entwickler =
 
 * Plugin-Seite: https://matt-interfaces.ch/wp-dashlytics
-* GitHub: https://github.com/mattinterfaces/wp-dashlytics
+* GitHub: https://github.com/Matt-Interfaces/wp-dashlytics
 * Website: https://www.matt-interfaces.ch
 * Support: hoi@matt-interfaces.ch
 
