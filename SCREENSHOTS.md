@@ -1,98 +1,98 @@
 # Dashlytics Screenshot Guide
 
-> Anleitung, welche Screenshots für das WordPress.org Plugin-Verzeichnis und das README erstellt werden müssen – inkl. empfohlener Auflösung, Dateinamen und Inhalt.
+Guide for creating screenshots for the WordPress.org plugin directory and the plugin README, including recommended resolution, file names and content.
 
-## WordPress.org Anforderungen
+## WordPress.org Requirements
 
-- **Format:** PNG oder JPG.
-- **Auflösung:** mindestens `1200×900px` (empfohlen `2880×1800px` für Retina).
-- **Maximale Dateigröße:** 10 MB pro Bild.
-- **Dateien in `/assets/`:** `screenshot-1.png`, `screenshot-2.png`, …
-- **Maximal 4 Screenshots** empfohlen, kurze Legende pro Bild in die `readme.txt` unter `== Screenshots ==`.
+- **Format:** PNG or JPG.
+- **Resolution:** at least `1200×900px` (recommended `2880×1800px` for Retina).
+- **Max file size:** 10 MB per image.
+- **Files in `/assets/`:** `screenshot-1.png`, `screenshot-2.png`, …
+- **Maximum 4 screenshots** recommended, with a short caption per image in `readme.txt` under `== Screenshots ==`.
 
-## Empfohlene Screenshots
+## Recommended Screenshots
 
-### screenshot-1.png – Dashboard Widget (Hauptansicht)
+### screenshot-1.png — Dashboard Widget (Main View)
 
-**Szenario:** WordPress Dashboard mit aktiviertem Dashlytics-Widget und echten Daten.
+**Scenario:** WordPress Dashboard with the Dashlytics widget active and real data.
 
-**Inhalt:**
-- Liniendiagramm (Standard) mit Besuchen der letzten 30 Tage.
-- Oben die vier Statistikkarten: Besuche, Seitenaufrufe, Besucher, Absprungrate.
-- Zeitraum-Auswahl (z. B. „Letzte 30 Tage“).
-- Export-Buttons PNG/PDF sichtbar.
-- Hintergrund: Standard WordPress Dashboard (WP Admin Theme).
+**Content:**
+- Line chart (default) showing visits for the last 30 days.
+- Four statistic cards at the top: Visits, Page views, Visitors, Bounce rate.
+- Date range selector (e.g. "Last 30 days").
+- PNG/PDF export buttons visible.
+- Background: standard WordPress Dashboard (WP Admin theme).
 
-**Tipp:** Nutze die Option „Sichtbare Daten“, also mit echtem Verkehr, falls vorhanden.
+**Tip:** Use "real visible data" if actual traffic is available.
 
-### screenshot-2.png – Kreisdiagramm OS-Familien
+### screenshot-2.png — Pie Chart OS Families
 
-**Szenario:** Gleiches Dashboard-Widget, aber auf Kreisdiagramm umgestellt.
+**Scenario:** Same dashboard widget, switched to pie chart.
 
-**Inhalt:**
-- Kreisdiagramm mit OS-Familien-Verteilung (Windows, macOS, iOS, Android, Linux, Sonstige).
-- Farbige Legende rechts oder unten.
-- Statistikkarten oben weiterhin sichtbar.
-- Zeigt ein klares „Device-Daten“-Feature.
+**Content:**
+- Pie chart showing OS family distribution (Windows, macOS, iOS, Android, Linux, Other).
+- Color legend to the right or bottom.
+- Statistic cards remain visible at the top.
+- Shows a clear "device data" feature.
 
-### screenshot-3.png – Einstellungen (Connection-Tab)
+### screenshot-3.png — Settings (Connection Tab)
 
-**Szenario:** Dashlytics Settings-Seite, Reiter „Verbindung“.
+**Scenario:** Dashlytics Settings page, "Connection" tab.
 
-**Inhalt:**
-- Verbindungsformular mit Matomo URL, Site ID, Auth Token.
-- Toggle „Matomo for WordPress automatisch erkennen".
-- „Verbindung testen"-Button.
-- Erfolgsmeldung „Verbindung erfolgreich!".
+**Content:**
+- Connection form with Matomo URL, Site ID, Auth Token.
+- Toggle "Auto-detect Matomo for WordPress".
+- "Test connection" button.
+- Success message "Connection successful!".
 
-### screenshot-4.png – Einstellungen (Anzeige-Tab mit Vorschau)
+### screenshot-4.png — Settings (Display Tab with Preview)
 
-**Szenario:** Dashlytics Settings-Seite, Reiter „Anzeige".
+**Scenario:** Dashlytics Settings page, "Display" tab.
 
-**Inhalt:**
-- Chart-Typ Auswahl (Linien / Balken / Kreis).
-- Farbauswahl.
-- Datumsbereich (z. B. letzte 30 Tage).
-- Live-Vorschau des Widgets mit echten Beispieldaten unterhalb.
+**Content:**
+- Chart type selection (Line / Bar / Pie).
+- Color picker.
+- Date range (e.g. last 30 days).
+- Live preview of the widget with real sample data below.
 
-## Workflow zum Erstellen
+## Workflow
 
-1. **Testseite vorbereiten**
-   - Frische WordPress-Instanz mit Dashlytics installieren und verbinden (am besten Matomo for WordPress oder Demo-Daten).
-2. **Dashboard besuchen**
+1. **Prepare test site**
+   - Fresh WordPress instance with Dashlytics installed and connected (prefer Matomo for WordPress or demo data).
+2. **Visit dashboard**
    - `/wp-admin/index.php`
-3. **Fenstergröße**
-   - Browser auf 1440 px Breite skalieren, Widget vollständig im Sichtbereich.
-4. **Bildschirmfoto**
-   - Ausschnitt auf das Dashlytics-Widget beschränken.
-   - Sensible Token/URLs unkenntlich machen.
-5. **Export/Bearbeitung**
-   - PNG mit 2× Skalierung exportieren, z. B. 1440×900 → 2880×1800 px.
-   - Kein Branding/Overlay im Bild, außer das eigene Logo ist Teil der UI.
-6. **Benennen**
-   - `screenshot-1.png`, `screenshot-2.png`, ... ins Plugin-Root-`/assets/`-Verzeichnis legen.
-7. **readme.txt aktualisieren**
+3. **Window size**
+   - Scale browser to 1440 px width, widget fully in viewport.
+4. **Screenshot**
+   - Crop to the Dashlytics widget only.
+   - Blur sensitive tokens/URLs.
+5. **Export / Edit**
+   - Export PNG at 2× scale, e.g. 1440×900 → 2880×1800 px.
+   - No branding/overlay in the image unless it is part of the UI.
+6. **Naming**
+   - Place `screenshot-1.png`, `screenshot-2.png`, ... in the plugin root `/assets/` directory.
+7. **Update readme.txt**
    ```
    == Screenshots ==
-   1. Dashlytics-Chart mit Besuchen der letzten 30 Tage.
-   2. OS-Familien-Verteilung als Kreisdiagramm.
-   3. Verbindungseinstellungen mit automatischer Matomo-Erkennung.
-   4. Anzeige-Einstellungen mit Live-Vorschau.
+   1. Dashlytics line chart showing visits for the last 30 days.
+   2. OS family distribution as a pie chart.
+   3. Connection settings with automatic Matomo detection.
+   4. Display settings with live preview.
    ```
 
 ## Optional: Banner & Icon
 
-Für WP.org solltest du im Plugin-Root ein `/assets/`-Verzeichnis mit folgenden Dateien ergänzen:
+For WP.org add a plugin root `/assets/` directory with these files:
 
-- `banner-772x250.png` – Plugin-Banner in der Verzeichnis-Liste.
-- `icon-128x128.png` – Plugin-Icon (auch 256×256 als @2x).
-- `icon-256x256.png` – Optional für hochauflösende Displays.
+- `banner-772x250.png` — plugin banner in the directory listing.
+- `icon-128x128.png` — plugin icon (also provide 256×256 as @2x).
+- `icon-256x256.png` — optional for high-resolution displays.
 
-**Konventionen:**
-- Kein rein weißer Hintergrund für Icons (sonst unsichtbar im WP-Admin).
-- Banner max. 772×250 px, Icon quadratisch mit abgerundeten Ecken.
+**Conventions:**
+- Do not use a pure white icon background (it becomes invisible in WP Admin).
+- Banner maximum 772×250 px, icon square with rounded corners.
 
-## Sprache
+## Language
 
-- WP.org Screenshots sollten primär auf **Englisch** sein.
-- Für das deutsche Verzeichnis kannst du separate deutsche Screenshots verwenden oder englische beibehalten.
+- WP.org screenshots should primarily be in **English**.
+- For the German directory you may use separate German screenshots or keep the English ones.
