@@ -104,11 +104,10 @@ WP Dashlytics itself does not store visitor data. It only displays data from you
 
 == Screenshots ==
 
-1. Dashboard widget with statistics and chart
-2. Settings page - connection
-3. Settings page - appearance
-4. Chart type selection
-5. Automatic Matomo detection
+1. Combined dashboard widget with line chart and key metrics
+2. Pie chart showing visitor operating-system families
+3. Connection settings page for the Matomo API token and URL
+4. PNG/PDF export options from the WordPress dashboard widget
 
 == Changelog ==
 
