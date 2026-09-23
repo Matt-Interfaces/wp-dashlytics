@@ -2,50 +2,51 @@
 /**
  * Dashlytics Uninstall
  *
- * Wird ausgeführt wenn das Plugin deinstalliert wird.
- * Löscht alle Plugin-Daten aus der Datenbank.
+ * Runs when the plugin is uninstalled.
+ * Removes all plugin data from the database.
  *
  * @package Dashlytics
  * @since 1.0.0
  */
 
-// Sicherheitscheck - nur ausführen wenn WordPress die Deinstallation durchführt
-if (!defined('WP_UNINSTALL_PLUGIN')) {
-    exit;
+// Security check - only run when WordPress triggers uninstall
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	exit;
 }
 
-// Plugin Optionen löschen
-delete_option('dashlytics_settings');
+// Delete plugin options
+delete_option( 'dashlytics_settings' );
+delete_option( 'dashlytics_review_dismissed' );
+delete_option( 'dashlytics_review_next' );
 
-// Alte Optionen aus Version 0.3 löschen (falls vorhanden)
-delete_option('tokenauth');
-delete_option('apiurl');
-delete_option('siteidarl');
+// Delete legacy options from version 0.3 if present
+delete_option( 'tokenauth' );
+delete_option( 'apiurl' );
+delete_option( 'siteidarl' );
 
-// Capabilities entfernen
-$role = get_role('administrator');
-if ($role) {
-    $role->remove_cap('manage_dashlytics');
+// Remove capabilities
+$dashlytics_role = get_role( 'administrator' );
+if ( $dashlytics_role ) {
+	$dashlytics_role->remove_cap( 'manage_dashlytics' );
 }
 
-// Transients löschen (falls vorhanden)
-delete_transient('dashlytics_analytics_cache');
+// Delete transients if present
+delete_transient( 'dashlytics_analytics_cache' );
 
-// Multisite Unterstützung
-if (is_multisite()) {
-    global $wpdb;
-    
-    $blog_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
-    
-    foreach ($blog_ids as $blog_id) {
-        switch_to_blog($blog_id);
-        
-        delete_option('dashlytics_settings');
-        delete_option('tokenauth');
-        delete_option('apiurl');
-        delete_option('siteidarl');
-        
-        restore_current_blog();
-    }
+// Multisite support
+if ( is_multisite() ) {
+	global $wpdb;
+
+	$blog_ids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
+
+	foreach ( $blog_ids as $dashlytics_blog_id ) {
+		switch_to_blog( $dashlytics_blog_id );
+
+		delete_option( 'dashlytics_settings' );
+		delete_option( 'tokenauth' );
+		delete_option( 'apiurl' );
+		delete_option( 'siteidarl' );
+
+		restore_current_blog();
+	}
 }
-

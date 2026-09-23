@@ -24,3 +24,20 @@ public/
 *.log
 *.sql
 *.sqlite
+
+# macOS / IDE
+.DS_Store
+
+# Dependency directories
+vendor/
+app/node_modules/
+composer.lock
+
+# Build/generated directories
+build/
+dist/
+app/public/build/
+
+# Divi 5 landing page content is not part of this plugin repository
+# (hosted separately for matt-interfaces.ch).
+divi5/

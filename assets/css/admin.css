@@ -3,7 +3,7 @@
  * Modern WordPress Admin UI
  */
 
-/* CSS Variables für konsistentes Theming */
+/* CSS variables for consistent theming */
 :root {
     --dashlytics-primary: #2271b1;
     --dashlytics-primary-hover: #135e96;
@@ -77,24 +77,27 @@
     font-size: 14px;
 }
 
-.dashlytics-version {
-    background: rgba(255, 255, 255, 0.2);
-    color: var(--dashlytics-white);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 500;
-}
-
-/* Status Badge */
+.dashlytics-version,
 .dashlytics-status {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
+    padding: 6px 12px;
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.dashlytics-version {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--dashlytics-white);
+}
+
+/* Status Badge */
+.dashlytics-status {
+    gap: 6px;
 }
 
 .dashlytics-status--connected {
@@ -120,6 +123,18 @@
     animation: pulse 2s infinite;
 }
 
+.dashlytics-status-dot--spin {
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    background: transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+.dashlytics-status--checking {
+    background: var(--dashlytics-warning-light);
+    color: var(--dashlytics-warning);
+}
+
 @keyframes pulse {
 
     0%,
@@ -129,6 +144,12 @@
 
     50% {
         opacity: 0.5;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 
@@ -228,13 +249,21 @@
 .dashlytics-select,
 .dashlytics-textarea {
     width: 100%;
-    padding: 10px 14px;
+    padding: 11px 16px;
     border: 1px solid var(--dashlytics-border);
-    border-radius: var(--dashlytics-radius-sm);
+    border-radius: var(--dashlytics-radius);
     font-size: 14px;
+    line-height: 1.4;
     color: var(--dashlytics-text);
     background: var(--dashlytics-white);
     transition: var(--dashlytics-transition);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.dashlytics-input:hover,
+.dashlytics-select:hover,
+.dashlytics-textarea:hover {
+    border-color: #a7aaad;
 }
 
 .dashlytics-input:focus,
@@ -242,7 +271,15 @@
 .dashlytics-textarea:focus {
     outline: none;
     border-color: var(--dashlytics-primary);
-    box-shadow: 0 0 0 2px var(--dashlytics-primary-light);
+    box-shadow: 0 0 0 3px var(--dashlytics-primary-light), inset 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.dashlytics-input:disabled,
+.dashlytics-select:disabled,
+.dashlytics-textarea:disabled {
+    background: #f6f7f7;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 .dashlytics-input::placeholder {
@@ -251,28 +288,39 @@
 
 .dashlytics-input-group {
     display: flex;
-    gap: 8px;
+    gap: 0;
 }
 
 .dashlytics-input-group .dashlytics-input {
     flex: 1;
+    border-radius: 0 var(--dashlytics-radius) var(--dashlytics-radius) 0;
+}
+
+.dashlytics-input-group .dashlytics-input--readonly {
+    border-radius: var(--dashlytics-radius);
+}
+
+.dashlytics-input-group .dashlytics-btn,
+.dashlytics-input-group button {
+    border-radius: var(--dashlytics-radius);
+    margin-left: 8px;
 }
 
 .dashlytics-input-prefix {
     display: flex;
     align-items: center;
-    padding: 10px 14px;
+    padding: 11px 16px;
     background: var(--dashlytics-bg);
     border: 1px solid var(--dashlytics-border);
     border-right: none;
-    border-radius: var(--dashlytics-radius-sm) 0 0 var(--dashlytics-radius-sm);
+    border-radius: var(--dashlytics-radius) 0 0 var(--dashlytics-radius);
     color: var(--dashlytics-text-light);
     font-size: 13px;
     white-space: nowrap;
 }
 
-.dashlytics-input-prefix+.dashlytics-input {
-    border-radius: 0 var(--dashlytics-radius-sm) var(--dashlytics-radius-sm) 0;
+.dashlytics-input-prefix + .dashlytics-input {
+    border-radius: 0 var(--dashlytics-radius) var(--dashlytics-radius) 0;
 }
 
 /* Color Picker */
@@ -280,15 +328,20 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    padding: 4px;
+    background: var(--dashlytics-bg);
+    border-radius: var(--dashlytics-radius);
+    width: fit-content;
 }
 
 .dashlytics-color-input {
-    width: 50px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     padding: 4px;
     border: 1px solid var(--dashlytics-border);
     border-radius: var(--dashlytics-radius-sm);
     cursor: pointer;
+    background: var(--dashlytics-white);
 }
 
 .dashlytics-color-input::-webkit-color-swatch {
@@ -372,12 +425,6 @@
     border-right-color: transparent;
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 /* Toggle Switch */
@@ -479,32 +526,51 @@
     display: flex;
     gap: 4px;
     padding: 4px;
-    background: var(--dashlytics-bg);
-    border-radius: var(--dashlytics-radius-sm);
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: var(--dashlytics-radius);
     margin-bottom: 24px;
+    border: 1px solid var(--dashlytics-border);
 }
 
 .dashlytics-tab {
     flex: 1;
-    padding: 10px 16px;
+    padding: 12px 18px;
     border: none;
     background: transparent;
-    border-radius: var(--dashlytics-radius-sm);
+    border-radius: calc(var(--dashlytics-radius) - 4px);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--dashlytics-text-light);
     cursor: pointer;
     transition: var(--dashlytics-transition);
+    position: relative;
 }
 
 .dashlytics-tab:hover {
     color: var(--dashlytics-text);
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .dashlytics-tab--active {
     background: var(--dashlytics-white);
     color: var(--dashlytics-primary);
     box-shadow: var(--dashlytics-shadow);
+}
+
+.dashlytics-tab-panel {
+    animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Steps */
@@ -603,6 +669,28 @@
     background: var(--dashlytics-primary);
     border-radius: 4px 4px 0 0;
     transition: var(--dashlytics-transition);
+    flex-shrink: 0;
+}
+
+.dashlytics-preview-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 100%;
+    width: 100%;
+    color: #64748b;
+    font-size: 13px;
+    text-align: center;
+}
+
+.dashlytics-preview-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #cbd5e1;
+    border-top-color: var(--dashlytics-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
 }
 
 /* Tutorial/Help */
@@ -668,23 +756,47 @@
 .dashlytics-detection {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 20px 24px;
-    background: linear-gradient(135deg, var(--dashlytics-success-light) 0%, #c8f0d0 100%);
+    gap: 18px;
+    padding: 22px 26px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #bae6fd;
     border-radius: var(--dashlytics-radius);
     margin-bottom: 24px;
+    transition: all 0.2s ease;
+}
+
+.dashlytics-detection--success {
+    background: linear-gradient(135deg, var(--dashlytics-success-light) 0%, #c8f0d0 100%);
+    border-color: #9ce5ab;
+}
+
+.dashlytics-detection--error {
+    background: linear-gradient(135deg, var(--dashlytics-error-light) 0%, #ffd5d5 100%);
+    border-color: #f5b0b0;
 }
 
 .dashlytics-detection-icon {
-    width: 48px;
-    height: 48px;
-    background: var(--dashlytics-success);
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
     color: var(--dashlytics-white);
-    border-radius: 12px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+}
+
+.dashlytics-detection--success .dashlytics-detection-icon {
+    background: linear-gradient(135deg, var(--dashlytics-success) 0%, #008a24 100%);
+    box-shadow: 0 4px 12px rgba(0, 163, 42, 0.25);
+}
+
+.dashlytics-detection--error .dashlytics-detection-icon {
+    background: linear-gradient(135deg, var(--dashlytics-error) 0%, #b91c1c 100%);
+    box-shadow: 0 4px 12px rgba(214, 54, 56, 0.25);
 }
 
 .dashlytics-detection-content {
@@ -692,15 +804,42 @@
 }
 
 .dashlytics-detection-content h3 {
-    margin: 0 0 4px;
+    margin: 0 0 6px;
     font-size: 16px;
+    font-weight: 600;
+    color: #0369a1;
+}
+
+.dashlytics-detection--success .dashlytics-detection-content h3 {
     color: var(--dashlytics-success);
+}
+
+.dashlytics-detection--error .dashlytics-detection-content h3 {
+    color: var(--dashlytics-error);
 }
 
 .dashlytics-detection-content p {
     margin: 0;
     font-size: 13px;
-    color: #1a6b2a;
+    line-height: 1.5;
+    color: #0c4a6e;
+}
+
+.dashlytics-detection--success .dashlytics-detection-content p {
+    color: #145a23;
+}
+
+.dashlytics-detection--error .dashlytics-detection-content p {
+    color: #7f1d1d;
+}
+
+.dashlytics-detection-spinner {
+    width: 22px;
+    height: 22px;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
 }
 
 /* Support Section */
@@ -717,7 +856,8 @@
     gap: 12px;
     padding: 16px;
     background: var(--dashlytics-bg);
-    border-radius: var(--dashlytics-radius-sm);
+    border: 1px solid transparent;
+    border-radius: var(--dashlytics-radius);
     text-decoration: none;
     color: var(--dashlytics-text);
     transition: var(--dashlytics-transition);
@@ -725,11 +865,22 @@
 
 .dashlytics-support-link:hover {
     background: var(--dashlytics-primary-light);
+    border-color: var(--dashlytics-primary);
     color: var(--dashlytics-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--dashlytics-shadow);
 }
 
 .dashlytics-support-link-icon {
     font-size: 20px;
+}
+
+.dashlytics-support-link-logo {
+    width: auto;
+    height: 18px;
+    border-radius: 0;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 /* Responsive */
@@ -761,7 +912,7 @@
     }
 }
 
-/* Dashboard Widget Styles */
+/* Dashboard widget styles */
 #dashlytics_widget .inside {
     padding: 0 !important;
 }
@@ -976,7 +1127,7 @@
 }
 
 /* ============================================
-   Card Flex Layout (für fixierten Footer)
+   Card flex layout (for sticky footer)
    ============================================ */
 
 .dashlytics-card--flex {
@@ -1008,4 +1159,38 @@
     font-size: 20px;
     width: 20px;
     height: 20px;
+}
+
+/* =========================================================
+   Admin notice (review / donation)
+   ========================================================= */
+.dashlytics-review-notice {
+    position: relative;
+    border-left-color: var(--dashlytics-primary);
+}
+
+.dashlytics-review-notice__title {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.dashlytics-review-notice p:last-of-type {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.dashlytics-review-notice .button {
+    margin-right: 0;
+}
+
+.dashlytics-review-notice .button-link {
+    color: var(--dashlytics-text-light);
+    text-decoration: none;
+}
+
+.dashlytics-review-notice .button-link:hover {
+    color: var(--dashlytics-text);
 }

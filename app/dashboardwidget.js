@@ -9,7 +9,7 @@ function initWidget() {
     }
 }
 
-// Warte auf DOM ready
+// Wait for DOM ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initWidget);
 } else {

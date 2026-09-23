@@ -1,0 +1,57 @@
+name: Dashlytics CI
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+jobs:
+  phpcs:
+    name: PHP Coding Standards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring
+          coverage: none
+          tools: composer
+
+      - name: Install PHPCS dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Run PHPCS
+        run: composer run phpcs -- --report=summary
+
+  build:
+    name: Build Svelte bundles
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install Node dependencies
+        working-directory: ./app
+        run: npm ci --legacy-peer-deps
+
+      - name: Build app
+        working-directory: ./app
+        run: npm run build
+
+      - name: Check build artifacts
+        run: |
+          test -f app/public/build/dashboardwidget.js
+          test -f app/public/build/settings.js
+          test -f app/public/build/bundle.css

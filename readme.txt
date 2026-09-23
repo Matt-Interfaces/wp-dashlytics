@@ -1,10 +1,10 @@
-=== Dashlytics - Matomo Analytics Widget ===
-Contributors: chooomedia
-Donate link: https://www.paypal.com/paypalme/choooomedia
+=== WP Dashlytics - Matomo Analytics Widget ===
+Contributors: mattinterfaces
+Donate link: https://matt-interfaces.ch/zahlen
 Tags: matomo, analytics, dashboard, statistics, widget, piwik, tracking
 Requires at least: 5.8
-Tested up to: 6.4
-Stable tag: 0.7.9
+Tested up to: 6.7
+Stable tag: 0.8.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -29,7 +29,7 @@ Optimieren Sie Ihren Website-Erfolg. Integrieren Sie mühelos Matomo Analytics i
 
 = 🔗 Matomo Integration =
 
-Dashlytics funktioniert mit:
+WP Dashlytics funktioniert mit:
 
 * **Matomo for WordPress** (empfohlen) - Automatische Erkennung und Verbindung
 * **Externe Matomo Installation** - Verbinden Sie sich mit jeder Matomo-Instanz
@@ -55,7 +55,7 @@ Dashlytics funktioniert mit:
 = Automatische Installation =
 
 1. Gehen Sie zu **Plugins > Installieren** in Ihrem WordPress Admin
-2. Suchen Sie nach "Dashlytics"
+2. Suchen Sie nach "WP Dashlytics"
 3. Klicken Sie auf **Jetzt installieren** und dann **Aktivieren**
 
 = Manuelle Installation =
@@ -67,7 +67,7 @@ Dashlytics funktioniert mit:
 
 = Konfiguration =
 
-1. Gehen Sie zu **Dashlytics** im Admin-Menü
+1. Gehen Sie zu **WP Dashlytics** im Admin-Menü
 2. Falls Matomo for WordPress installiert ist: Klicken Sie auf "Automatisch verbinden"
 3. Oder geben Sie manuell ein:
    - Matomo URL (z.B. https://analytics.ihre-domain.de)
@@ -90,11 +90,11 @@ Ja! Geben Sie einfach Ihre Matomo Cloud URL ein (z.B. https://ihre-firma.matomo.
 
 = Kann ich mehrere Websites tracken? =
 
-Aktuell unterstützt Dashlytics eine Website pro WordPress-Installation. Die Site ID kann in den Einstellungen angepasst werden.
+Aktuell unterstützt WP Dashlytics eine Website pro WordPress-Installation. Die Site ID kann in den Einstellungen angepasst werden.
 
 = Ist das Plugin DSGVO-konform? =
 
-Dashlytics selbst speichert keine Besucherdaten. Es zeigt lediglich Daten aus Ihrer Matomo-Installation an. Stellen Sie sicher, dass Ihre Matomo-Konfiguration DSGVO-konform ist.
+WP Dashlytics selbst speichert keine Besucherdaten. Es zeigt lediglich Daten aus Ihrer Matomo-Installation an. Stellen Sie sicher, dass Ihre Matomo-Konfiguration DSGVO-konform ist.
 
 = Das Widget zeigt keine Daten an =
 
@@ -112,7 +112,26 @@ Dashlytics selbst speichert keine Besucherdaten. Es zeigt lediglich Daten aus Ih
 
 == Changelog ==
 
-= 1.0.0 =
+= 0.8.3 =
+* Alle Code-Kommentare ins Englische übersetzt.
+* README.md auf professionelles Englisch überarbeitet.
+* divi5-Ordner aus dem Repository ausgeschlossen.
+
+= 0.8.2 =
+* WordPress-native Updates über GitHub Releases integriert (bis WordPress.org-Verzeichnis aktiv ist).
+
+= 0.8.1 =
+* Donate-Link auf https://matt-interfaces.ch/zahlen korrigiert.
+
+= 0.8.0 =
+* PDF/PNG Export berücksichtigt die nutzerdefinierte Akzentfarbe statt fester Farbwerte
+* Report Badge im Export ist jetzt doppelt so breit für bessere Lesbarkeit
+* Versionsnummer im Settings-Header wird dynamisch aus den Plugin-Metadaten bezogen
+* Sprachvorlage (.pot) im Distribution-Paket enthalten
+* Readme auf WordPress 7.1 aktualisiert
+* Vorbereitung für WordPress.org Einreichung (PHPCS, CI, i18n)
+
+= 0.3.0 =
 * Komplettes Redesign der Benutzeroberfläche
 * Neue moderne Settings-Seite mit WordPress Admin UI
 * Automatische Erkennung von Matomo for WordPress
@@ -124,19 +143,14 @@ Dashlytics selbst speichert keine Besucherdaten. Es zeigt lediglich Daten aus Ih
 * Internationalisierung vorbereitet
 * WordPress Coding Standards konform
 
-= 0.3.0 =
-* Erste öffentliche Beta-Version
-* Grundlegende Matomo-Integration
-* Einfaches Dashboard Widget
-
 == Upgrade Notice ==
 
-= 1.0.0 =
-Großes Update mit komplett neuem Design und verbesserter Sicherheit. Bitte überprüfen Sie nach dem Update Ihre Einstellungen.
+= 0.8.0 =
+Aktualisiert den Export-Styling auf die gewählte Akzentfarbe. Bitte überprüfen Sie nach dem Update Ihre Einstellungen.
 
 == Privacy Policy ==
 
-Dashlytics selbst sammelt keine Benutzerdaten. Das Plugin zeigt lediglich Statistiken aus Ihrer Matomo-Installation an.
+WP Dashlytics selbst sammelt keine Benutzerdaten. Das Plugin zeigt lediglich Statistiken aus Ihrer Matomo-Installation an.
 
 Gespeicherte Daten:
 * Matomo URL (in WordPress Options)
@@ -150,9 +164,10 @@ Für Datenschutzinformationen zu Matomo besuchen Sie: https://matomo.org/privacy
 
 = Entwickler =
 
-* GitHub: https://github.com/chooomedia/wp-dashlytics
-* Website: https://chooomedia.de
-* Support: hello@chooomedia.de
+* Plugin-Seite: https://matt-interfaces.ch/wp-dashlytics
+* GitHub: https://github.com/mattinterfaces/wp-dashlytics
+* Website: https://www.matt-interfaces.ch
+* Support: hoi@matt-interfaces.ch
 
 = Mitwirken =
 
@@ -162,5 +177,5 @@ Pull Requests sind willkommen! Besuchen Sie unser GitHub Repository.
 
 Wenn Ihnen das Plugin gefällt, freue ich mich über:
 * Eine positive Bewertung auf WordPress.org
-* Einen Kaffee: https://www.paypal.com/paypalme/choooomedia
+* Einen Kaffee: https://matt-interfaces.ch/zahlen
 

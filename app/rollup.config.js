@@ -7,7 +7,7 @@ import terser from '@rollup/plugin-terser';
 const production = !process.env.ROLLUP_WATCH;
 
 export default [
-    // Dashboard Widget Bundle
+    // Dashboard widget bundle
     {
         input: 'dashboardwidget.js',
         output: {
@@ -21,7 +21,7 @@ export default [
             svelte({
                 compilerOptions: {
                     dev: !production,
-                    // CSS wird inline im JS gehalten für Widget
+                    // Keep CSS inline in JS for the widget
                     css: 'injected'
                 },
                 emitCss: false
@@ -37,7 +37,7 @@ export default [
             clearScreen: false
         }
     },
-    // Settings Page Bundle
+    // Settings page bundle
     {
         input: 'settings.js',
         output: {

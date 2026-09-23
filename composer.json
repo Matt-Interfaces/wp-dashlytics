@@ -1,0 +1,29 @@
+{
+    "name": "mattinterfaces/dashlytics",
+    "description": "Dashlytics - Matomo Analytics Widget for WordPress",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Christopher Matt",
+            "email": "hoi@matt-interfaces.ch",
+            "homepage": "https://www.matt-interfaces.ch"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+    },
+    "scripts": {
+        "phpcs": "phpcs --standard=phpcs.xml.dist .",
+        "phpcbf": "phpcbf --standard=phpcs.xml.dist ."
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

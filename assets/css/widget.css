@@ -1,6 +1,6 @@
 /**
  * Dashlytics Widget Styles
- * Modern Dashboard Widget für WordPress
+ * Modern dashboard widget for WordPress
  */
 
 /* Container */
@@ -10,10 +10,14 @@
     margin: -11px -12px -12px;
 }
 
-/* Spinning Animation */
+/* Spinning animation: the emoji spins inside the button, not the button itself */
 .dw-spinning {
     display: inline-block;
     animation: dw-spin 1s linear infinite;
+    transform-origin: center center;
+    will-change: transform;
+    line-height: 1;
+    vertical-align: middle;
 }
 
 @keyframes dw-spin {
@@ -82,12 +86,21 @@
     padding: 0 14px;
 }
 
+.dw-chart-container {
+    padding: 0 14px;
+    min-width: 0;
+}
+
 .dw-chart {
     height: 200px;
     background: #fafafa;
     border-radius: 8px;
     overflow: hidden;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
 }
 
 .dw-chart.dw-loading {
@@ -96,12 +109,63 @@
     justify-content: center;
 }
 
+.dw-chart-loading {
+    position: relative;
+    min-height: 200px;
+}
+
+.dw-chart-loading .dw-chart-loader {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(250, 250, 250, 0.85);
+    border-radius: 8px;
+    backdrop-filter: blur(1px);
+}
+
+.dw-chart-refreshing {
+    position: relative;
+}
+
+.dw-chart-refresh-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(250, 250, 250, 0.75);
+    border-radius: 8px;
+    backdrop-filter: blur(1px);
+}
+
+.dw-chart-loading .dw-chart,
+.dw-chart-loading .dw-chart-error,
+.dw-chart-refreshing canvas {
+    opacity: 0.4;
+}
+
 .dw-chart canvas {
     width: 100% !important;
     height: 100% !important;
+    display: block;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 /* Loader */
+/* Reduced motion: animations can be disabled */
+@media (prefers-reduced-motion: reduce) {
+    .dw-spinning,
+    .dw-loader-spinner,
+    .dw-chart-refresh-overlay .dw-loader-spinner {
+        animation: none !important;
+    }
+}
+
 .dw-loader {
     display: flex;
     flex-direction: column;
@@ -203,30 +267,83 @@
 .dw-dates {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     flex: 1;
+    min-width: 0;
+}
+
+.dw-date-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.dw-date-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
 }
 
 .dw-input-date {
     flex: 1;
-    padding: 7px 10px;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    font-size: 12px;
-    background: white;
+    min-width: 0;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    background: #ffffff;
     color: #334155;
     cursor: pointer;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+    transition: all 0.2s ease;
+}
+
+.dw-input-date:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
 }
 
 .dw-input-date:focus {
     outline: none;
     border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14), inset 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.dw-input-date:disabled {
+    opacity: 0.65;
+    background: #f1f5f9;
+    cursor: not-allowed;
 }
 
 .dw-date-sep {
-    color: #94a3b8;
-    font-size: 12px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Mobile: Date inputs vertical to keep readable */
+@media (max-width: 500px) {
+    .dw-dates {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .dw-dates .dw-date-sep {
+        display: none;
+    }
 }
 
 /* Chart Types */
@@ -248,13 +365,34 @@
     transition: all 0.2s;
 }
 
-.dw-chart-type-btn:hover {
+.dw-chart-type-btn:hover:not(:disabled) {
     background: #f1f5f9;
 }
 
 .dw-chart-type-btn.dw-active {
     background: #3b82f6;
     box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+}
+
+.dw-chart-type-btn:disabled,
+.dw-chart-type-btn.dw-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.dw-chart-type-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 8px;
+    z-index: 10;
+    overflow: hidden;
 }
 
 /* Color Picker */
@@ -283,24 +421,41 @@
     height: 32px;
     padding: 0;
     border: 1px solid #e2e8f0;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    background: white;
-    display: flex;
+    background: #ffffff;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 1;
+    flex-shrink: 0;
     transition: all 0.2s ease;
 }
 
-.dw-btn-refresh:hover {
+.dw-btn-refresh:hover:not(:disabled) {
     background: #f1f5f9;
     border-color: #cbd5e1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    transform: translateY(-1px);
+}
+
+.dw-btn-refresh:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .dw-btn-refresh:disabled {
-    opacity: 0.6;
+    opacity: 0.55;
     cursor: not-allowed;
+    background: #f1f5f9;
+}
+
+/* Ensure the icon itself is the only spinning part */
+.dw-btn-refresh span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
 }
 
 /* Export Dropdown */

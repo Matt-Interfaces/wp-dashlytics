@@ -1,0 +1,632 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Dashlytics 0.8.3\n"
+"Report-Msgid-Bugs-To: https://matt-interfaces.ch/wp-dashlytics\n"
+"Last-Translator: Christopher Matt <hoi@matt-interfaces.ch>\n"
+"Language-Team: English <hoi@matt-interfaces.ch>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2026-09-23T14:31:49.932Z\n"
+"Language: en_US\n"
+"X-Generator: WP Dashlytics build script\n"
+"X-Domain: dashlytics\n"
+
+#. Plugin Name of the plugin/theme
+msgid "WP Dashlytics - Matomo Analytics Widget"
+msgstr "WP Dashlytics - Matomo Analytics Widget"
+
+#. Description of the plugin/theme
+msgid "Optimieren Sie Ihren Website-Erfolg mit Matomo Analytics direkt im Dashboard. Einfache Integration, datenbasierte Entscheidungen."
+msgstr "Optimize your website success with Matomo Analytics directly in the dashboard. Simple integration, data-driven decisions."
+
+#: includes/class-dashlytics.php:1063
+msgid "Willkommen bei WP Dashlytics! Bitte konfigurieren Sie das Plugin."
+msgstr "Welcome to WP Dashlytics! Please configure the plugin."
+
+#: includes/class-dashlytics.php:1064
+msgid "Jetzt einrichten"
+msgstr "Set up now"
+
+# Review notice texts
+#: includes/class-dashlytics.php:1087
+msgid "Gefällt Ihnen WP Dashlytics?"
+msgstr "Enjoying WP Dashlytics?"
+
+#: includes/class-dashlytics.php:1088
+msgid "Dieses Plugin ist zu 100 % kostenlos. Eine Spende oder positive Bewertung hilft uns enorm, es weiterzuentwickeln."
+msgstr "This plugin is 100% free. A donation or positive review helps us keep improving it."
+
+#: includes/class-dashlytics.php:1090
+msgid "☕ Spenden"
+msgstr "☕ Donate"
+
+#: includes/class-dashlytics.php:1091
+msgid "⭐ Bewerten"
+msgstr "⭐ Rate it"
+
+#: includes/class-dashlytics.php:1092
+msgid "In 14 Tagen erinnern"
+msgstr "Remind me in 14 days"
+
+#: includes/class-dashlytics.php:1093
+msgid "Nicht mehr anzeigen"
+msgstr "Don't show again"
+
+# Admin menu labels
+#: includes/class-dashlytics.php:123
+msgid "WP Dashlytics Analytics"
+msgstr "WP Dashlytics Analytics"
+
+#: includes/class-dashlytics.php:124
+msgid "WP Dashlytics"
+msgstr "WP Dashlytics"
+
+# Dashboard widget
+#: includes/class-dashlytics.php:1044
+msgid "📊 WP Dashlytics - Website Statistiken"
+msgstr "📊 WP Dashlytics - Website Statistics"
+
+# Widget i18n strings
+#: includes/class-dashlytics.php:258
+msgid "Besuche"
+msgstr "Visits"
+
+#: includes/class-dashlytics.php:259
+msgid "Seitenaufrufe"
+msgstr "Page views"
+
+#: includes/class-dashlytics.php:260
+msgid "Besucher"
+msgstr "Visitors"
+
+#: includes/class-dashlytics.php:261
+msgid "Absprungrate"
+msgstr "Bounce rate"
+
+#: includes/class-dashlytics.php:262
+msgid "Ø Verweildauer"
+msgstr "Avg. session duration"
+
+#: includes/class-dashlytics.php:263
+msgid "Lade Daten..."
+msgstr "Loading data..."
+
+#: includes/class-dashlytics.php:264
+msgid "Keine Daten verfügbar"
+msgstr "No data available"
+
+#: includes/class-dashlytics.php:265
+msgid "Fehler beim Laden"
+msgstr "Error loading data"
+
+#: includes/class-dashlytics.php:266
+msgid "Bitte konfigurieren Sie das Plugin"
+msgstr "Please configure the plugin"
+
+#: includes/class-dashlytics.php:267
+msgid "OS-Familien"
+msgstr "OS families"
+
+#: includes/class-dashlytics.php:268
+msgid "Liniendiagramm"
+msgstr "Line chart"
+
+#: includes/class-dashlytics.php:269
+msgid "Balkendiagramm"
+msgstr "Bar chart"
+
+#: includes/class-dashlytics.php:270
+msgid "Kreisdiagramm"
+msgstr "Pie chart"
+
+#: includes/class-dashlytics.php:271
+msgid "Von"
+msgstr "From"
+
+#: includes/class-dashlytics.php:272
+msgid "Bis"
+msgstr "To"
+
+#: includes/class-dashlytics.php:273
+msgid "Farbe ändern"
+msgstr "Change color"
+
+#: includes/class-dashlytics.php:274
+msgid "Aktualisieren"
+msgstr "Refresh"
+
+#: includes/class-dashlytics.php:275
+msgid "Statistiken aktualisieren"
+msgstr "Refresh statistics"
+
+#: includes/class-dashlytics.php:276
+msgid "Minimieren"
+msgstr "Minimize"
+
+#: includes/class-dashlytics.php:277
+msgid "Ansicht minimieren"
+msgstr "Minimize view"
+
+#: includes/class-dashlytics.php:278
+msgid "Erweitern"
+msgstr "Expand"
+
+#: includes/class-dashlytics.php:279
+msgid "Erneut versuchen"
+msgstr "Try again"
+
+#: includes/class-dashlytics.php:280
+msgid "Report"
+msgstr "Report"
+
+#: includes/class-dashlytics.php:281
+msgid "PDF Report"
+msgstr "PDF report"
+
+#: includes/class-dashlytics.php:282
+msgid "Vollständiger Bericht"
+msgstr "Full report"
+
+#: includes/class-dashlytics.php:283
+msgid "PNG Bild"
+msgstr "PNG image"
+
+#: includes/class-dashlytics.php:284
+msgid "Nur das Diagramm"
+msgstr "Chart only"
+
+#: includes/class-dashlytics.php:285
+msgid "BESUCHERSTATISTIK"
+msgstr "VISITOR STATISTICS"
+
+#: includes/class-dashlytics.php:286
+msgid "Analysezeitraum"
+msgstr "Analysis period"
+
+#: includes/class-dashlytics.php:287
+msgid "Ø Besuche/Tag"
+msgstr "Avg. visits/day"
+
+#: includes/class-dashlytics.php:288
+msgid "Aktionen/Besuch"
+msgstr "Actions/visit"
+
+#: includes/class-dashlytics.php:289
+msgid "Bester Tag"
+msgstr "Best day"
+
+#: includes/class-dashlytics.php:290
+msgid "Tage"
+msgstr "Days"
+
+#: includes/class-dashlytics.php:291
+msgid "ÜBERSICHT"
+msgstr "OVERVIEW"
+
+#: includes/class-dashlytics.php:292
+msgid "DETAILANALYSE"
+msgstr "DETAILED ANALYSIS"
+
+#: includes/class-dashlytics.php:293
+msgid "ANALYTICS"
+msgstr "ANALYTICS"
+
+#: includes/class-dashlytics.php:294
+msgid "REPORT"
+msgstr "REPORT"
+
+#: includes/class-dashlytics.php:295
+msgid "Generiert am"
+msgstr "Generated on"
+
+#: includes/class-dashlytics.php:296
+msgid "Powered by WP Dashlytics"
+msgstr "Powered by WP Dashlytics"
+
+#: includes/class-dashlytics.php:297
+msgid "Powered by"
+msgstr "Powered by"
+
+#: includes/class-dashlytics.php:298
+msgid "Fehler beim Erstellen des PDF-Reports"
+msgstr "Error creating PDF report"
+
+#: includes/class-dashlytics.php:299
+msgid "Fehler beim Erstellen des PNG-Bildes"
+msgstr "Error creating PNG image"
+
+#: includes/class-dashlytics.php:300
+msgid "Chart wird aufbereitet..."
+msgstr "Preparing chart..."
+
+# REST / settings messages
+#: includes/class-dashlytics.php:475
+msgid "WP Dashlytics: Einstellungen gespeichert!"
+msgstr "WP Dashlytics: Settings saved!"
+
+#: includes/class-dashlytics.php:526
+msgid "WP Dashlytics ist noch nicht konfiguriert."
+msgstr "WP Dashlytics is not configured yet."
+
+#: includes/class-dashlytics.php:617
+msgid "Keine Matomo Site ID gefunden."
+msgstr "No Matomo Site ID found."
+
+#: includes/class-dashlytics.php:672
+msgid "Bitte nutzen Sie die Matomo REST API ohne Token."
+msgstr "Please use the Matomo REST API without a token."
+
+#: includes/class-dashlytics.php:682
+msgid "Token konnte nicht automatisch erkannt werden."
+msgstr "Token could not be detected automatically."
+
+#: includes/class-dashlytics.php:711
+msgid "Matomo for WordPress ist nicht korrekt konfiguriert."
+msgstr "Matomo for WordPress is not configured correctly."
+
+#: includes/class-dashlytics.php:717
+msgid "URL und Token sind erforderlich."
+msgstr "URL and token are required."
+
+#: includes/class-dashlytics.php:740
+msgid "Verbunden mit Matomo %s"
+msgstr "Connected to Matomo %s"
+
+#: includes/class-dashlytics.php:749
+msgid "Unbekannte Antwort von Matomo"
+msgstr "Unknown response from Matomo"
+
+# Settings page i18n strings
+#: includes/class-dashlytics.php:175
+msgid "Einstellungen gespeichert!"
+msgstr "Settings saved!"
+
+#: includes/class-dashlytics.php:176
+msgid "Fehler beim Speichern."
+msgstr "Error saving settings."
+
+#: includes/class-dashlytics.php:177
+msgid "Verbindung erfolgreich!"
+msgstr "Connection successful!"
+
+#: includes/class-dashlytics.php:178
+msgid "Verbindung fehlgeschlagen."
+msgstr "Connection failed."
+
+#: includes/class-dashlytics.php:179
+msgid "Token automatisch erkannt!"
+msgstr "Token detected automatically!"
+
+#: includes/class-dashlytics.php:192
+msgid "Verbindung"
+msgstr "Connection"
+
+#: includes/class-dashlytics.php:193
+msgid "Anzeige"
+msgstr "Display"
+
+#: includes/class-dashlytics.php:194
+msgid "Hilfe"
+msgstr "Help"
+
+#: includes/class-dashlytics.php:195
+msgid "API Verbindung"
+msgstr "API connection"
+
+#: includes/class-dashlytics.php:196
+msgid "Matomo URL"
+msgstr "Matomo URL"
+
+#: includes/class-dashlytics.php:197
+msgid "Ihre Matomo Installation"
+msgstr "Your Matomo installation"
+
+#: includes/class-dashlytics.php:198
+msgid "https://analytics.ihre-domain.de"
+msgstr "https://analytics.your-domain.com"
+
+#: includes/class-dashlytics.php:199
+msgid "Site ID"
+msgstr "Site ID"
+
+#: includes/class-dashlytics.php:200
+msgid "Standard: 1"
+msgstr "Default: 1"
+
+#: includes/class-dashlytics.php:201
+msgid "Auth Token"
+msgstr "Auth token"
+
+#: includes/class-dashlytics.php:202
+msgid "automatisch erkannt"
+msgstr "automatically detected"
+
+#: includes/class-dashlytics.php:203
+msgid "WordPress Authentifizierung"
+msgstr "WordPress authentication"
+
+#: includes/class-dashlytics.php:204
+msgid "API Zugriffstoken"
+msgstr "API access token"
+
+#: includes/class-dashlytics.php:205
+msgid "Ihr Matomo API Token"
+msgstr "Your Matomo API token"
+
+#: includes/class-dashlytics.php:206
+msgid "Token anzeigen"
+msgstr "Show token"
+
+#: includes/class-dashlytics.php:207
+msgid "Token verbergen"
+msgstr "Hide token"
+
+#: includes/class-dashlytics.php:208
+msgid "Token wurde automatisch von Matomo for WordPress übernommen"
+msgstr "Token was automatically taken from Matomo for WordPress"
+
+#: includes/class-dashlytics.php:209
+msgid "WordPress Authentifizierung aktiv - kein Token erforderlich"
+msgstr "WordPress authentication active - no token required"
+
+#: includes/class-dashlytics.php:210
+msgid "Matomo for WordPress automatisch erkennen"
+msgstr "Auto-detect Matomo for WordPress"
+
+#: includes/class-dashlytics.php:211
+msgid "Wenn aktiviert, versucht WP Dashlytics automatisch, sich mit dem Matomo for WordPress Plugin zu verbinden."
+msgstr "When enabled, WP Dashlytics tries to connect to the Matomo for WordPress plugin automatically."
+
+#: includes/class-dashlytics.php:212
+msgid "Verbindung testen"
+msgstr "Test connection"
+
+#: includes/class-dashlytics.php:213
+msgid "Verbindungstest zurücksetzen"
+msgstr "Reset connection test"
+
+#: includes/class-dashlytics.php:214
+msgid "Zurücksetzen"
+msgstr "Reset"
+
+#: includes/class-dashlytics.php:215
+msgid "Speichern"
+msgstr "Save"
+
+#: includes/class-dashlytics.php:216
+msgid "Vorschau"
+msgstr "Preview"
+
+#: includes/class-dashlytics.php:217
+msgid "Keine Vorschaudaten"
+msgstr "No preview data"
+
+#: includes/class-dashlytics.php:218
+msgid "Lade Vorschau…"
+msgstr "Loading preview…"
+
+#: includes/class-dashlytics.php:219
+msgid "Fehler beim Laden der Vorschau"
+msgstr "Error loading preview"
+
+#: includes/class-dashlytics.php:220
+msgid "Diagramm"
+msgstr "Chart"
+
+#: includes/class-dashlytics.php:221
+msgid "Chart Einstellungen"
+msgstr "Chart settings"
+
+#: includes/class-dashlytics.php:222
+msgid "Diagramm-Typ"
+msgstr "Chart type"
+
+#: includes/class-dashlytics.php:223
+msgid "Hauptfarbe"
+msgstr "Primary color"
+
+#: includes/class-dashlytics.php:224
+msgid "Standard Zeitraum"
+msgstr "Default period"
+
+#: includes/class-dashlytics.php:225
+msgid "Live Vorschau"
+msgstr "Live preview"
+
+#: includes/class-dashlytics.php:226
+msgid "Schnellstart Anleitung"
+msgstr "Quick start guide"
+
+#: includes/class-dashlytics.php:227
+msgid "Automatisch verbinden"
+msgstr "Connect automatically"
+
+#: includes/class-dashlytics.php:228
+msgid "Matomo for WordPress wurde erkannt! Klicken Sie oben auf \"Automatisch verbinden\" - WP Dashlytics übernimmt alle Einstellungen automatisch."
+msgstr ""
+
+#: includes/class-dashlytics.php:229
+msgid "Verbinde…"
+msgstr "Connecting…"
+
+#: includes/class-dashlytics.php:230
+msgid "Matomo for WordPress verbinden…"
+msgstr "Connecting Matomo for WordPress…"
+
+#: includes/class-dashlytics.php:231
+msgid "Authentifizierungsmethode wird ermittelt und Einstellungen werden übernommen."
+msgstr "Determining authentication method and applying settings."
+
+#: includes/class-dashlytics.php:232
+msgid "Matomo for WordPress verbunden!"
+msgstr "Matomo for WordPress connected!"
+
+#: includes/class-dashlytics.php:233
+msgid "WP Dashlytics nutzt die WordPress-interne Matomo-Installation."
+msgstr "WP Dashlytics uses the WordPress-internal Matomo installation."
+
+#: includes/class-dashlytics.php:234
+msgid "Automatische Verbindung fehlgeschlagen"
+msgstr "Automatic connection failed"
+
+#: includes/class-dashlytics.php:235
+msgid "Bitte prüfen Sie die Matomo-Einstellungen oder hinterlegen Sie Daten für eine manuelle Verbindung."
+msgstr "Please check the Matomo settings or provide data for a manual connection."
+
+#: includes/class-dashlytics.php:236
+msgid "Matomo for WordPress erkannt!"
+msgstr "Matomo for WordPress detected!"
+
+#: includes/class-dashlytics.php:237
+msgid "Das Matomo Plugin ist installiert. WP Dashlytics kann automatisch verbunden werden."
+msgstr "The Matomo plugin is installed. WP Dashlytics can be connected automatically."
+
+#: includes/class-dashlytics.php:238
+msgid "Automatisch deaktivieren"
+msgstr "Disable automatic detection"
+
+#: includes/class-dashlytics.php:239
+msgid "Matomo for WordPress ist nicht installiert."
+msgstr "Matomo for WordPress is not installed."
+
+#: includes/class-dashlytics.php:240
+msgid "Automatisch mit Matomo for WordPress verbunden (Token erkannt)"
+msgstr "Automatically connected to Matomo for WordPress (token detected)"
+
+#: includes/class-dashlytics.php:241
+msgid "Konnte keine gültige Authentifizierungsmethode erkennen"
+msgstr "Could not detect a valid authentication method"
+
+#: includes/class-dashlytics.php:242
+msgid "Verbindungsfehler - bitte manuell konfigurieren"
+msgstr "Connection error - please configure manually"
+
+#: includes/class-dashlytics.php:243
+msgid "WordPress Authentifizierung wird verwendet"
+msgstr "WordPress authentication is used"
+
+#: includes/class-dashlytics.php:244
+msgid "Token-Erkennung fehlgeschlagen"
+msgstr "Token detection failed"
+
+#: includes/class-dashlytics.php:245
+msgid "Verbindung wird geprüft…"
+msgstr "Checking connection…"
+
+#: includes/class-dashlytics.php:246
+msgid "Verbunden"
+msgstr "Connected"
+
+#: includes/class-dashlytics.php:247
+msgid "Nicht verbunden"
+msgstr "Not connected"
+
+#: includes/class-dashlytics.php:248
+msgid "Matomo WP"
+msgstr "Matomo WP"
+
+#: includes/class-dashlytics.php:249
+msgid "Konfiguration erforderlich"
+msgstr "Configuration required"
+
+#: includes/class-dashlytics.php:250
+msgid "Matomo Widget Dashboard für WordPress"
+msgstr "Matomo widget dashboard for WordPress"
+
+#: includes/class-dashlytics.php:251
+msgid "Statistik-Karten"
+msgstr "Statistic cards"
+
+#: includes/class-dashlytics.php:252
+msgid "Besucher, Seitenaufrufe, Absprungrate und Verweildauer auf einen Blick"
+msgstr "Visitors, page views, bounce rate and session duration at a glance"
+
+#: includes/class-dashlytics.php:253
+msgid "Interaktive Charts"
+msgstr "Interactive charts"
+
+#: includes/class-dashlytics.php:254
+msgid "Linie, Balken oder Kreis - wählen Sie Ihre Darstellung"
+msgstr "Line, bar or pie - choose your view"
+
+#: includes/class-dashlytics.php:255
+msgid "Flexibler Zeitraum"
+msgstr "Flexible date range"
+
+#: includes/class-dashlytics.php:256
+msgid "Beliebigen Zeitraum per Datumswahl im Widget auswählen"
+msgstr "Select any period via the date picker in the widget"
+
+#: includes/class-dashlytics.php:257
+msgid "Reports exportieren"
+msgstr "Export reports"
+
+#: includes/class-dashlytics.php:258
+msgid "Nutzen Sie den \"Report\" Button im Widget um Ihre Statistiken als PDF-Bericht oder PNG-Bild zu exportieren."
+msgstr ""
+
+#: includes/class-dashlytics.php:259
+msgid "Matomo for WordPress installieren"
+msgstr "Install Matomo for WordPress"
+
+#: includes/class-dashlytics.php:260
+msgid "Für die beste Integration installieren Sie das kostenlose \"Matomo Analytics\" Plugin aus dem WordPress Plugin-Verzeichnis."
+msgstr ""
+
+#: includes/class-dashlytics.php:261
+msgid "Alternative: Externe Matomo Installation"
+msgstr "Alternative: External Matomo installation"
+
+#: includes/class-dashlytics.php:262
+msgid "Falls Sie Matomo extern hosten, tragen Sie Ihre Matomo-URL, Site-ID und einen API-Token unter \"Verbindung\" ein."
+msgstr ""
+
+#: includes/class-dashlytics.php:263
+msgid "Widget Funktionen"
+msgstr "Widget features"
+
+#: includes/class-dashlytics.php:264
+msgid "Dashboard Widget nutzen"
+msgstr "Use dashboard widget"
+
+#: includes/class-dashlytics.php:265
+msgid "Nach der Verbindung erscheint das Statistik-Widget auf Ihrem WordPress Dashboard. Sie können Zeitraum, Diagramm-Typ und Farbe direkt im Widget anpassen."
+msgstr "After connecting, the statistics widget appears on your WordPress dashboard. You can adjust period, chart type and color directly in the widget."
+
+#: includes/class-dashlytics.php:266
+msgid "GitHub Repository"
+msgstr "GitHub repository"
+
+#: includes/class-dashlytics.php:267
+msgid "Matomo API Docs"
+msgstr "Matomo API docs"
+
+#: includes/class-dashlytics.php:268
+msgid "Entwickler unterstützen"
+msgstr "Support the developer"
+
+#: includes/class-dashlytics.php:269
+msgid "Bitte geben Sie eine Matomo URL an oder aktivieren Sie die automatische Erkennung."
+msgstr "Please enter a Matomo URL or enable automatic detection."
+
+# Date ranges
+#: includes/class-dashlytics.php:185
+msgid "Letzte 7 Tage"
+msgstr "Last 7 days"
+
+#: includes/class-dashlytics.php:186
+msgid "Letzte 14 Tage"
+msgstr "Last 14 days"
+
+#: includes/class-dashlytics.php:187
+msgid "Letzte 30 Tage"
+msgstr "Last 30 days"
+
+#: includes/class-dashlytics.php:188
+msgid "Letzte 60 Tage"
+msgstr "Last 60 days"
+
+#: includes/class-dashlytics.php:189
+msgid "Letzte 90 Tage"
+msgstr "Last 90 days"
