@@ -147,7 +147,7 @@ class Dashlytics {
 				'dashlytics-settings',
 				DASHLYTICS_PLUGIN_URL . 'app/public/build/settings.js',
 				array(),
-				DASHLYTICS_VERSION . '.' . filemtime( DASHLYTICS_PLUGIN_PATH . 'app/public/build/settings.js' ),
+				DASHLYTICS_VERSION,
 				true
 			);
 
@@ -207,7 +207,7 @@ class Dashlytics {
 			'dashlytics-admin',
 			DASHLYTICS_PLUGIN_URL . 'assets/js/admin.js',
 			array( 'jquery' ),
-			DASHLYTICS_VERSION . '.' . filemtime( DASHLYTICS_PLUGIN_PATH . 'assets/js/admin.js' ),
+			DASHLYTICS_VERSION,
 			true
 		);
 
@@ -233,7 +233,7 @@ class Dashlytics {
 				'dashlytics-widget',
 				DASHLYTICS_PLUGIN_URL . 'app/public/build/dashboardwidget.js',
 				array(),
-				DASHLYTICS_VERSION . '.' . filemtime( DASHLYTICS_PLUGIN_PATH . 'app/public/build/dashboardwidget.js' ),
+				DASHLYTICS_VERSION,
 				true
 			);
 
