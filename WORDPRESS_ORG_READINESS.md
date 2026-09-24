@@ -130,6 +130,14 @@ WP Dashlytics does **not** fall into any of these categories. Code audit result:
 | Downloading executable code from external sources | The plugin only fetches JSON analytics data from the user-configured Matomo API endpoint via `wp_remote_get()`. No executable code, binaries, or remote scripts are downloaded or executed. | ✅ |
 | Functionality already well represented without differentiation | WP Dashlytics focuses specifically on displaying Matomo metrics inside the WordPress dashboard with privacy-first, self-hosted data. This is a differentiated use case compared to general analytics plugins. | ✅ |
 
+### Additional Information field
+
+Copy and paste the following text into the submission form:
+
+```
+WP Dashlytics is a lightweight dashboard widget that displays Matomo Analytics data directly inside the WordPress admin. It connects to a user-provided Matomo instance (self-hosted, Matomo Cloud, or the Matomo for WordPress plugin) via the official Matomo Reporting API, proxies requests server-side, and renders charts and metrics without adding frontend tracking code. The plugin does not execute arbitrary code, download external executables, or artificially restrict functionality. All REST endpoints use WordPress nonces and manage_options capability checks.
+```
+
 
 ### Submission acknowledgement
 
