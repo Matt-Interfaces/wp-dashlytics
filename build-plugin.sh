@@ -9,7 +9,7 @@ echo "🚀 Dashlytics Plugin Build Script"
 echo "===================================="
 
 # Variables
-PLUGIN_NAME="dashlytics"
+PLUGIN_NAME="dashlytics-matomo-analytics-widget"
 VERSION="0.8.8"
 BUILD_DIR="./build"
 DIST_DIR="./dist"

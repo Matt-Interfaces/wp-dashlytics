@@ -85,7 +85,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: Dashlytics ${{ steps.version.outputs.VERSION }}
-          files: dist/dashlytics-${{ steps.version.outputs.VERSION }}.zip
+          files: dist/dashlytics-matomo-analytics-widget-${{ steps.version.outputs.VERSION }}.zip
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
