@@ -1,0 +1,122 @@
+{
+  "project": "WP Dashlytics plugin logo — deliverables & export spec",
+  "model": "Nano Banana / vector master + raster exports",
+  "source": {
+    "purpose": "Editable master logo",
+    "filename": "dashlytics-logo-master.svg",
+    "location": "assets/images/",
+    "format": "SVG",
+    "notes": "Single color, clean paths, no filters/effects, viewBox optimized for 16x16 up to 512x512. Uses currentColor so CSS can recolor it for headers, dark cards, or admin menus."
+  },
+  "deliverables": [
+    {
+      "purpose": "WordPress admin menu icon",
+      "filename": "dashlytics-icon.svg",
+      "location": "assets/images/",
+      "format": "SVG",
+      "size": "20x20",
+      "background": "transparent",
+      "fill": "#FE5433",
+      "prompt": "Minimalist single-color SVG icon for a WordPress admin menu. A rounded dashboard-window frame with a single rising trend line inside, 20x20 viewBox, fill #FE5433, transparent background, no text, no letters, pixel-perfect and readable at 20px."
+    },
+    {
+      "purpose": "WordPress.org plugin icon standard resolution",
+      "filename": "icon-128x128.png",
+      "location": ".wordpress-org/",
+      "format": "PNG",
+      "size": "128x128",
+      "background": "transparent",
+      "fill": "#FE5433",
+      "prompt": "Minimalist single-color plugin icon, 128x128 pixels, transparent background, fill #FE5433. A rounded dashboard-window frame with a single rising trend line inside, clean geometric shape, no text, no gradients, no shadows, centered with generous padding."
+    },
+    {
+      "purpose": "WordPress.org plugin icon high resolution",
+      "filename": "icon-256x256.png",
+      "location": ".wordpress-org/",
+      "format": "PNG",
+      "size": "256x256",
+      "background": "transparent",
+      "fill": "#FE5433",
+      "prompt": "Minimalist single-color plugin icon, 256x256 pixels, transparent background, fill #FE5433. A rounded dashboard-window frame with a single rising trend line inside, clean geometric shape, no text, no gradients, no shadows, centered with generous padding."
+    },
+    {
+      "purpose": "WordPress.org plugin banner standard resolution",
+      "filename": "banner-772x250.png",
+      "location": ".wordpress-org/",
+      "format": "PNG",
+      "size": "772x250",
+      "background": "solid #000000",
+      "prompt": "Minimalist WordPress plugin banner, 772x250 pixels, solid black background #000000. On the left: a clean white WP Dashlytics logo mark (a rounded dashboard window with a rising trend line). On the right: large headline 'Analytics right where you already work' in Open Sans ExtraBold, white color. Below the headline, smaller body copy in Open Sans Regular: 'WP Dashlytics brings Matomo metrics straight into your WordPress dashboard.' All text is left-aligned. A subtle dark card (#111111) with 40px border radius behind the content. Accent color #FE5433 used sparingly for a small underline or dot. No gradients in text. Generous whitespace. Modern Swiss design, professional, clean."
+    },
+    {
+      "purpose": "WordPress.org plugin banner high resolution",
+      "filename": "banner-1544x500.png",
+      "location": ".wordpress-org/",
+      "format": "PNG",
+      "size": "1544x500",
+      "background": "solid #000000",
+      "prompt": "Minimalist WordPress plugin banner, 1544x500 pixels, solid black background #000000. On the left: a clean white WP Dashlytics logo mark (a rounded dashboard window with a rising trend line). On the right: large headline 'Analytics right where you already work' in Open Sans ExtraBold, white color. Below the headline, smaller body copy in Open Sans Regular: 'WP Dashlytics brings Matomo metrics straight into your WordPress dashboard.' All text is left-aligned. A subtle dark card (#111111) with 40px border radius behind the content. Accent color #FE5433 used sparingly for a small underline or dot. No gradients in text. Generous whitespace. Modern Swiss design, professional, clean."
+    },
+    {
+      "purpose": "Social share / Open Graph image",
+      "filename": "dashlytics-og-1200x630.png",
+      "location": "assets/images/",
+      "format": "PNG",
+      "size": "1200x630",
+      "background": "solid #000000",
+      "prompt": "Open Graph image for a WordPress analytics plugin, 1200x630 pixels, solid black background #000000. On the left: a clean white WP Dashlytics logo mark (a rounded dashboard window with a rising trend line). On the right: large headline 'Analytics right where you already work' in Open Sans ExtraBold, white color. Below the headline, smaller body copy in Open Sans Regular: 'WP Dashlytics brings Matomo metrics straight into your WordPress dashboard.' A subtle dark card (#111111) with 40px border radius behind the content. Accent color #FE5433 used sparingly. Modern Swiss design, generous whitespace, professional, clean."
+    }
+  ],
+  "negative_prompt": "no text, no letters, no typography, no gradients, no shadows, no glows, no 3D effects, no multiple colors, no decorative flourishes, no emojis, no photorealism, no stock icons, no complex details, no center-aligned text, no small unreadable text",
+  "output": {
+    "admin_icon": {
+      "filename": "dashlytics-icon.svg",
+      "format": "SVG",
+      "transparent_background": true,
+      "minimum_width": 20
+    },
+    "plugin_icon_standard": {
+      "filename": "icon-128x128.png",
+      "format": "PNG",
+      "transparent_background": true,
+      "width": 128,
+      "height": 128
+    },
+    "plugin_icon_retina": {
+      "filename": "icon-256x256.png",
+      "format": "PNG",
+      "transparent_background": true,
+      "width": 256,
+      "height": 256
+    },
+    "plugin_banner_standard": {
+      "filename": "banner-772x250.png",
+      "format": "PNG",
+      "transparent_background": false,
+      "width": 772,
+      "height": 250
+    },
+    "plugin_banner_retina": {
+      "filename": "banner-1544x500.png",
+      "format": "PNG",
+      "transparent_background": false,
+      "width": 1544,
+      "height": 500
+    },
+    "social_image": {
+      "filename": "dashlytics-og-1200x630.png",
+      "format": "PNG",
+      "transparent_background": false,
+      "width": 1200,
+      "height": 630
+    }
+  },
+  "usage_notes": [
+    "Create the .wordpress-org/ folder at the repository root; it maps to the WordPress.org SVN assets folder.",
+    "Replace 'dashicons-chart-area' in add_menu_page() with DASHLYTICS_PLUGIN_URL . 'assets/images/dashlytics-icon.svg' to use the custom admin icon.",
+    "WordPress.org plugin icons MUST be PNG; SVG is only used inside the plugin itself.",
+    "Keep the master SVG single-color (currentColor) so it can be recolored via CSS.",
+    "Run 'bash build-plugin.sh' after adding assets/images/ files to ensure they are included in the distribution ZIP.",
+    "Do not rename image files after uploading to the WordPress media library."
+  ]
+}
