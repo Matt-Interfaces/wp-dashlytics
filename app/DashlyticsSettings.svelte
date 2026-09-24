@@ -377,10 +377,10 @@ onMount(() => {
     <header class="dashlytics-header">
         <div class="dashlytics-header-content">
             <div class="dashlytics-logo">
-                <img src="{pluginUrl}assets/images/dashlytics-logo.svg" alt="WP Dashlytics">
+                <img src="{pluginUrl}assets/images/dashlytics-logo.svg" alt="Dashlytics">
             </div>
             <div>
-                <h1>WP Dashlytics</h1>
+                <h1>Dashlytics</h1>
                 <p>{i18n.tagline || 'Matomo Widget Dashboard für WordPress'}</p>
             </div>
         </div>
@@ -434,13 +434,13 @@ onMount(() => {
                     <p>{i18n.connectingMfWDesc || 'Authentifizierungsmethode wird ermittelt und Einstellungen werden übernommen.'}</p>
                 {:else if connectionStatus === 'success' && settings.auto_detect_matomo}
                     <h3>{i18n.connectedMfW || 'Matomo for WordPress verbunden!'}</h3>
-                    <p>{connectionMessage || i18n.connectedMfWDesc || 'WP Dashlytics nutzt die WordPress-interne Matomo-Installation.'}</p>
+                    <p>{connectionMessage || i18n.connectedMfWDesc || 'Dashlytics nutzt die WordPress-interne Matomo-Installation.'}</p>
                 {:else if connectionStatus === 'error' && settings.auto_detect_matomo}
                     <h3>{i18n.autoConnectionFailed || 'Automatische Verbindung fehlgeschlagen'}</h3>
                     <p>{connectionMessage || i18n.autoConnectionFailedDesc || 'Bitte prüfen Sie die Matomo-Einstellungen oder hinterlegen Sie Daten für eine manuelle Verbindung.'}</p>
                 {:else}
                     <h3>{i18n.mfWDetected || 'Matomo for WordPress erkannt!'}</h3>
-                    <p>{i18n.mfWDetectedDesc || 'Das Matomo Plugin ist installiert. WP Dashlytics kann automatisch verbunden werden.'}</p>
+                    <p>{i18n.mfWDetectedDesc || 'Das Matomo Plugin ist installiert. Dashlytics kann automatisch verbunden werden.'}</p>
                 {/if}
             </div>
             {#if !(connectionStatus === 'success' && settings.auto_detect_matomo)}
@@ -836,7 +836,7 @@ onMount(() => {
                                     <span class="dashlytics-help-step-number">1</span>
                                     <div class="dashlytics-help-step-content">
                                         <strong>{i18n.connectAutomatically || 'Automatisch verbinden'}</strong>
-                                        <p>{i18n.connectAutomaticallyHelp || 'Matomo for WordPress wurde erkannt! Klicken Sie oben auf "Automatisch verbinden" - WP Dashlytics übernimmt alle Einstellungen automatisch.'}</p>
+                                        <p>{i18n.connectAutomaticallyHelp || 'Matomo for WordPress wurde erkannt! Klicken Sie oben auf "Automatisch verbinden" - Dashlytics übernimmt alle Einstellungen automatisch.'}</p>
                                     </div>
                                 </div>
                                 <div class="dashlytics-help-step">
@@ -923,11 +923,11 @@ onMount(() => {
                         </div>
 
                         <div class="dashlytics-support">
-                            <a href="https://matt-interfaces.ch/wp-dashlytics" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link" aria-label="Plugin-Seite für WP Dashlytics - Matomo Analytics Widget besuchen">
+                            <a href="https://matt-interfaces.ch/wp-dashlytics" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link" aria-label="Plugin-Seite für Dashlytics - Matomo Analytics Widget besuchen">
                                 <span class="dashlytics-support-link-icon">🌐</span>
                                 <span>{i18n.pluginWebsite || 'Plugin-Website'}</span>
                             </a>
-                            <a href="https://github.com/Matt-Interfaces/wp-dashlytics" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link" aria-label="GitHub Repository für WP Dashlytics öffnen">
+                            <a href="https://github.com/Matt-Interfaces/wp-dashlytics" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link" aria-label="GitHub Repository für Dashlytics öffnen">
                                 <span class="dashlytics-support-link-icon">📦</span>
                                 <span>{i18n.githubRepository || 'GitHub Repository'}</span>
                             </a>

@@ -1,4 +1,4 @@
-# WP Dashlytics — Matomo Analytics Dashboard Widget
+# Dashlytics — Matomo Analytics Dashboard Widget
 
 A lightweight WordPress plugin that brings your Matomo analytics data into the WordPress dashboard. View visitors, page views, bounce rate and trends without switching tabs.
 
@@ -22,14 +22,14 @@ A lightweight WordPress plugin that brings your Matomo analytics data into the W
 
 1. Download the latest ZIP from the [releases page](https://github.com/Matt-Interfaces/wp-dashlytics/releases).
 2. In WordPress, go to **Plugins → Add New → Upload Plugin** and activate it.
-3. Open **WP Dashlytics** in the admin menu.
+3. Open **Dashlytics** in the admin menu.
 4. Connect Matomo automatically (if *Matomo for WordPress* is installed) or enter URL, Site ID and API token manually.
 
 ## Development
 
 ### Architecture
 
-WP Dashlytics is built as a modern WordPress plugin around two Svelte 4 SPAs:
+Dashlytics is built as a modern WordPress plugin around two Svelte 4 SPAs:
 
 - **Dashboard Widget** (`app/DashboardWidget.svelte`) — rendered via `wp_dashboard_setup`, built to `app/public/build/dashboardwidget.js`.
 - **Settings Page** (`app/DashlyticsSettings.svelte`) — rendered on `toplevel_page_dashlytics`, built to `app/public/build/settings.js` and `bundle.css`.

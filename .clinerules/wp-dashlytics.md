@@ -1,4 +1,4 @@
-# WP Dashlytics Project Rules
+# Dashlytics Project Rules
 
 This repository is a **WordPress plugin** that renders Matomo Analytics data inside the WordPress dashboard. It is **not** a SvelteKit app, a generic Node project, or part of the Divi 5 landing-page work in `divi5/`.
 

@@ -944,7 +944,7 @@ async function generatePdfReport() {
             day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
         });
         const footerLeft = `${i18n.generatedOn || 'Generiert am'} ${generatedAt}`;
-        const footerCenter = i18n.poweredBy || 'Powered by WP Dashlytics';
+        const footerCenter = i18n.poweredBy || 'Powered by Dashlytics';
 
         pdf.setFontSize(7);
         pdf.setFont('helvetica', 'normal');
@@ -1148,7 +1148,7 @@ async function exportChartAsPng() {
             day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
         });
         const footerLeftText = `${i18n.generatedOn || 'Generiert am'} ${pngGeneratedAt}`;
-        const footerCenterText = i18n.poweredBy || 'Powered by WP Dashlytics';
+        const footerCenterText = i18n.poweredBy || 'Powered by Dashlytics';
 
         ctx.textAlign = 'left';
         ctx.textBaseline = 'alphabetic';

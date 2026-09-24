@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Dashlytics 0.8.3\n"
+"Project-Id-Version: Dashlytics 0.8.8\n"
 "Report-Msgid-Bugs-To: https://matt-interfaces.ch/wp-dashlytics\n"
 "Last-Translator: Christopher Matt <hoi@matt-interfaces.ch>\n"
 "Language-Team: English <hoi@matt-interfaces.ch>\n"
@@ -9,20 +9,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2026-09-23T14:31:49.932Z\n"
 "Language: en_US\n"
-"X-Generator: WP Dashlytics build script\n"
+"X-Generator: Dashlytics build script\n"
 "X-Domain: dashlytics\n"
 
 #. Plugin Name of the plugin/theme
-msgid "WP Dashlytics - Matomo Analytics Widget"
-msgstr "WP Dashlytics - Matomo Analytics Widget"
+msgid "Dashlytics - Matomo Analytics Widget"
+msgstr "Dashlytics - Matomo Analytics Widget"
 
 #. Description of the plugin/theme
 msgid "Optimieren Sie Ihren Website-Erfolg mit Matomo Analytics direkt im Dashboard. Einfache Integration, datenbasierte Entscheidungen."
 msgstr "Optimize your website success with Matomo Analytics directly in the dashboard. Simple integration, data-driven decisions."
 
 #: includes/class-dashlytics.php:1063
-msgid "Willkommen bei WP Dashlytics! Bitte konfigurieren Sie das Plugin."
-msgstr "Welcome to WP Dashlytics! Please configure the plugin."
+msgid "Willkommen bei Dashlytics! Bitte konfigurieren Sie das Plugin."
+msgstr "Welcome to Dashlytics! Please configure the plugin."
 
 #: includes/class-dashlytics.php:1064
 msgid "Jetzt einrichten"
@@ -30,8 +30,8 @@ msgstr "Set up now"
 
 # Review notice texts
 #: includes/class-dashlytics.php:1087
-msgid "Gefällt Ihnen WP Dashlytics?"
-msgstr "Enjoying WP Dashlytics?"
+msgid "Gefällt Ihnen Dashlytics?"
+msgstr "Enjoying Dashlytics?"
 
 #: includes/class-dashlytics.php:1088
 msgid "Dieses Plugin ist zu 100 % kostenlos. Eine Spende oder positive Bewertung hilft uns enorm, es weiterzuentwickeln."
@@ -55,17 +55,17 @@ msgstr "Don't show again"
 
 # Admin menu labels
 #: includes/class-dashlytics.php:123
-msgid "WP Dashlytics Analytics"
-msgstr "WP Dashlytics Analytics"
+msgid "Dashlytics Analytics"
+msgstr "Dashlytics Analytics"
 
 #: includes/class-dashlytics.php:124
-msgid "WP Dashlytics"
-msgstr "WP Dashlytics"
+msgid "Dashlytics"
+msgstr "Dashlytics"
 
 # Dashboard widget
 #: includes/class-dashlytics.php:1044
-msgid "📊 WP Dashlytics - Website Statistiken"
-msgstr "📊 WP Dashlytics - Website Statistics"
+msgid "Dashlytics - Website Statistiken"
+msgstr "Dashlytics - Website Statistics"
 
 # Widget i18n strings
 #: includes/class-dashlytics.php:258
@@ -221,8 +221,8 @@ msgid "Generiert am"
 msgstr "Generated on"
 
 #: includes/class-dashlytics.php:296
-msgid "Powered by WP Dashlytics"
-msgstr "Powered by WP Dashlytics"
+msgid "Powered by Dashlytics"
+msgstr "Powered by Dashlytics"
 
 #: includes/class-dashlytics.php:297
 msgid "Powered by"
@@ -242,12 +242,12 @@ msgstr "Preparing chart..."
 
 # REST / settings messages
 #: includes/class-dashlytics.php:475
-msgid "WP Dashlytics: Einstellungen gespeichert!"
-msgstr "WP Dashlytics: Settings saved!"
+msgid "Dashlytics: Einstellungen gespeichert!"
+msgstr "Dashlytics: Settings saved!"
 
 #: includes/class-dashlytics.php:526
-msgid "WP Dashlytics ist noch nicht konfiguriert."
-msgstr "WP Dashlytics is not configured yet."
+msgid "Dashlytics ist noch nicht konfiguriert."
+msgstr "Dashlytics is not configured yet."
 
 #: includes/class-dashlytics.php:617
 msgid "Keine Matomo Site ID gefunden."
@@ -375,8 +375,8 @@ msgid "Matomo for WordPress automatisch erkennen"
 msgstr "Auto-detect Matomo for WordPress"
 
 #: includes/class-dashlytics.php:211
-msgid "Wenn aktiviert, versucht WP Dashlytics automatisch, sich mit dem Matomo for WordPress Plugin zu verbinden."
-msgstr "When enabled, WP Dashlytics tries to connect to the Matomo for WordPress plugin automatically."
+msgid "Wenn aktiviert, versucht Dashlytics automatisch, sich mit dem Matomo for WordPress Plugin zu verbinden."
+msgstr "When enabled, Dashlytics tries to connect to the Matomo for WordPress plugin automatically."
 
 #: includes/class-dashlytics.php:212
 msgid "Verbindung testen"
@@ -443,7 +443,7 @@ msgid "Automatisch verbinden"
 msgstr "Connect automatically"
 
 #: includes/class-dashlytics.php:228
-msgid "Matomo for WordPress wurde erkannt! Klicken Sie oben auf \"Automatisch verbinden\" - WP Dashlytics übernimmt alle Einstellungen automatisch."
+msgid "Matomo for WordPress wurde erkannt! Klicken Sie oben auf \"Automatisch verbinden\" - Dashlytics übernimmt alle Einstellungen automatisch."
 msgstr ""
 
 #: includes/class-dashlytics.php:229
@@ -463,8 +463,8 @@ msgid "Matomo for WordPress verbunden!"
 msgstr "Matomo for WordPress connected!"
 
 #: includes/class-dashlytics.php:233
-msgid "WP Dashlytics nutzt die WordPress-interne Matomo-Installation."
-msgstr "WP Dashlytics uses the WordPress-internal Matomo installation."
+msgid "Dashlytics nutzt die WordPress-interne Matomo-Installation."
+msgstr "Dashlytics uses the WordPress-internal Matomo installation."
 
 #: includes/class-dashlytics.php:234
 msgid "Automatische Verbindung fehlgeschlagen"
@@ -479,8 +479,8 @@ msgid "Matomo for WordPress erkannt!"
 msgstr "Matomo for WordPress detected!"
 
 #: includes/class-dashlytics.php:237
-msgid "Das Matomo Plugin ist installiert. WP Dashlytics kann automatisch verbunden werden."
-msgstr "The Matomo plugin is installed. WP Dashlytics can be connected automatically."
+msgid "Das Matomo Plugin ist installiert. Dashlytics kann automatisch verbunden werden."
+msgstr "The Matomo plugin is installed. Dashlytics can be connected automatically."
 
 #: includes/class-dashlytics.php:238
 msgid "Automatisch deaktivieren"

@@ -120,8 +120,8 @@ class Dashlytics {
 	 */
 	public function add_admin_menu() {
 		add_menu_page(
-			__( 'WP Dashlytics Analytics', 'dashlytics' ),
-			__( 'WP Dashlytics', 'dashlytics' ),
+			__( 'Dashlytics Analytics', 'dashlytics' ),
+			__( 'Dashlytics', 'dashlytics' ),
 			'manage_options',
 			'dashlytics',
 			array( $this, 'render_settings_page' ),
@@ -162,7 +162,7 @@ class Dashlytics {
 					'version'        => DASHLYTICS_VERSION,
 					'matomoDetected' => $this->detect_matomo_plugin(),
 					'i18n'           => array(
-						'saveSuccess'         => __( 'WP Dashlytics: Einstellungen gespeichert!', 'dashlytics' ),
+						'saveSuccess'         => __( 'Dashlytics: Einstellungen gespeichert!', 'dashlytics' ),
 						'saveError'           => __( 'Fehler beim Speichern.', 'dashlytics' ),
 						'connectionSuccess'   => __( 'Verbindung erfolgreich!', 'dashlytics' ),
 						'connectionError'     => __( 'Verbindung fehlgeschlagen.', 'dashlytics' ),
@@ -297,7 +297,7 @@ class Dashlytics {
 						'analyticsLabel'   => __( 'ANALYTICS', 'dashlytics' ),
 						'reportLabel'      => __( 'REPORT', 'dashlytics' ),
 						'generatedOn'      => __( 'Generiert am', 'dashlytics' ),
-						'poweredBy'        => __( 'Powered by WP Dashlytics', 'dashlytics' ),
+						'poweredBy'        => __( 'Powered by Dashlytics', 'dashlytics' ),
 						'poweredByCompany' => __( 'Powered by', 'dashlytics' ),
 						'pdfError'         => __( 'Fehler beim Erstellen des PDF-Reports', 'dashlytics' ),
 						'pngError'         => __( 'Fehler beim Erstellen des PNG-Bildes', 'dashlytics' ),
@@ -534,7 +534,7 @@ class Dashlytics {
 
 			return new WP_Error(
 				'not_configured',
-				__( 'WP Dashlytics ist noch nicht konfiguriert.', 'dashlytics' ),
+				__( 'Dashlytics ist noch nicht konfiguriert.', 'dashlytics' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -719,7 +719,7 @@ class Dashlytics {
 
 			return new WP_Error(
 				'not_configured',
-				__( 'WP Dashlytics ist noch nicht konfiguriert.', 'dashlytics' ),
+				__( 'Dashlytics ist noch nicht konfiguriert.', 'dashlytics' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -1046,7 +1046,7 @@ class Dashlytics {
 	public function add_dashboard_widget() {
 		wp_add_dashboard_widget(
 			'dashlytics_widget',
-			__( 'WP Dashlytics - Website Statistiken', 'dashlytics' ),
+			__( 'Dashlytics - Website Statistiken', 'dashlytics' ),
 			array( $this, 'render_dashboard_widget' ),
 			null,
 			null,
@@ -1064,7 +1064,7 @@ class Dashlytics {
 
 		if ( empty( $settings['matomo_url'] ) && empty( $settings['token_auth'] ) && ! $matomo['installed'] ) {
 			echo '<div class="dashlytics-setup-notice">';
-			echo '<p>' . esc_html__( 'Willkommen bei WP Dashlytics! Bitte konfigurieren Sie das Plugin.', 'dashlytics' ) . '</p>';
+			echo '<p>' . esc_html__( 'Willkommen bei Dashlytics! Bitte konfigurieren Sie das Plugin.', 'dashlytics' ) . '</p>';
 			echo '<a href="' . esc_url( admin_url( 'admin.php?page=dashlytics' ) ) . '" class="button button-primary">';
 			echo esc_html__( 'Jetzt einrichten', 'dashlytics' );
 			echo '</a>';
@@ -1095,7 +1095,7 @@ class Dashlytics {
 
 		if ( $is_de ) {
 			return array(
-				'notice_title'  => 'Gefällt Ihnen WP Dashlytics?',
+				'notice_title'  => 'Gefällt Ihnen Dashlytics?',
 				'notice_text'   => 'Dieses Plugin ist zu 100 % kostenlos. Eine Spende oder positive Bewertung hilft uns enorm, es weiterzuentwickeln.',
 				'btn_donate'    => '☕ Spenden',
 				'btn_rate'      => '⭐ Bewerten',
@@ -1105,7 +1105,7 @@ class Dashlytics {
 		}
 
 		return array(
-			'notice_title'  => 'Enjoying WP Dashlytics?',
+			'notice_title'  => 'Enjoying Dashlytics?',
 			'notice_text'   => 'This plugin is 100% free. A donation or positive review helps us keep improving it.',
 			'btn_donate'    => '☕ Donate',
 			'btn_rate'      => '⭐ Rate it',

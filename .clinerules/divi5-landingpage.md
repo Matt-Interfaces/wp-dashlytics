@@ -18,7 +18,7 @@ must **never** be treated as part of the plugin's build pipeline, Svelte app, or
 
 ## Future plan (do not build yet — planning note only)
 
-A **separate, standalone website** for the WP Dashlytics plugin itself (its own domain/property,
+A **separate, standalone website** for the Dashlytics plugin itself (its own domain/property,
 likely also Divi 5 or a dedicated landing framework) is planned for later. When that work starts:
 - It gets its own repo or its own top-level folder — **not** nested inside `divi5/` here.
 - This file's rules still apply for anything authored with the Divi 5 skill, but the content

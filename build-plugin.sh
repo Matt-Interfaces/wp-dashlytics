@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# WP Dashlytics Plugin Build Script
+# Dashlytics Plugin Build Script
 # Creates an installable ZIP archive for WordPress.
 
 set -e
 
-echo "🚀 WP Dashlytics Plugin Build Script"
+echo "🚀 Dashlytics Plugin Build Script"
 echo "===================================="
 
 # Variables
@@ -61,6 +61,7 @@ cp assets/*.png "$BUILD_DIR/$PLUGIN_NAME/assets/" 2>/dev/null || true
 if [ -d "assets/images" ]; then
     mkdir -p "$BUILD_DIR/$PLUGIN_NAME/assets/images"
     cp -r assets/images/* "$BUILD_DIR/$PLUGIN_NAME/assets/images/"
+    find "$BUILD_DIR/$PLUGIN_NAME/assets/images" -type f \( -name "*.xcf" -o -name "*.psd" -o -name "*.ai" -o -name "*.sketch" \) -delete
 fi
 
 # Compiled Svelte builds (only JS and CSS)

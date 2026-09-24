@@ -1,6 +1,6 @@
-# WP Dashlytics — WordPress.org Deployment Guide
+# Dashlytics — WordPress.org Deployment Guide
 
-This document describes how to move WP Dashlytics from GitHub Releases to the WordPress.org plugin directory.
+This document describes how to move Dashlytics from GitHub Releases to the WordPress.org plugin directory.
 
 Until WP.org approval is granted, the plugin uses **GitHub Releases + Plugin Update Checker (PUC)** for WordPress-native updates.
 
@@ -111,8 +111,8 @@ Before submitting at https://wordpress.org/plugins/developers/add/, confirm the 
 
 ### Naming and ownership
 
-- **Plugin name:** WP Dashlytics - Matomo Analytics Widget
-- The name includes the project/brand identifier "WP Dashlytics" and is distinctive.
+- **Plugin name:** Dashlytics - Matomo Analytics Widget
+- The name includes the project/brand identifier "Dashlytics" and is distinctive.
 - It does not imply ownership of "Matomo"; it describes an integration with Matomo.
 - The WordPress.org account submitting the plugin must accurately represent the plugin owner.
 
@@ -122,20 +122,20 @@ Before submitting at https://wordpress.org/plugins/developers/add/, confirm the 
 
 ### Not accepted plugin categories — compliance audit
 
-WP Dashlytics does **not** fall into any of these categories. Code audit result:
+Dashlytics does **not** fall into any of these categories. Code audit result:
 
-| Rejection category | WP Dashlytics behavior | Compliant |
+| Rejection category | Dashlytics behavior | Compliant |
 |---|---|---|
 | Arbitrary PHP/JS code execution, file managers, AI code execution | No `eval()`, `exec()`, `shell_exec()`, `assert()`, `create_function()`, `file_put_contents()`, `base64_decode()`, or unserialize of user input. No code editors, file managers, or AI code generators. | ✅ |
 | Downloading executable code from external sources | The plugin only fetches JSON analytics data from the user-configured Matomo API endpoint via `wp_remote_get()`. No executable code, binaries, or remote scripts are downloaded or executed. | ✅ |
-| Functionality already well represented without differentiation | WP Dashlytics focuses specifically on displaying Matomo metrics inside the WordPress dashboard with privacy-first, self-hosted data. This is a differentiated use case compared to general analytics plugins. | ✅ |
+| Functionality already well represented without differentiation | Dashlytics focuses specifically on displaying Matomo metrics inside the WordPress dashboard with privacy-first, self-hosted data. This is a differentiated use case compared to general analytics plugins. | ✅ |
 
 ### Additional Information field
 
 Copy and paste the following text into the submission form:
 
 ```
-WP Dashlytics is a lightweight dashboard widget that displays Matomo Analytics data directly inside the WordPress admin. It connects to a user-provided Matomo instance (self-hosted, Matomo Cloud, or the Matomo for WordPress plugin) via the official Matomo Reporting API, proxies requests server-side, and renders charts and metrics without adding frontend tracking code. The plugin does not execute arbitrary code, download external executables, or artificially restrict functionality. All REST endpoints use WordPress nonces and manage_options capability checks.
+Dashlytics is a lightweight dashboard widget that displays Matomo Analytics data directly inside the WordPress admin. It connects to a user-provided Matomo instance (self-hosted, Matomo Cloud, or the Matomo for WordPress plugin) via the official Matomo Reporting API, proxies requests server-side, and renders charts and metrics without adding frontend tracking code. The plugin does not execute arbitrary code, download external executables, or artificially restrict functionality. All REST endpoints use WordPress nonces and manage_options capability checks.
 ```
 
 
@@ -151,7 +151,7 @@ WP Dashlytics is a lightweight dashboard widget that displays Matomo Analytics d
   - Unescaped output
   - Unsanitized input
   - Missing nonces on form processing
-- WP Dashlytics uses WordPress nonces, capability checks, and sanitization/escaping throughout.
+- Dashlytics uses WordPress nonces, capability checks, and sanitization/escaping throughout.
 
 ### Plugin URL / slug
 
@@ -308,4 +308,4 @@ After WP.org approval and the first SVN release:
 5. [ ] After the first SVN release, remove PUC and switch to WP.org updates.
 
 ---
-*Document updated 2026-09-24 for WP Dashlytics v0.8.8.*
+*Document updated 2026-09-24 for Dashlytics v0.8.8.*

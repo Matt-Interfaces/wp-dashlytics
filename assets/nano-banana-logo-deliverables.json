@@ -1,5 +1,5 @@
 {
-  "project": "WP Dashlytics plugin logo — deliverables & export spec",
+  "project": "Dashlytics plugin logo — deliverables & export spec",
   "model": "Nano Banana / vector master + raster exports",
   "source": {
     "purpose": "Editable master logo",
@@ -46,7 +46,7 @@
       "format": "PNG",
       "size": "772x250",
       "background": "solid #000000",
-      "prompt": "Minimalist WordPress plugin banner, 772x250 pixels, solid black background #000000. On the left: a clean white WP Dashlytics logo mark (a rounded dashboard window with a rising trend line). On the right: large headline 'Analytics right where you already work' in Open Sans ExtraBold, white color. Below the headline, smaller body copy in Open Sans Regular: 'WP Dashlytics brings Matomo metrics straight into your WordPress dashboard.' All text is left-aligned. A subtle dark card (#111111) with 40px border radius behind the content. Accent color #FE5433 used sparingly for a small underline or dot. No gradients in text. Generous whitespace. Modern Swiss design, professional, clean."
+      "prompt": "Minimalist WordPress plugin banner, 772x250 pixels, solid black background #000000. On the left: a clean white Dashlytics logo mark (a rounded dashboard window with a rising trend line). On the right: large headline 'Analytics right where you already work' in Open Sans ExtraBold, white color. Below the headline, smaller body copy in Open Sans Regular: 'Dashlytics brings Matomo metrics straight into your WordPress dashboard.' All text is left-aligned. A subtle dark card (#111111) with 40px border radius behind the content. Accent color #FE5433 used sparingly for a small underline or dot. No gradients in text. Generous whitespace. Modern Swiss design, professional, clean."
     },
     {
       "purpose": "WordPress.org plugin banner high resolution",
@@ -55,7 +55,7 @@
       "format": "PNG",
       "size": "1544x500",
       "background": "solid #000000",
-      "prompt": "Minimalist WordPress plugin banner, 1544x500 pixels, solid black background #000000. On the left: a clean white WP Dashlytics logo mark (a rounded dashboard window with a rising trend line). On the right: large headline 'Analytics right where you already work' in Open Sans ExtraBold, white color. Below the headline, smaller body copy in Open Sans Regular: 'WP Dashlytics brings Matomo metrics straight into your WordPress dashboard.' All text is left-aligned. A subtle dark card (#111111) with 40px border radius behind the content. Accent color #FE5433 used sparingly for a small underline or dot. No gradients in text. Generous whitespace. Modern Swiss design, professional, clean."
+      "prompt": "Minimalist WordPress plugin banner, 1544x500 pixels, solid black background #000000. On the left: a clean white Dashlytics logo mark (a rounded dashboard window with a rising trend line). On the right: large headline 'Analytics right where you already work' in Open Sans ExtraBold, white color. Below the headline, smaller body copy in Open Sans Regular: 'Dashlytics brings Matomo metrics straight into your WordPress dashboard.' All text is left-aligned. A subtle dark card (#111111) with 40px border radius behind the content. Accent color #FE5433 used sparingly for a small underline or dot. No gradients in text. Generous whitespace. Modern Swiss design, professional, clean."
     },
     {
       "purpose": "Social share / Open Graph image",
@@ -64,7 +64,7 @@
       "format": "PNG",
       "size": "1200x630",
       "background": "solid #000000",
-      "prompt": "Open Graph image for a WordPress analytics plugin, 1200x630 pixels, solid black background #000000. On the left: a clean white WP Dashlytics logo mark (a rounded dashboard window with a rising trend line). On the right: large headline 'Analytics right where you already work' in Open Sans ExtraBold, white color. Below the headline, smaller body copy in Open Sans Regular: 'WP Dashlytics brings Matomo metrics straight into your WordPress dashboard.' A subtle dark card (#111111) with 40px border radius behind the content. Accent color #FE5433 used sparingly. Modern Swiss design, generous whitespace, professional, clean."
+      "prompt": "Open Graph image for a WordPress analytics plugin, 1200x630 pixels, solid black background #000000. On the left: a clean white Dashlytics logo mark (a rounded dashboard window with a rising trend line). On the right: large headline 'Analytics right where you already work' in Open Sans ExtraBold, white color. Below the headline, smaller body copy in Open Sans Regular: 'Dashlytics brings Matomo metrics straight into your WordPress dashboard.' A subtle dark card (#111111) with 40px border radius behind the content. Accent color #FE5433 used sparingly. Modern Swiss design, generous whitespace, professional, clean."
     }
   ],
   "negative_prompt": "no text, no letters, no typography, no gradients, no shadows, no glows, no 3D effects, no multiple colors, no decorative flourishes, no emojis, no photorealism, no stock icons, no complex details, no center-aligned text, no small unreadable text",

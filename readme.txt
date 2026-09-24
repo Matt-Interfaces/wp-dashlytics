@@ -1,4 +1,4 @@
-=== WP Dashlytics - Matomo Analytics Widget ===
+=== Dashlytics - Matomo Analytics Widget ===
 Contributors: matt-interfaces
 Donate link: https://matt-interfaces.ch/zahlen
 Tags: matomo, analytics, dashboard, statistics, widget, piwik, tracking
@@ -9,13 +9,13 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Optimize your website success. Integrate Matomo Analytics seamlessly into your WordPress dashboard. WP Dashlytics — your analytics companion!
+Optimize your website success. Integrate Matomo Analytics seamlessly into your WordPress dashboard. Dashlytics — your analytics companion!
 
 == Description ==
 
-Optimize your website success. Integrate Matomo Analytics seamlessly into your WordPress website. Maximize your performance with WP Dashlytics — your ultimate analytics companion! Download and try it for free.
+Optimize your website success. Integrate Matomo Analytics seamlessly into your WordPress website. Maximize your performance with Dashlytics — your ultimate analytics companion! Download and try it for free.
 
-**WP Dashlytics** brings your Matomo Analytics data directly into your WordPress dashboard. No more switching between tabs — see your most important metrics at a glance and make data-driven decisions.
+**Dashlytics** brings your Matomo Analytics data directly into your WordPress dashboard. No more switching between tabs — see your most important metrics at a glance and make data-driven decisions.
 
 = Features =
 
@@ -29,7 +29,7 @@ Optimize your website success. Integrate Matomo Analytics seamlessly into your W
 
 = Matomo Integration =
 
-WP Dashlytics works with:
+Dashlytics works with:
 
 * **Matomo for WordPress** (recommended) - automatic detection and connection
 * **External Matomo installation** - connect to any Matomo instance
@@ -55,7 +55,7 @@ WP Dashlytics works with:
 = Automatic Installation =
 
 1. Go to **Plugins > Add New** in your WordPress admin
-2. Search for "WP Dashlytics"
+2. Search for "Dashlytics"
 3. Click **Install Now** and then **Activate**
 
 = Manual Installation =
@@ -67,7 +67,7 @@ WP Dashlytics works with:
 
 = Configuration =
 
-1. Go to **WP Dashlytics** in the admin menu
+1. Go to **Dashlytics** in the admin menu
 2. If Matomo for WordPress is installed: click "Connect automatically"
 3. Or enter manually:
    - Matomo URL (e.g. https://analytics.your-domain.com)
@@ -90,11 +90,11 @@ Yes! Simply enter your Matomo Cloud URL (e.g. https://your-company.matomo.cloud)
 
 = Can I track multiple websites? =
 
-Currently WP Dashlytics supports one website per WordPress installation. The Site ID can be adjusted in the settings.
+Currently Dashlytics supports one website per WordPress installation. The Site ID can be adjusted in the settings.
 
 = Is the plugin GDPR compliant? =
 
-WP Dashlytics itself does not store visitor data. It only displays data from your Matomo installation. Make sure your Matomo configuration is GDPR compliant.
+Dashlytics itself does not store visitor data. It only displays data from your Matomo installation. Make sure your Matomo configuration is GDPR compliant.
 
 = The widget shows no data =
 
@@ -149,7 +149,7 @@ Updates export styling to the selected accent color. Please review your settings
 
 == Privacy Policy ==
 
-WP Dashlytics itself does not collect user data. The plugin only displays statistics from your Matomo installation.
+Dashlytics itself does not collect user data. The plugin only displays statistics from your Matomo installation.
 
 Stored data:
 * Matomo URL (in WordPress options)
