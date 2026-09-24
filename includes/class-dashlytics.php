@@ -63,7 +63,7 @@ class Dashlytics {
 	 * Load textdomain for translations
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'dashlytics', false, dirname( DASHLYTICS_PLUGIN_BASENAME ) . '/languages' );
+		load_plugin_textdomain( 'dashlytics-matomo-analytics-widget', false, dirname( DASHLYTICS_PLUGIN_BASENAME ) . '/languages' );
 	}
 
 	/**
@@ -110,7 +110,7 @@ class Dashlytics {
 	 */
 	public function add_settings_link( $links ) {
 		$settings_link = '<a href="' . admin_url( 'admin.php?page=dashlytics' ) . '">' .
-						__( 'Einstellungen', 'dashlytics' ) . '</a>';
+						__( 'Einstellungen', 'dashlytics-matomo-analytics-widget' ) . '</a>';
 		array_unshift( $links, $settings_link );
 		return $links;
 	}
@@ -120,8 +120,8 @@ class Dashlytics {
 	 */
 	public function add_admin_menu() {
 		add_menu_page(
-			__( 'Dashlytics Analytics', 'dashlytics' ),
-			__( 'Dashlytics', 'dashlytics' ),
+			__( 'Dashlytics Analytics', 'dashlytics-matomo-analytics-widget' ),
+			__( 'Dashlytics', 'dashlytics-matomo-analytics-widget' ),
 			'manage_options',
 			'dashlytics',
 			array( $this, 'render_settings_page' ),
@@ -162,41 +162,41 @@ class Dashlytics {
 					'version'        => DASHLYTICS_VERSION,
 					'matomoDetected' => $this->detect_matomo_plugin(),
 					'i18n'           => array(
-						'saveSuccess'         => __( 'Dashlytics: Einstellungen gespeichert!', 'dashlytics' ),
-						'saveError'           => __( 'Fehler beim Speichern.', 'dashlytics' ),
-						'connectionSuccess'   => __( 'Verbindung erfolgreich!', 'dashlytics' ),
-						'connectionError'     => __( 'Verbindung fehlgeschlagen.', 'dashlytics' ),
-						'tokenGenerated'      => __( 'Token automatisch erkannt!', 'dashlytics' ),
-						'line'                => __( 'Liniendiagramm', 'dashlytics' ),
-						'bar'                 => __( 'Balkendiagramm', 'dashlytics' ),
-						'pie'                 => __( 'Kreisdiagramm', 'dashlytics' ),
-						'last7days'           => __( 'Letzte 7 Tage', 'dashlytics' ),
-						'last14days'          => __( 'Letzte 14 Tage', 'dashlytics' ),
-						'last30days'          => __( 'Letzte 30 Tage', 'dashlytics' ),
-						'last60days'          => __( 'Letzte 60 Tage', 'dashlytics' ),
-						'last90days'          => __( 'Letzte 90 Tage', 'dashlytics' ),
-						'connection'          => __( 'Verbindung', 'dashlytics' ),
-						'display'             => __( 'Anzeige', 'dashlytics' ),
-						'matomoUrl'           => __( 'Matomo URL', 'dashlytics' ),
-						'siteId'              => __( 'Site ID', 'dashlytics' ),
-						'authToken'           => __( 'Auth Token', 'dashlytics' ),
-						'autoDetect'          => __( 'Matomo for WordPress automatisch erkennen', 'dashlytics' ),
-						'testConnection'      => __( 'Verbindung testen', 'dashlytics' ),
-						'useMatomoWP'         => __( 'Matomo for WordPress verwenden', 'dashlytics' ),
-						'save'                => __( 'Speichern', 'dashlytics' ),
-						'preview'             => __( 'Vorschau', 'dashlytics' ),
-						'statsCards'          => __( 'Statistik-Karten', 'dashlytics' ),
-						'statsCardsDesc'      => __( 'Besucher, Seitenaufrufe, Absprungrate und Verweildauer auf einen Blick', 'dashlytics' ),
-						'realTimePreview'     => __( 'Echtzeit-Vorschau', 'dashlytics' ),
-						'realTimePreviewDesc' => __( 'Änderungen sofort im Vorschau-Widget sehen', 'dashlytics' ),
-						'exportReady'         => __( 'Export-fertig', 'dashlytics' ),
-						'exportReadyDesc'     => __( 'Reports als PDF oder PNG herunterladen', 'dashlytics' ),
-						'pluginWebsite'       => __( 'Plugin-Website', 'dashlytics' ),
-						'osFamilies'          => __( 'OS-Familien', 'dashlytics' ),
-						'autoConnected'       => __( 'WordPress Authentifizierung aktiv - kein Token erforderlich', 'dashlytics' ),
-						'loadingSettings'     => __( 'Einstellungen werden geladen', 'dashlytics' ),
-						'loadingPreview'      => __( 'Lade Vorschau…', 'dashlytics' ),
-						'settingsTabs'        => __( 'Einstellungsbereiche', 'dashlytics' ),
+						'saveSuccess'         => __( 'Dashlytics: Einstellungen gespeichert!', 'dashlytics-matomo-analytics-widget' ),
+						'saveError'           => __( 'Fehler beim Speichern.', 'dashlytics-matomo-analytics-widget' ),
+						'connectionSuccess'   => __( 'Verbindung erfolgreich!', 'dashlytics-matomo-analytics-widget' ),
+						'connectionError'     => __( 'Verbindung fehlgeschlagen.', 'dashlytics-matomo-analytics-widget' ),
+						'tokenGenerated'      => __( 'Token automatisch erkannt!', 'dashlytics-matomo-analytics-widget' ),
+						'line'                => __( 'Liniendiagramm', 'dashlytics-matomo-analytics-widget' ),
+						'bar'                 => __( 'Balkendiagramm', 'dashlytics-matomo-analytics-widget' ),
+						'pie'                 => __( 'Kreisdiagramm', 'dashlytics-matomo-analytics-widget' ),
+						'last7days'           => __( 'Letzte 7 Tage', 'dashlytics-matomo-analytics-widget' ),
+						'last14days'          => __( 'Letzte 14 Tage', 'dashlytics-matomo-analytics-widget' ),
+						'last30days'          => __( 'Letzte 30 Tage', 'dashlytics-matomo-analytics-widget' ),
+						'last60days'          => __( 'Letzte 60 Tage', 'dashlytics-matomo-analytics-widget' ),
+						'last90days'          => __( 'Letzte 90 Tage', 'dashlytics-matomo-analytics-widget' ),
+						'connection'          => __( 'Verbindung', 'dashlytics-matomo-analytics-widget' ),
+						'display'             => __( 'Anzeige', 'dashlytics-matomo-analytics-widget' ),
+						'matomoUrl'           => __( 'Matomo URL', 'dashlytics-matomo-analytics-widget' ),
+						'siteId'              => __( 'Site ID', 'dashlytics-matomo-analytics-widget' ),
+						'authToken'           => __( 'Auth Token', 'dashlytics-matomo-analytics-widget' ),
+						'autoDetect'          => __( 'Matomo for WordPress automatisch erkennen', 'dashlytics-matomo-analytics-widget' ),
+						'testConnection'      => __( 'Verbindung testen', 'dashlytics-matomo-analytics-widget' ),
+						'useMatomoWP'         => __( 'Matomo for WordPress verwenden', 'dashlytics-matomo-analytics-widget' ),
+						'save'                => __( 'Speichern', 'dashlytics-matomo-analytics-widget' ),
+						'preview'             => __( 'Vorschau', 'dashlytics-matomo-analytics-widget' ),
+						'statsCards'          => __( 'Statistik-Karten', 'dashlytics-matomo-analytics-widget' ),
+						'statsCardsDesc'      => __( 'Besucher, Seitenaufrufe, Absprungrate und Verweildauer auf einen Blick', 'dashlytics-matomo-analytics-widget' ),
+						'realTimePreview'     => __( 'Echtzeit-Vorschau', 'dashlytics-matomo-analytics-widget' ),
+						'realTimePreviewDesc' => __( 'Änderungen sofort im Vorschau-Widget sehen', 'dashlytics-matomo-analytics-widget' ),
+						'exportReady'         => __( 'Export-fertig', 'dashlytics-matomo-analytics-widget' ),
+						'exportReadyDesc'     => __( 'Reports als PDF oder PNG herunterladen', 'dashlytics-matomo-analytics-widget' ),
+						'pluginWebsite'       => __( 'Plugin-Website', 'dashlytics-matomo-analytics-widget' ),
+						'osFamilies'          => __( 'OS-Familien', 'dashlytics-matomo-analytics-widget' ),
+						'autoConnected'       => __( 'WordPress Authentifizierung aktiv - kein Token erforderlich', 'dashlytics-matomo-analytics-widget' ),
+						'loadingSettings'     => __( 'Einstellungen werden geladen', 'dashlytics-matomo-analytics-widget' ),
+						'loadingPreview'      => __( 'Lade Vorschau…', 'dashlytics-matomo-analytics-widget' ),
+						'settingsTabs'        => __( 'Einstellungsbereiche', 'dashlytics-matomo-analytics-widget' ),
 					),
 				)
 			);
@@ -259,49 +259,49 @@ class Dashlytics {
 					'siteFavicon' => $site_favicon,
 					'pluginUrl'   => DASHLYTICS_PLUGIN_URL,
 					'i18n'        => array(
-						'visits'           => __( 'Besuche', 'dashlytics' ),
-						'pageviews'        => __( 'Seitenaufrufe', 'dashlytics' ),
-						'visitors'         => __( 'Besucher', 'dashlytics' ),
-						'bounceRate'       => __( 'Absprungrate', 'dashlytics' ),
-						'avgTime'          => __( 'Ø Verweildauer', 'dashlytics' ),
-						'loading'          => __( 'Lade Daten...', 'dashlytics' ),
-						'noData'           => __( 'Keine Daten verfügbar', 'dashlytics' ),
-						'error'            => __( 'Fehler beim Laden', 'dashlytics' ),
-						'configure'        => __( 'Bitte konfigurieren Sie das Plugin', 'dashlytics' ),
-						'osFamilies'       => __( 'OS-Familien', 'dashlytics' ),
-						'line'             => __( 'Liniendiagramm', 'dashlytics' ),
-						'bar'              => __( 'Balkendiagramm', 'dashlytics' ),
-						'pie'              => __( 'Kreisdiagramm', 'dashlytics' ),
-						'from'             => __( 'Von', 'dashlytics' ),
-						'to'               => __( 'Bis', 'dashlytics' ),
-						'changeColor'      => __( 'Farbe ändern', 'dashlytics' ),
-						'refresh'          => __( 'Aktualisieren', 'dashlytics' ),
-						'ariaRefresh'      => __( 'Statistiken aktualisieren', 'dashlytics' ),
-						'minimize'         => __( 'Minimieren', 'dashlytics' ),
-						'ariaMinimize'     => __( 'Ansicht minimieren', 'dashlytics' ),
-						'expand'           => __( 'Erweitern', 'dashlytics' ),
-						'retry'            => __( 'Erneut versuchen', 'dashlytics' ),
-						'report'           => __( 'Report', 'dashlytics' ),
-						'pdfReport'        => __( 'PDF Report', 'dashlytics' ),
-						'fullReport'       => __( 'Vollständiger Bericht', 'dashlytics' ),
-						'pngImage'         => __( 'PNG Bild', 'dashlytics' ),
-						'chartOnly'        => __( 'Nur das Diagramm', 'dashlytics' ),
-						'statistics'       => __( 'BESUCHERSTATISTIK', 'dashlytics' ),
-						'period'           => __( 'Analysezeitraum', 'dashlytics' ),
-						'avgPerDay'        => __( 'Ø Besuche/Tag', 'dashlytics' ),
-						'actionsPerVisit'  => __( 'Aktionen/Besuch', 'dashlytics' ),
-						'bestDay'          => __( 'Bester Tag', 'dashlytics' ),
-						'days'             => __( 'Tage', 'dashlytics' ),
-						'overview'         => __( 'ÜBERSICHT', 'dashlytics' ),
-						'detailAnalysis'   => __( 'DETAILANALYSE', 'dashlytics' ),
-						'analyticsLabel'   => __( 'ANALYTICS', 'dashlytics' ),
-						'reportLabel'      => __( 'REPORT', 'dashlytics' ),
-						'generatedOn'      => __( 'Generiert am', 'dashlytics' ),
-						'poweredBy'        => __( 'Powered by Dashlytics', 'dashlytics' ),
-						'poweredByCompany' => __( 'Powered by', 'dashlytics' ),
-						'pdfError'         => __( 'Fehler beim Erstellen des PDF-Reports', 'dashlytics' ),
-						'pngError'         => __( 'Fehler beim Erstellen des PNG-Bildes', 'dashlytics' ),
-						'chartPreparing'   => __( 'Chart wird aufbereitet...', 'dashlytics' ),
+						'visits'           => __( 'Besuche', 'dashlytics-matomo-analytics-widget' ),
+						'pageviews'        => __( 'Seitenaufrufe', 'dashlytics-matomo-analytics-widget' ),
+						'visitors'         => __( 'Besucher', 'dashlytics-matomo-analytics-widget' ),
+						'bounceRate'       => __( 'Absprungrate', 'dashlytics-matomo-analytics-widget' ),
+						'avgTime'          => __( 'Ø Verweildauer', 'dashlytics-matomo-analytics-widget' ),
+						'loading'          => __( 'Lade Daten...', 'dashlytics-matomo-analytics-widget' ),
+						'noData'           => __( 'Keine Daten verfügbar', 'dashlytics-matomo-analytics-widget' ),
+						'error'            => __( 'Fehler beim Laden', 'dashlytics-matomo-analytics-widget' ),
+						'configure'        => __( 'Bitte konfigurieren Sie das Plugin', 'dashlytics-matomo-analytics-widget' ),
+						'osFamilies'       => __( 'OS-Familien', 'dashlytics-matomo-analytics-widget' ),
+						'line'             => __( 'Liniendiagramm', 'dashlytics-matomo-analytics-widget' ),
+						'bar'              => __( 'Balkendiagramm', 'dashlytics-matomo-analytics-widget' ),
+						'pie'              => __( 'Kreisdiagramm', 'dashlytics-matomo-analytics-widget' ),
+						'from'             => __( 'Von', 'dashlytics-matomo-analytics-widget' ),
+						'to'               => __( 'Bis', 'dashlytics-matomo-analytics-widget' ),
+						'changeColor'      => __( 'Farbe ändern', 'dashlytics-matomo-analytics-widget' ),
+						'refresh'          => __( 'Aktualisieren', 'dashlytics-matomo-analytics-widget' ),
+						'ariaRefresh'      => __( 'Statistiken aktualisieren', 'dashlytics-matomo-analytics-widget' ),
+						'minimize'         => __( 'Minimieren', 'dashlytics-matomo-analytics-widget' ),
+						'ariaMinimize'     => __( 'Ansicht minimieren', 'dashlytics-matomo-analytics-widget' ),
+						'expand'           => __( 'Erweitern', 'dashlytics-matomo-analytics-widget' ),
+						'retry'            => __( 'Erneut versuchen', 'dashlytics-matomo-analytics-widget' ),
+						'report'           => __( 'Report', 'dashlytics-matomo-analytics-widget' ),
+						'pdfReport'        => __( 'PDF Report', 'dashlytics-matomo-analytics-widget' ),
+						'fullReport'       => __( 'Vollständiger Bericht', 'dashlytics-matomo-analytics-widget' ),
+						'pngImage'         => __( 'PNG Bild', 'dashlytics-matomo-analytics-widget' ),
+						'chartOnly'        => __( 'Nur das Diagramm', 'dashlytics-matomo-analytics-widget' ),
+						'statistics'       => __( 'BESUCHERSTATISTIK', 'dashlytics-matomo-analytics-widget' ),
+						'period'           => __( 'Analysezeitraum', 'dashlytics-matomo-analytics-widget' ),
+						'avgPerDay'        => __( 'Ø Besuche/Tag', 'dashlytics-matomo-analytics-widget' ),
+						'actionsPerVisit'  => __( 'Aktionen/Besuch', 'dashlytics-matomo-analytics-widget' ),
+						'bestDay'          => __( 'Bester Tag', 'dashlytics-matomo-analytics-widget' ),
+						'days'             => __( 'Tage', 'dashlytics-matomo-analytics-widget' ),
+						'overview'         => __( 'ÜBERSICHT', 'dashlytics-matomo-analytics-widget' ),
+						'detailAnalysis'   => __( 'DETAILANALYSE', 'dashlytics-matomo-analytics-widget' ),
+						'analyticsLabel'   => __( 'ANALYTICS', 'dashlytics-matomo-analytics-widget' ),
+						'reportLabel'      => __( 'REPORT', 'dashlytics-matomo-analytics-widget' ),
+						'generatedOn'      => __( 'Generiert am', 'dashlytics-matomo-analytics-widget' ),
+						'poweredBy'        => __( 'Powered by Dashlytics', 'dashlytics-matomo-analytics-widget' ),
+						'poweredByCompany' => __( 'Powered by', 'dashlytics-matomo-analytics-widget' ),
+						'pdfError'         => __( 'Fehler beim Erstellen des PDF-Reports', 'dashlytics-matomo-analytics-widget' ),
+						'pngError'         => __( 'Fehler beim Erstellen des PNG-Bildes', 'dashlytics-matomo-analytics-widget' ),
+						'chartPreparing'   => __( 'Chart wird aufbereitet...', 'dashlytics-matomo-analytics-widget' ),
 					),
 				)
 			);
@@ -514,7 +514,7 @@ class Dashlytics {
 		return rest_ensure_response(
 			array(
 				'success' => true,
-				'message' => __( 'Einstellungen gespeichert', 'dashlytics' ),
+				'message' => __( 'Einstellungen gespeichert', 'dashlytics-matomo-analytics-widget' ),
 			)
 		);
 	}
@@ -534,7 +534,7 @@ class Dashlytics {
 
 			return new WP_Error(
 				'not_configured',
-				__( 'Dashlytics ist noch nicht konfiguriert.', 'dashlytics' ),
+				__( 'Dashlytics ist noch nicht konfiguriert.', 'dashlytics-matomo-analytics-widget' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -620,7 +620,7 @@ class Dashlytics {
 				if ( empty( $site_id ) ) {
 					return new WP_Error(
 						'no_site_id',
-						__( 'Keine Matomo Site ID gefunden.', 'dashlytics' ),
+						__( 'Keine Matomo Site ID gefunden.', 'dashlytics-matomo-analytics-widget' ),
 						array( 'status' => 400 )
 					);
 				}
@@ -700,7 +700,7 @@ class Dashlytics {
 		// Matomo not available
 		return new WP_Error(
 			'matomo_not_available',
-			__( 'Matomo for WordPress ist nicht korrekt konfiguriert.', 'dashlytics' ),
+			__( 'Matomo for WordPress ist nicht korrekt konfiguriert.', 'dashlytics-matomo-analytics-widget' ),
 			array( 'status' => 400 )
 		);
 	}
@@ -719,7 +719,7 @@ class Dashlytics {
 
 			return new WP_Error(
 				'not_configured',
-				__( 'Dashlytics ist noch nicht konfiguriert.', 'dashlytics' ),
+				__( 'Dashlytics ist noch nicht konfiguriert.', 'dashlytics-matomo-analytics-widget' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -788,7 +788,7 @@ class Dashlytics {
 				if ( empty( $site_id ) ) {
 					return new WP_Error(
 						'no_site_id',
-						__( 'Keine Matomo Site ID gefunden.', 'dashlytics' ),
+						__( 'Keine Matomo Site ID gefunden.', 'dashlytics-matomo-analytics-widget' ),
 						array( 'status' => 400 )
 					);
 				}
@@ -815,7 +815,7 @@ class Dashlytics {
 
 		return new WP_Error(
 			'matomo_not_available',
-			__( 'Matomo for WordPress ist nicht korrekt konfiguriert.', 'dashlytics' ),
+			__( 'Matomo for WordPress ist nicht korrekt konfiguriert.', 'dashlytics-matomo-analytics-widget' ),
 			array( 'status' => 400 )
 		);
 	}
@@ -912,7 +912,7 @@ class Dashlytics {
 					return rest_ensure_response(
 						array(
 							'success' => true,
-							'message' => __( 'Matomo for WordPress verbunden.', 'dashlytics' ),
+							'message' => __( 'Matomo for WordPress verbunden.', 'dashlytics-matomo-analytics-widget' ),
 						)
 					);
 				}
@@ -922,7 +922,7 @@ class Dashlytics {
 		if ( empty( $matomo_url ) || empty( $token_auth ) ) {
 			return new WP_Error(
 				'missing_params',
-				__( 'URL und Token sind erforderlich.', 'dashlytics' ),
+				__( 'URL und Token sind erforderlich.', 'dashlytics-matomo-analytics-widget' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -970,7 +970,7 @@ class Dashlytics {
 				array(
 					'success' => true,
 					/* translators: %s: Matomo version number */
-					'message' => sprintf( __( 'Verbunden mit Matomo %s', 'dashlytics' ), $data['value'] ),
+					'message' => sprintf( __( 'Verbunden mit Matomo %s', 'dashlytics-matomo-analytics-widget' ), $data['value'] ),
 					'version' => $data['value'],
 				)
 			);
@@ -979,7 +979,7 @@ class Dashlytics {
 		return rest_ensure_response(
 			array(
 				'success' => false,
-				'message' => __( 'Unbekannte Antwort von Matomo', 'dashlytics' ),
+				'message' => __( 'Unbekannte Antwort von Matomo', 'dashlytics-matomo-analytics-widget' ),
 			)
 		);
 	}
@@ -998,7 +998,7 @@ class Dashlytics {
 			return rest_ensure_response(
 				array(
 					'success' => false,
-					'message' => __( 'Matomo for WordPress ist nicht installiert.', 'dashlytics' ),
+					'message' => __( 'Matomo for WordPress ist nicht installiert.', 'dashlytics-matomo-analytics-widget' ),
 				)
 			);
 		}
@@ -1011,7 +1011,7 @@ class Dashlytics {
 				array(
 					'success' => true,
 					'token'   => $matomo_settings['token_auth'],
-					'message' => __( 'Token automatisch erkannt!', 'dashlytics' ),
+					'message' => __( 'Token automatisch erkannt!', 'dashlytics-matomo-analytics-widget' ),
 				)
 			);
 		}
@@ -1024,7 +1024,7 @@ class Dashlytics {
 				return rest_ensure_response(
 					array(
 						'success'     => true,
-						'message'     => __( 'Bitte nutzen Sie die Matomo REST API ohne Token.', 'dashlytics' ),
+						'message'     => __( 'Bitte nutzen Sie die Matomo REST API ohne Token.', 'dashlytics-matomo-analytics-widget' ),
 						'use_wp_auth' => true,
 					)
 				);
@@ -1035,7 +1035,7 @@ class Dashlytics {
 		return rest_ensure_response(
 			array(
 				'success' => false,
-				'message' => __( 'Token konnte nicht automatisch erkannt werden.', 'dashlytics' ),
+				'message' => __( 'Token konnte nicht automatisch erkannt werden.', 'dashlytics-matomo-analytics-widget' ),
 			)
 		);
 	}
@@ -1046,7 +1046,7 @@ class Dashlytics {
 	public function add_dashboard_widget() {
 		wp_add_dashboard_widget(
 			'dashlytics_widget',
-			__( 'Dashlytics - Website Statistiken', 'dashlytics' ),
+			__( 'Dashlytics - Website Statistiken', 'dashlytics-matomo-analytics-widget' ),
 			array( $this, 'render_dashboard_widget' ),
 			null,
 			null,
@@ -1064,9 +1064,9 @@ class Dashlytics {
 
 		if ( empty( $settings['matomo_url'] ) && empty( $settings['token_auth'] ) && ! $matomo['installed'] ) {
 			echo '<div class="dashlytics-setup-notice">';
-			echo '<p>' . esc_html__( 'Willkommen bei Dashlytics! Bitte konfigurieren Sie das Plugin.', 'dashlytics' ) . '</p>';
+			echo '<p>' . esc_html__( 'Willkommen bei Dashlytics! Bitte konfigurieren Sie das Plugin.', 'dashlytics-matomo-analytics-widget' ) . '</p>';
 			echo '<a href="' . esc_url( admin_url( 'admin.php?page=dashlytics' ) ) . '" class="button button-primary">';
-			echo esc_html__( 'Jetzt einrichten', 'dashlytics' );
+			echo esc_html__( 'Jetzt einrichten', 'dashlytics-matomo-analytics-widget' );
 			echo '</a>';
 			echo '</div>';
 			return;
@@ -1140,7 +1140,7 @@ class Dashlytics {
 
 		$texts       = $this->get_promo_texts();
 		$donate      = 'https://matt-interfaces.ch/zahlen';
-		$rate        = 'https://wordpress.org/support/plugin/dashlytics/reviews/#new-post';
+		$rate        = 'https://wordpress.org/support/plugin/dashlytics-matomo-analytics-widget/reviews/#new-post';
 		$snooze_url  = wp_nonce_url( add_query_arg( 'dashlytics_review_action', 'snooze' ), 'dashlytics_review_action' );
 		$dismiss_url = wp_nonce_url( add_query_arg( 'dashlytics_review_action', 'dismiss' ), 'dashlytics_review_action' );
 		?>
