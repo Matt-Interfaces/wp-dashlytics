@@ -1,21 +1,30 @@
-# WP Dashlytics — WordPress.org Readiness Roadmap
+# WP Dashlytics — WordPress.org Deployment Guide
 
-This document describes the step-by-step path to move WP Dashlytics into the WordPress.org plugin directory. Until then the plugin uses **GitHub Releases + Plugin Update Checker** for WordPress-native updates.
+This document describes how to move WP Dashlytics from GitHub Releases to the WordPress.org plugin directory.
 
-## 1. Current Status (v0.8.3)
+Until WP.org approval is granted, the plugin uses **GitHub Releases + Plugin Update Checker (PUC)** for WordPress-native updates.
+
+---
+
+## 1. Current Status (v0.8.8)
 
 | Element | Status | Note |
 |---|---|---|
-| Donate link corrected | ✅ Done | `https://matt-interfaces.ch/zahlen` replaced everywhere |
-| Versions synchronized | ✅ Done | `0.8.3` in all relevant files |
-| ZIP build | ✅ Done | `dist/dashlytics-0.8.3.zip` |
-| Update mechanism | ✅ Done | Plugin Update Checker v5 vendored, GitHub `Matt-Interfaces/wp-dashlytics` |
+| Plugin version synchronized | ✅ Done | `0.8.8` in `dashlytics-matomo.php`, `build-plugin.sh`, `readme.txt` |
+| ZIP build | ✅ Done | `dist/dashlytics-0.8.8.zip` |
+| Update mechanism | ✅ Done | PUC v5 vendored, GitHub `Matt-Interfaces/wp-dashlytics` |
 | Translation files | ✅ Done | `.pot` template + `de_DE` and `en_US` `.po/.mo` |
 | PHPCS / WPCS | ✅ Done | Clean run, PUC excluded from linting |
 | Automated GitHub release workflow | ✅ Done | `.github/workflows/release.yml` builds and attaches ZIP on tag push |
-| WordPress.org submission | ⏳ Open | Requires SVN repo, assets, review |
+| Plugin icons | ✅ Done | `icon-128x128.png`, `icon-256x256.png` in `.wordpress-org/` |
+| Plugin banners | ✅ Done | `banner-772x250.png`, `banner-1544x500.png` in `.wordpress-org/` |
+| Social / OG image | ✅ Done | `dashlytics-og-1200x630.png` in `assets/images/` |
+| Custom admin menu icon | ✅ Done | `dashlytics-icon.svg` in `assets/images/` |
+| WordPress.org submission | ⏳ Open | Requires SVN repo, review, approval |
 
-## 2. Automated Release Workflow
+---
+
+## 2. Automated GitHub Release Workflow
 
 Pushing a Git tag `vX.Y.Z` triggers `.github/workflows/release.yml`:
 
@@ -23,18 +32,26 @@ Pushing a Git tag `vX.Y.Z` triggers `.github/workflows/release.yml`:
 2. Executes `build-plugin.sh` to create `dist/dashlytics-X.Y.Z.zip`.
 3. Creates a GitHub Release and attaches the ZIP automatically.
 
-To release a new version locally:
+Local release commands:
 
 ```bash
-# Bump version in dashlytics-matomo.php, build-plugin.sh and readme.txt
+# 1. Bump version in dashlytics-matomo.php, build-plugin.sh and readme.txt
+# 2. Run quality gates
+composer run phpcs
+cd app && npm run build && cd ..
+bash build-plugin.sh
+
+# 3. Commit, tag and push
 git add .
-git commit -m "chore(release): bump version to 0.8.4"
-git tag -a v0.8.4 -m "Release 0.8.4"
+git commit -m "chore(release): bump version to 0.8.9"
+git tag -a v0.8.9 -m "Release 0.8.9"
 git push origin main
-git push origin refs/tags/v0.8.4
+git push origin refs/tags/v0.8.9
 ```
 
-The Plugin Update Checker inside the installed plugin checks `https://github.com/Matt-Interfaces/wp-dashlytics/releases/latest` and shows a native WordPress update notification when a newer release exists.
+The Plugin Update Checker in installed plugins checks `https://github.com/Matt-Interfaces/wp-dashlytics/releases/latest` and shows a native WordPress update notification when a newer release exists.
+
+---
 
 ## 3. Code Quality & Standards
 
@@ -45,11 +62,13 @@ composer install
 composer run phpcs
 ```
 
-Remaining tasks before submission:
+Remaining tasks before WP.org submission:
 
-- [ ] Remove remaining `console.log` / `console.error` / `console.warn` from the Svelte build (currently 10 occurrences).
+- [ ] Remove remaining `console.log` / `console.error` / `console.warn` from the Svelte build.
 - [ ] Security audit: nonces, capabilities, sanitization.
 - [ ] Keep PHP compatible from 7.4 up to current 8.4.
+
+---
 
 ## 4. Internationalization
 
@@ -58,46 +77,153 @@ Remaining tasks before submission:
 - Maintain `dashlytics-de_DE.po/mo` and `dashlytics-en_US.po/mo`.
 - For additional languages, add `dashlytics-{locale}.po/mo` files and register them in `build-plugin.sh`.
 
+---
+
 ## 5. readme.txt & Assets
 
-- [ ] Keep `Tested up to` on the current WordPress version (currently `6.7`).
-- [ ] Reduce marketing fluff in the description.
-- [ ] Create plugin icon: `icon-128x128.png`, `icon-256x256.png`.
-- [ ] Create banner: `banner-772x250.png`, `banner-1544x500.png`.
-- [ ] Create and name screenshots: `screenshot-1.png`, etc. See `SCREENSHOTS.md`.
-- [ ] Ensure the released ZIP contains no `.gitignore`, `vendor/`, source maps or dev files.
+- [ ] Keep `Tested up to` on the current WordPress version.
+- [ ] Keep the description concise and factual.
+- [x] Plugin icons: `icon-128x128.png`, `icon-256x256.png`.
+- [x] Plugin banners: `banner-772x250.png`, `banner-1544x500.png`.
+- [x] Screenshots: `screenshot-1.png` … `screenshot-4.png`. See `SCREENSHOTS.md`.
+- [x] Ensure the released ZIP contains no `.gitignore`, `vendor/`, source maps or dev files.
 
-## 6. WordPress.org Submission
+### Asset folder mapping
 
-### Step 1: Prepare Account
-- Create an account at https://wordpress.org/ with the appropriate username.
-- Set the SVN password in the account settings.
+| Repository folder | WordPress.org SVN folder | Purpose |
+|---|---|---|
+| `.wordpress-org/icon-*.png` | `assets/icon-*.png` | Plugin page icon |
+| `.wordpress-org/banner-*.png` | `assets/banner-*.png` | Plugin page header banner |
+| `assets/screenshot-*.png` | `assets/screenshot-*.png` | Plugin page screenshots |
+| `dist/dashlytics-X.Y.Z.zip` contents | `trunk/` + `tags/X.Y.Z/` | The plugin itself |
 
-### Step 2: Submit Plugin
-- URL: https://wordpress.org/plugins/developers/add/
-- Enter plugin name, description and readme.
-- Wait for approval (days to weeks).
+---
 
-### Step 3: Populate SVN
-```bash
-svn co https://plugins.svn.wordpress.org/dashlytics
-cp -r dist/dashlytics/* trunk/
-svn cp trunk tags/0.8.3
-svn add assets/* trunk/* tags/0.8.3
-svn ci -m "Initial release 0.8.3"
+## 6. WordPress.org Deployment
+
+### Prerequisites
+
+- WordPress.org account: https://wordpress.org/
+- SVN client installed (`svn --version`)
+- Plugin approved by the WordPress.org review team
+
+### Step 1: Submit the plugin for review
+
+1. Go to https://wordpress.org/plugins/developers/add/
+2. Enter plugin name and description.
+3. Submit and wait for approval (typically a few days to a few weeks).
+
+### Step 2: Check out the SVN repository
+
+Once approved, WordPress.org creates an empty SVN repo at:
+
+```
+https://plugins.svn.wordpress.org/dashlytics
 ```
 
-### Step 4: Maintain Stable Tag
-- In `trunk/readme.txt`: `Stable tag: 0.8.3`
-- Tag `tags/0.8.3/` must exist.
+Check it out locally:
 
-### Step 5: Future Updates
-1. Bump version and build.
-2. Update `trunk/`.
-3. `svn cp trunk tags/X.Y.Z`
-4. `svn ci -m "Release X.Y.Z"`
+```bash
+mkdir -p ~/wp-org-svn
+cd ~/wp-org-svn
+svn co https://plugins.svn.wordpress.org/dashlytics
+cd dashlytics
+```
 
-## 7. Decisions
+You will see three default folders: `assets/`, `tags/`, `trunk/`.
+
+### Step 3: Copy plugin files into `trunk/`
+
+Build the plugin first, then copy the contents of the build directory (not the ZIP):
+
+```bash
+cd /Users/chooom/dev/wp-dashlytics
+bash build-plugin.sh
+
+# Copy plugin files into SVN trunk
+rsync -av --delete dist/dashlytics/ ~/wp-org-svn/dashlytics/trunk/
+```
+
+### Step 4: Copy image assets into SVN `assets/`
+
+```bash
+rsync -av .wordpress-org/ ~/wp-org-svn/dashlytics/assets/
+rsync -av assets/screenshot-*.png ~/wp-org-svn/dashlytics/assets/
+```
+
+### Step 5: Create a version tag
+
+```bash
+cd ~/wp-org-svn/dashlytics
+svn cp trunk tags/0.8.8
+```
+
+### Step 6: Review and commit
+
+```bash
+cd ~/wp-org-svn/dashlytics
+svn status
+svn add --force .
+svn ci -m "Initial release 0.8.8"
+```
+
+### Step 7: Set the stable tag
+
+In `trunk/readme.txt`, ensure the header contains:
+
+```
+Stable tag: 0.8.8
+```
+
+The `Stable tag` tells WordPress.org which tagged version users should download.
+
+---
+
+## 7. Future Updates
+
+After the initial release, each new version follows this flow:
+
+```bash
+# 1. Build locally
+cd /Users/chooom/dev/wp-dashlytics
+composer run phpcs
+cd app && npm run build && cd ..
+bash build-plugin.sh
+
+# 2. Sync to SVN trunk
+cd ~/wp-org-svn/dashlytics
+svn up
+rsync -av --delete /Users/chooom/dev/wp-dashlytics/dist/dashlytics/ trunk/
+
+# 3. Sync assets if they changed
+rsync -av /Users/chooom/dev/wp-dashlytics/.wordpress-org/ assets/
+
+# 4. Create a new tag (replace X.Y.Z)
+VERSION="0.8.9"
+svn cp trunk "tags/${VERSION}"
+
+# 5. Update stable tag in trunk/readme.txt
+#    Change: Stable tag: X.Y.Z
+
+# 6. Commit
+svn add --force .
+svn ci -m "Release ${VERSION}"
+```
+
+---
+
+## 8. Removing the Plugin Update Checker
+
+After WP.org approval and the first SVN release:
+
+1. Remove `includes/plugin-update-checker/`.
+2. Remove the PUC initialization block from `dashlytics-matomo.php`.
+3. Remove `composer` / `build-plugin.sh` references to PUC if any.
+4. Update this document to mark WP.org as the primary distribution channel.
+
+---
+
+## 9. Decisions
 
 | Topic | Decision | Reason |
 |---|---|---|
@@ -106,13 +232,15 @@ svn ci -m "Initial release 0.8.3"
 | n8n as update server | No | Not established, complex |
 | Remove PUC when? | After WP.org approval | WP.org becomes primary channel |
 
-## 8. Next Actions
+---
 
-1. ✅ Create the `Matt-Interfaces/wp-dashlytics` repository on GitHub and push the current main branch + `v0.8.3` tag.
-2. ✅ Create a GitHub Release for `v0.8.3` and attach `dist/dashlytics-0.8.3.zip`.
-3. Upload to a WordPress test instance and verify the update notification works.
-4. Remove `console.*` calls from the Svelte build for WP.org readiness.
-5. Prepare WordPress.org submission.
+## 10. Next Actions
+
+1. [ ] Verify the plugin on a clean WordPress test site.
+2. [ ] Remove remaining `console.*` calls from the Svelte build.
+3. [ ] Submit the plugin at https://wordpress.org/plugins/developers/add/
+4. [ ] After approval, deploy version `0.8.8` to SVN as described in Section 6.
+5. [ ] After the first SVN release, remove PUC and switch to WP.org updates.
 
 ---
-*Document created 2026-09-23 for WP Dashlytics.*
+*Document updated 2026-09-24 for WP Dashlytics v0.8.8.*
