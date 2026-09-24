@@ -99,7 +99,59 @@ Remaining tasks before WP.org submission:
 
 ---
 
-## 6. WordPress.org Deployment
+## 6. Pre-submission Checklist
+
+Before submitting at https://wordpress.org/plugins/developers/add/, confirm the following:
+
+### Read and confirm
+
+- [ ] Read the [Plugin Directory FAQ](https://wordpress.org/plugins/developers/faq/).
+- [ ] Read the [Plugin Directory Guidelines](https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/).
+- [ ] Test the plugin with the [Plugin Check](https://wordpress.org/plugins/plugin-check/) plugin and resolve all indicated issues (except clear false-positives).
+
+### Naming and ownership
+
+- **Plugin name:** WP Dashlytics - Matomo Analytics Widget
+- The name includes the project/brand identifier "WP Dashlytics" and is distinctive.
+- It does not imply ownership of "Matomo"; it describes an integration with Matomo.
+- The WordPress.org account submitting the plugin must accurately represent the plugin owner.
+
+### Functionality restrictions (trialware)
+
+- [ ] Confirm the plugin does **not** use paywalls, license gating, time-limited trials, usage cutoffs, or artificial limitations on built-in functionality.
+
+### Not accepted plugin categories
+
+WP Dashlytics does **not** fall into any of these categories:
+
+- Arbitrary PHP/JS code execution or file managers.
+- Downloading executable code from external sources.
+- Functionality already well represented without meaningful differentiation.
+
+### Submission acknowledgement
+
+- [ ] Understand that submissions must follow the guidelines; violations can lead to rejection or account restrictions.
+- [ ] Understand that hosting is subject to continued compliance.
+
+### Review facts
+
+- Review time: typically **1–10 days**, usually within **5 business days**.
+- The most common rejection reasons are:
+  - Unescaped output
+  - Unsanitized input
+  - Missing nonces on form processing
+- WP Dashlytics uses WordPress nonces, capability checks, and sanitization/escaping throughout.
+
+### Plugin URL / slug
+
+- The plugin URL will be derived from the `Plugin Name` header in `dashlytics-matomo.php`.
+- Expected slug: `wp-dashlytics` (or `wp-dashlytics-2` if the slug is already taken).
+- The slug can be changed **once** before the review begins.
+- The display name can be updated later; the slug cannot be renamed after approval.
+
+---
+
+## 7. WordPress.org Deployment
 
 ### Prerequisites
 
@@ -110,8 +162,10 @@ Remaining tasks before WP.org submission:
 ### Step 1: Submit the plugin for review
 
 1. Go to https://wordpress.org/plugins/developers/add/
-2. Enter plugin name and description.
-3. Submit and wait for approval (typically a few days to a few weeks).
+2. Upload `dist/dashlytics-0.8.8.zip` (maximum file size: 10 MB).
+3. Confirm all checkboxes in the submission form.
+4. Add any additional information that helps the review team.
+5. Submit and wait for approval (typically a few days to a few weeks).
 
 ### Step 2: Check out the SVN repository
 
@@ -179,7 +233,7 @@ The `Stable tag` tells WordPress.org which tagged version users should download.
 
 ---
 
-## 7. Future Updates
+## 8. Future Updates
 
 After the initial release, each new version follows this flow:
 
@@ -212,7 +266,7 @@ svn ci -m "Release ${VERSION}"
 
 ---
 
-## 8. Removing the Plugin Update Checker
+## 9. Removing the Plugin Update Checker
 
 After WP.org approval and the first SVN release:
 
@@ -223,7 +277,7 @@ After WP.org approval and the first SVN release:
 
 ---
 
-## 9. Decisions
+## 10. Decisions
 
 | Topic | Decision | Reason |
 |---|---|---|
@@ -234,7 +288,7 @@ After WP.org approval and the first SVN release:
 
 ---
 
-## 10. Next Actions
+## 11. Next Actions
 
 1. [ ] Verify the plugin on a clean WordPress test site.
 2. [ ] Remove remaining `console.*` calls from the Svelte build.
