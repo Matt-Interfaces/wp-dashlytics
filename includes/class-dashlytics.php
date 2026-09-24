@@ -125,7 +125,7 @@ class Dashlytics {
 			'manage_options',
 			'dashlytics',
 			array( $this, 'render_settings_page' ),
-			'dashicons-chart-area',
+			DASHLYTICS_PLUGIN_URL . 'assets/images/dashlytics-icon.svg',
 			80
 		);
 	}
@@ -1046,7 +1046,7 @@ class Dashlytics {
 	public function add_dashboard_widget() {
 		wp_add_dashboard_widget(
 			'dashlytics_widget',
-			__( '📊 WP Dashlytics - Website Statistiken', 'dashlytics' ),
+			__( 'WP Dashlytics - Website Statistiken', 'dashlytics' ),
 			array( $this, 'render_dashboard_widget' ),
 			null,
 			null,

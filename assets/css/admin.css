@@ -40,7 +40,7 @@
     justify-content: space-between;
     margin-bottom: 30px;
     padding: 24px 28px;
-    background: linear-gradient(135deg, #151647 0%, #1a1a5e 100%);
+    background: linear-gradient(135deg, #000000 0%, #FE5433 100%);
     border-radius: var(--dashlytics-radius);
     box-shadow: var(--dashlytics-shadow-lg);
 }
@@ -54,13 +54,17 @@
 .dashlytics-logo {
     width: 60px;
     height: 60px;
-    background: var(--dashlytics-white);
-    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 32px;
-    box-shadow: var(--dashlytics-shadow);
+    color: #ffffff;
+}
+
+.dashlytics-logo img,
+.dashlytics-logo svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .dashlytics-header h1 {
@@ -68,12 +72,14 @@
     font-size: 28px;
     font-weight: 600;
     margin: 0;
+    padding: 0;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .dashlytics-header p {
     color: rgba(255, 255, 255, 0.85);
-    margin: 5px 0 0;
+    margin: 0;
+    padding: 0;
     font-size: 14px;
 }
 
@@ -1193,4 +1199,32 @@
 
 .dashlytics-review-notice .button-link:hover {
     color: var(--dashlytics-text);
+}
+/* =========================================================
+   WordPress admin menu branding
+   ========================================================= */
+
+/*
+ * WordPress renders custom SVG menu icons as <img> elements.
+ * CSS fill does not apply to external SVG images, so we use filters
+ * to recolor the icon on hover/active states.
+ */
+
+/* Default state: plugin icon in Matt Interfaces orange */
+#adminmenu .toplevel_page_dashlytics .wp-menu-image img {
+    filter: none !important;
+}
+
+/* Active / hover state: orange background */
+#adminmenu li.toplevel_page_dashlytics.wp-has-current-submenu a.wp-has-current-submenu,
+#adminmenu li.toplevel_page_dashlytics.current a.menu-top,
+#adminmenu li.toplevel_page_dashlytics a.menu-top:hover {
+    background: #FE5433 !important;
+}
+
+/* Active / hover state: icon switches to white for contrast */
+#adminmenu li.toplevel_page_dashlytics.wp-has-current-submenu .wp-menu-image img,
+#adminmenu li.toplevel_page_dashlytics.current .wp-menu-image img,
+#adminmenu li.toplevel_page_dashlytics a.menu-top:hover .wp-menu-image img {
+    filter: brightness(0) invert(1) !important;
 }

@@ -376,7 +376,9 @@ onMount(() => {
     <!-- Header -->
     <header class="dashlytics-header">
         <div class="dashlytics-header-content">
-            <div class="dashlytics-logo">📊</div>
+            <div class="dashlytics-logo">
+                <img src="{pluginUrl}assets/images/dashlytics-logo.svg" alt="WP Dashlytics">
+            </div>
             <div>
                 <h1>WP Dashlytics</h1>
                 <p>{i18n.tagline || 'Matomo Widget Dashboard für WordPress'}</p>
