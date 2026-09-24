@@ -11,7 +11,7 @@ Until WP.org approval is granted, the plugin uses **GitHub Releases + Plugin Upd
 | Element | Status | Note |
 |---|---|---|
 | Plugin version synchronized | ✅ Done | `0.8.8` in `dashlytics-matomo.php`, `build-plugin.sh`, `readme.txt` |
-| ZIP build | ✅ Done | `dist/dashlytics-0.8.8.zip` |
+| ZIP build | ✅ Done | `dist/dashlytics-matomo-analytics-widget-0.8.8.zip` |
 | Update mechanism | ✅ Done | PUC v5 vendored, GitHub `Matt-Interfaces/wp-dashlytics` |
 | Translation files | ✅ Done | `.pot` template + `de_DE` and `en_US` `.po/.mo` |
 | PHPCS / WPCS | ✅ Done | Clean run, PUC excluded from linting |
@@ -29,7 +29,7 @@ Until WP.org approval is granted, the plugin uses **GitHub Releases + Plugin Upd
 Pushing a Git tag `vX.Y.Z` triggers `.github/workflows/release.yml`:
 
 1. Runs PHPCS and the Svelte build.
-2. Executes `build-plugin.sh` to create `dist/dashlytics-X.Y.Z.zip`.
+2. Executes `build-plugin.sh` to create `dist/dashlytics-matomo-analytics-widget-X.Y.Z.zip`.
 3. Creates a GitHub Release and attaches the ZIP automatically.
 
 Local release commands:
@@ -72,10 +72,10 @@ Remaining tasks before WP.org submission:
 
 ## 4. Internationalization
 
-- Use text domain `dashlytics` consistently.
-- Update `languages/dashlytics.pot` before every release.
-- Maintain `dashlytics-de_DE.po/mo` and `dashlytics-en_US.po/mo`.
-- For additional languages, add `dashlytics-{locale}.po/mo` files and register them in `build-plugin.sh`.
+- Use text domain `dashlytics-matomo-analytics-widget` consistently.
+- Update `languages/dashlytics-matomo-analytics-widget.pot` before every release.
+- Maintain `dashlytics-matomo-analytics-widget-de_DE.po/mo` and `dashlytics-matomo-analytics-widget-en_US.po/mo`.
+- For additional languages, add `dashlytics-matomo-analytics-widget-{locale}.po/mo` files and register them in `build-plugin.sh`.
 
 ---
 
@@ -95,7 +95,7 @@ Remaining tasks before WP.org submission:
 | `.wordpress-org/icon-*.png` | `assets/icon-*.png` | Plugin page icon |
 | `.wordpress-org/banner-*.png` | `assets/banner-*.png` | Plugin page header banner |
 | `assets/screenshot-*.png` | `assets/screenshot-*.png` | Plugin page screenshots |
-| `dist/dashlytics-X.Y.Z.zip` contents | `trunk/` + `tags/X.Y.Z/` | The plugin itself |
+| `dist/dashlytics-matomo-analytics-widget-X.Y.Z.zip` contents | `trunk/` + `tags/X.Y.Z/` | The plugin itself |
 
 ---
 
@@ -156,7 +156,7 @@ Dashlytics is a lightweight dashboard widget that displays Matomo Analytics data
 ### Plugin URL / slug
 
 - The plugin URL will be derived from the `Plugin Name` header in `dashlytics-matomo.php`.
-- Expected slug: `wp-dashlytics` (or `wp-dashlytics-2` if the slug is already taken).
+- Assigned slug: `dashlytics-matomo-analytics-widget`.
 - The slug can be changed **once** before the review begins.
 - The display name can be updated later; the slug cannot be renamed after approval.
 
@@ -173,7 +173,7 @@ Dashlytics is a lightweight dashboard widget that displays Matomo Analytics data
 ### Step 1: Submit the plugin for review
 
 1. Go to https://wordpress.org/plugins/developers/add/
-2. Upload `dist/dashlytics-0.8.8.zip` (maximum file size: 10 MB).
+2. Upload `dist/dashlytics-matomo-analytics-widget-0.8.8.zip` (maximum file size: 10 MB).
 3. Confirm all checkboxes in the submission form.
 4. Add any additional information that helps the review team.
 5. Submit and wait for approval (typically a few days to a few weeks).
@@ -183,7 +183,7 @@ Dashlytics is a lightweight dashboard widget that displays Matomo Analytics data
 Once approved, WordPress.org creates an empty SVN repo at:
 
 ```
-https://plugins.svn.wordpress.org/dashlytics
+https://plugins.svn.wordpress.org/dashlytics-matomo-analytics-widget
 ```
 
 Check it out locally:
@@ -191,8 +191,8 @@ Check it out locally:
 ```bash
 mkdir -p ~/wp-org-svn
 cd ~/wp-org-svn
-svn co https://plugins.svn.wordpress.org/dashlytics
-cd dashlytics
+svn co https://plugins.svn.wordpress.org/dashlytics-matomo-analytics-widget
+cd dashlytics-matomo-analytics-widget
 ```
 
 You will see three default folders: `assets/`, `tags/`, `trunk/`.
@@ -206,27 +206,27 @@ cd /Users/chooom/dev/wp-dashlytics
 bash build-plugin.sh
 
 # Copy plugin files into SVN trunk
-rsync -av --delete dist/dashlytics/ ~/wp-org-svn/dashlytics/trunk/
+rsync -av --delete dist/dashlytics-matomo-analytics-widget/ ~/wp-org-svn/dashlytics-matomo-analytics-widget/trunk/
 ```
 
 ### Step 4: Copy image assets into SVN `assets/`
 
 ```bash
-rsync -av .wordpress-org/ ~/wp-org-svn/dashlytics/assets/
-rsync -av assets/screenshot-*.png ~/wp-org-svn/dashlytics/assets/
+rsync -av .wordpress-org/ ~/wp-org-svn/dashlytics-matomo-analytics-widget/assets/
+rsync -av assets/screenshot-*.png ~/wp-org-svn/dashlytics-matomo-analytics-widget/assets/
 ```
 
 ### Step 5: Create a version tag
 
 ```bash
-cd ~/wp-org-svn/dashlytics
+cd ~/wp-org-svn/dashlytics-matomo-analytics-widget
 svn cp trunk tags/0.8.8
 ```
 
 ### Step 6: Review and commit
 
 ```bash
-cd ~/wp-org-svn/dashlytics
+cd ~/wp-org-svn/dashlytics-matomo-analytics-widget
 svn status
 svn add --force .
 svn ci -m "Initial release 0.8.8"
@@ -256,9 +256,9 @@ cd app && npm run build && cd ..
 bash build-plugin.sh
 
 # 2. Sync to SVN trunk
-cd ~/wp-org-svn/dashlytics
+cd ~/wp-org-svn/dashlytics-matomo-analytics-widget
 svn up
-rsync -av --delete /Users/chooom/dev/wp-dashlytics/dist/dashlytics/ trunk/
+rsync -av --delete /Users/chooom/dev/wp-dashlytics/dist/dashlytics-matomo-analytics-widget/ trunk/
 
 # 3. Sync assets if they changed
 rsync -av /Users/chooom/dev/wp-dashlytics/.wordpress-org/ assets/
@@ -304,7 +304,7 @@ After WP.org approval, updates are delivered through the official WordPress.org 
 
 1. [ ] Verify the plugin on a clean WordPress test site.
 2. [ ] Submit the plugin at https://wordpress.org/plugins/developers/add/
-3. [ ] On the submission page, change the plugin slug to `dashlytics` before review begins so it matches the Text Domain.
+3. [x] The plugin slug `dashlytics-matomo-analytics-widget` matches the Text Domain.
 4. [ ] After approval, deploy version `0.8.8` to SVN as described in Section 6.
 
 ---

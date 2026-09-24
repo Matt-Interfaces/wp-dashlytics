@@ -46,14 +46,14 @@ cd ..
 bash build-plugin.sh
 ```
 
-The resulting installable ZIP is written to `dist/dashlytics-{VERSION}.zip`.
+The resulting installable ZIP is written to `dist/dashlytics-matomo-analytics-widget-{VERSION}.zip`.
 
 ### Automated Releases
 
 Pushing a Git tag `vX.Y.Z` triggers `.github/workflows/release.yml`:
 
 1. Runs PHPCS and the Svelte build.
-2. Executes `build-plugin.sh` to create `dist/dashlytics-X.Y.Z.zip`.
+2. Executes `build-plugin.sh` to create `dist/dashlytics-matomo-analytics-widget-X.Y.Z.zip`.
 3. Creates a GitHub Release and attaches the ZIP automatically.
 
 Example:
@@ -74,7 +74,7 @@ No manual ZIP upload is needed.
 | `svelte` | `^4.2.x` | UI framework | Migration to Svelte 5 is planned separately |
 | `rollup` | `^4.x` | Bundler | Latest compatible minor |
 
-The plugin uses the `dashlytics` text domain. Translation files are available under `languages/`.
+The plugin uses the `dashlytics-matomo-analytics-widget` text domain. Translation files (`dashlytics-matomo-analytics-widget.pot`, `dashlytics-matomo-analytics-widget-de_DE.po/mo`, `dashlytics-matomo-analytics-widget-en_US.po/mo`) are available under `languages/`.
 
 ### Plugin Updates
 

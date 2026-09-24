@@ -13,7 +13,7 @@ This repository is a **WordPress plugin** that renders Matomo Analytics data ins
 | Settings page | `app/DashlyticsSettings.svelte` → `app/public/build/settings.js` |
 | Styles | `assets/css/admin.css`, `assets/css/widget.css` |
 | Admin JS | `assets/js/admin.js` |
-| i18n | Text domain `dashlytics`; `languages/dashlytics.pot` + `dashlytics-de_DE` / `dashlytics-en_US` `.po/.mo` |
+| i18n | Text domain `dashlytics-matomo-analytics-widget`; `languages/dashlytics-matomo-analytics-widget.pot` + `dashlytics-matomo-analytics-widget-de_DE` / `dashlytics-matomo-analytics-widget-en_US` `.po/.mo` |
 | Updates | Vendored Plugin Update Checker pointing to GitHub `Matt-Interfaces/wp-dashlytics` |
 | Code standards | WPCS via `composer.json` + `phpcs.xml.dist` |
 | CI | GitHub Actions `.github/workflows/ci.yml` (PHPCS + Svelte build) |
@@ -44,7 +44,7 @@ cd ..
 bash build-plugin.sh
 ```
 
-Result: `dist/dashlytics-{VERSION}.zip`.
+Result: `dist/dashlytics-matomo-analytics-widget-{VERSION}.zip`.
 
 ## Quality gate before push
 
@@ -60,8 +60,8 @@ PHPCS must be clean. The vendored `includes/plugin-update-checker/` is excluded 
 
 ## i18n rules
 
-- Use `__( 'String', 'dashlytics' )` in PHP; do not hardcode untranslated UI strings.
-- Source strings are currently German; `dashlytics-de_DE.po` maps msgstr to msgid, `dashlytics-en_US.po` provides English translations.
+- Use `__( 'String', 'dashlytics-matomo-analytics-widget' )` in PHP; do not hardcode untranslated UI strings.
+- Source strings are currently German; `dashlytics-matomo-analytics-widget-de_DE.po` maps msgstr to msgid, `dashlytics-matomo-analytics-widget-en_US.po` provides English translations.
 - When adding new translatable strings, regenerate/extend `.pot`, `.po` and `.mo` files and update `build-plugin.sh` if needed.
 
 ## Update checker
