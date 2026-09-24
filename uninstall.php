@@ -35,11 +35,9 @@ delete_transient( 'dashlytics_analytics_cache' );
 
 // Multisite support
 if ( is_multisite() ) {
-	global $wpdb;
+	$dashlytics_blog_ids = get_sites( array( 'fields' => 'ids' ) );
 
-	$blog_ids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
-
-	foreach ( $blog_ids as $dashlytics_blog_id ) {
+	foreach ( $dashlytics_blog_ids as $dashlytics_blog_id ) {
 		switch_to_blog( $dashlytics_blog_id );
 
 		delete_option( 'dashlytics_settings' );

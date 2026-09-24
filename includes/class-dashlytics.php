@@ -52,18 +52,18 @@ class Dashlytics {
 		// Settings link on the Plugins list
 		add_filter( 'plugin_action_links_' . DASHLYTICS_PLUGIN_BASENAME, array( $this, 'add_settings_link' ) );
 
-		// Load textdomain
-		add_action( 'init', array( $this, 'load_textdomain' ) );
-
 		// Review notice dismiss/snooze handler
 		add_action( 'admin_init', array( $this, 'snooze_review_notice' ) );
 	}
 
 	/**
 	 * Load textdomain for translations
+	 *
+	 * WordPress 4.6+ auto-loads translations from the Text Domain header, so this
+	 * method is kept as a no-op hook callback for backward compatibility.
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'dashlytics-matomo-analytics-widget', false, dirname( DASHLYTICS_PLUGIN_BASENAME ) . '/languages' );
+		// No manual loading required.
 	}
 
 	/**
