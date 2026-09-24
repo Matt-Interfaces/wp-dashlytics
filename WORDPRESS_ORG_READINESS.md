@@ -120,13 +120,23 @@ Before submitting at https://wordpress.org/plugins/developers/add/, confirm the 
 
 - [ ] Confirm the plugin does **not** use paywalls, license gating, time-limited trials, usage cutoffs, or artificial limitations on built-in functionality.
 
-### Not accepted plugin categories
+### Not accepted plugin categories — compliance audit
 
-WP Dashlytics does **not** fall into any of these categories:
+WP Dashlytics does **not** fall into any of these categories. Code audit result:
 
-- Arbitrary PHP/JS code execution or file managers.
-- Downloading executable code from external sources.
-- Functionality already well represented without meaningful differentiation.
+| Rejection category | WP Dashlytics behavior | Compliant |
+|---|---|---|
+| Arbitrary PHP/JS code execution, file managers, AI code execution | No `eval()`, `exec()`, `shell_exec()`, `assert()`, `create_function()`, `file_put_contents()`, `base64_decode()`, or unserialize of user input. No code editors, file managers, or AI code generators. | ✅ |
+| Downloading executable code from external sources | The plugin only fetches JSON analytics data from the user-configured Matomo API endpoint via `wp_remote_get()`. No executable code, binaries, or remote scripts are downloaded or executed. | ✅ |
+| Functionality already well represented without differentiation | WP Dashlytics focuses specifically on displaying Matomo metrics inside the WordPress dashboard with privacy-first, self-hosted data. This is a differentiated use case compared to general analytics plugins. | ✅ |
+
+### Additional Information field
+
+Suggested text for the "Additional Information" box on the submission form:
+
+> WP Dashlytics is a lightweight dashboard widget that displays Matomo Analytics data directly inside the WordPress admin. It connects to a user-provided Matomo instance (self-hosted, Matomo Cloud, or the Matomo for WordPress plugin) via the official Matomo Reporting API, proxies requests server-side, and renders charts and metrics without adding frontend tracking code. The plugin does not execute arbitrary code, download external executables, or artificially restrict functionality. All REST endpoints use WordPress nonces and `manage_options` capability checks.
+
+Keep the tone factual and concise.
 
 ### Submission acknowledgement
 
