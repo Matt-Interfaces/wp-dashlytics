@@ -277,14 +277,15 @@ svn ci -m "Release ${VERSION}"
 
 ---
 
-## 9. Removing the Plugin Update Checker
+## 9. Plugin Update Checker status
 
-After WP.org approval and the first SVN release:
+The Plugin Update Checker has been removed from the distribution package for the WordPress.org submission:
 
-1. Remove `includes/plugin-update-checker/`.
-2. Remove the PUC initialization block from `dashlytics-matomo.php`.
-3. Remove `composer` / `build-plugin.sh` references to PUC if any.
-4. Update this document to mark WP.org as the primary distribution channel.
+1. PUC initialization removed from `dashlytics-matomo.php`.
+2. `build-plugin.sh` no longer copies `includes/plugin-update-checker/` into the ZIP.
+3. The vendored directory remains in the repository for historical reference but is excluded from WP.org builds.
+
+After WP.org approval, updates are delivered through the official WordPress.org plugin directory.
 
 ---
 
@@ -292,20 +293,19 @@ After WP.org approval and the first SVN release:
 
 | Topic | Decision | Reason |
 |---|---|---|
-| Update server until WP.org | GitHub Releases + PUC | Free, de-facto standard, native UX |
+| Update server | WordPress.org plugin directory | Required for WP.org hosting; PUC removed from distribution |
 | Own server / Vercel | No | Unnecessary overhead |
 | n8n as update server | No | Not established, complex |
-| Remove PUC when? | After WP.org approval | WP.org becomes primary channel |
+| PUC directory in repo | Keep for reference, exclude from ZIP | Vendored, read-only; avoids hand-editing and keeps history |
 
 ---
 
 ## 11. Next Actions
 
 1. [ ] Verify the plugin on a clean WordPress test site.
-2. [ ] Remove remaining `console.*` calls from the Svelte build.
-3. [ ] Submit the plugin at https://wordpress.org/plugins/developers/add/
+2. [ ] Submit the plugin at https://wordpress.org/plugins/developers/add/
+3. [ ] On the submission page, change the plugin slug to `dashlytics` before review begins so it matches the Text Domain.
 4. [ ] After approval, deploy version `0.8.8` to SVN as described in Section 6.
-5. [ ] After the first SVN release, remove PUC and switch to WP.org updates.
 
 ---
 *Document updated 2026-09-24 for Dashlytics v0.8.8.*

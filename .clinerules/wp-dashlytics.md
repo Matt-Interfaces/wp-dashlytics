@@ -66,16 +66,4 @@ PHPCS must be clean. The vendored `includes/plugin-update-checker/` is excluded 
 
 ## Update checker
 
-`dashlytics-matomo.php` initializes the Plugin Update Checker with:
-
-```php
-'https://github.com/Matt-Interfaces/wp-dashlytics/',
-```
-
-For this to work, every release must have:
-1. A matching Git tag `vX.Y.Z`.
-2. A GitHub Release with the built ZIP attached.
-
-## WordPress.org readiness
-
-See `WORDPRESS_ORG_READINESS.md`. PUC remains in use until the plugin is approved on WordPress.org.
+The Plugin Update Checker (PUC) vendored library remains in `includes/plugin-update-checker/` for historical reference, but it is **not copied into the distribution ZIP** and its initialization code has been removed from `dashlytics-matomo.php` for the WordPress.org submission. After WP.org approval, updates are delivered through the official WordPress.org plugin directory.

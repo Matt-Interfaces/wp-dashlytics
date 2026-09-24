@@ -1140,7 +1140,7 @@ class Dashlytics {
 
 		$texts       = $this->get_promo_texts();
 		$donate      = 'https://matt-interfaces.ch/zahlen';
-		$rate        = 'https://wordpress.org/support/plugin/dashlytics/reviews/?filter=5#new-post';
+		$rate        = 'https://wordpress.org/support/plugin/dashlytics/reviews/#new-post';
 		$snooze_url  = wp_nonce_url( add_query_arg( 'dashlytics_review_action', 'snooze' ), 'dashlytics_review_action' );
 		$dismiss_url = wp_nonce_url( add_query_arg( 'dashlytics_review_action', 'dismiss' ), 'dashlytics_review_action' );
 		?>

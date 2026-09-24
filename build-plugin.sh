@@ -75,10 +75,8 @@ if [ -d "includes" ]; then
     cp -r includes/*.php "$BUILD_DIR/$PLUGIN_NAME/includes/"
 fi
 
-# Plugin Update Checker (vendored library for GitHub-based updates)
-if [ -d "includes/plugin-update-checker" ]; then
-    cp -r includes/plugin-update-checker "$BUILD_DIR/$PLUGIN_NAME/includes/"
-fi
+# Plugin Update Checker is intentionally excluded from WordPress.org builds.
+# Updates will be delivered via the WordPress.org plugin directory once approved.
 
 # Languages (.pot template + compiled .mo and source .po)
 mkdir -p "$BUILD_DIR/$PLUGIN_NAME/languages"

@@ -32,23 +32,6 @@ define( 'DASHLYTICS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 require_once DASHLYTICS_PLUGIN_PATH . 'includes/class-dashlytics.php';
 
 /**
- * Initialize the Plugin Update Checker (GitHub Releases until WordPress.org is active).
- *
- * @link https://github.com/YahnisElsts/plugin-update-checker
- */
-require_once DASHLYTICS_PLUGIN_PATH . 'includes/plugin-update-checker/plugin-update-checker.php';
-
-use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-
-$dashlytics_update_checker = PucFactory::buildUpdateChecker(
-	'https://github.com/Matt-Interfaces/wp-dashlytics/',
-	DASHLYTICS_PLUGIN_FILE,
-	'dashlytics'
-);
-
-$dashlytics_update_checker->setBranch( 'main' );
-
-/**
  * Initialize plugin
  */
 function dashlytics_init() {

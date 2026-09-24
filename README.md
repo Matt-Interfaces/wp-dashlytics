@@ -78,7 +78,7 @@ The plugin uses the `dashlytics` text domain. Translation files are available un
 
 ### Plugin Updates
 
-Until the plugin is published on WordPress.org, updates are delivered through GitHub Releases via the vendored [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker). WordPress will show update notifications exactly like it does for repository plugins, as long as the release has the matching `vX.Y.Z` tag and the ZIP asset attached.
+Once the plugin is approved and published on WordPress.org, updates are delivered through the official WordPress.org plugin directory. The Plugin Update Checker has been removed from the distribution package for the WP.org submission.
 
 ## License
 
