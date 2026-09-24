@@ -367,8 +367,32 @@ msgid "Token wurde automatisch von Matomo for WordPress übernommen"
 msgstr "Token was automatically taken from Matomo for WordPress"
 
 #: includes/class-dashlytics.php:209
-msgid "WordPress Authentifizierung aktiv - kein Token erforderlich"
-msgstr "WordPress authentication active - no token required"
+msgid "WordPress Authentifizierung aktiv"
+msgstr "WordPress authentication active"
+
+#: includes/class-dashlytics.php:209
+msgid "KPI Vorschau"
+msgstr "KPI Preview"
+
+#: includes/class-dashlytics.php:209
+msgid "Content-Engagement im Zeitraum"
+msgstr "Content engagement in period"
+
+#: includes/class-dashlytics.php:209
+msgid "Top Traffic-Quelle"
+msgstr "Top traffic source"
+
+#: includes/class-dashlytics.php:209
+msgid "Seiten/Besuch"
+msgstr "Pages/visit"
+
+#: includes/class-dashlytics.php:209
+msgid "Conversion Rate"
+msgstr "Conversion rate"
+
+#: includes/class-dashlytics.php:209
+msgid "Coming soon"
+msgstr "Coming soon"
 
 #: includes/class-dashlytics.php:210
 msgid "Matomo for WordPress automatisch erkennen"

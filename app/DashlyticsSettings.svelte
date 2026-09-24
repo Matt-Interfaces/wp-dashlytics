@@ -33,10 +33,36 @@ let activeTab = 'connection';
 let showToken = false;
 let autoConnected = false;
 
+// Visually mask WordPress-auth mode with a generated placeholder token.
+const wpAuthPlaceholder = generatePlaceholderToken();
+
 // Preview data
 let previewLoading = false;
 let previewError = null;
 let previewData = [];
+
+// Helpers
+function generatePlaceholderToken() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let token = 'wpauth_';
+    for (let i = 0; i < 32; i++) {
+        token += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return token;
+}
+
+function formatTime(seconds) {
+    if (!seconds) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+function formatPercent(value) {
+    if (value === undefined || value === null || value === '') return '0%';
+    const num = typeof value === 'string' ? parseFloat(value.replace('%', '')) : parseFloat(value);
+    return !isNaN(num) ? Math.round(num) + '%' : '0%';
+}
 
 // Mask token for display
 function maskToken(token) {
@@ -45,9 +71,9 @@ function maskToken(token) {
 }
 
 const chartTypes = [
-    { value: 'line', label: i18n.line || 'Liniendiagramm', icon: '📈' },
-    { value: 'bar', label: i18n.bar || 'Balkendiagramm', icon: '📊' },
-    { value: 'pie', label: i18n.pie || 'Kreisdiagramm', icon: '🥧' }
+    { value: 'line', label: i18n.line || 'Liniendiagramm', iconClass: 'dashicons-chart-line' },
+    { value: 'bar', label: i18n.bar || 'Balkendiagramm', iconClass: 'dashicons-chart-bar' },
+    { value: 'pie', label: i18n.pie || 'Kreisdiagramm', iconClass: 'dashicons-chart-pie' }
 ];
 
 const dateRanges = [
@@ -182,7 +208,10 @@ async function loadPreviewData() {
         } else {
             previewData = (Array.isArray(data) ? data : []).map(day => ({
                 label: day.date || '',
-                value: day.nb_visits || day.nb_uniq_visitors || 0
+                value: day.nb_visits || day.nb_uniq_visitors || 0,
+                nb_pageviews: day.nb_pageviews || day.nb_actions || 0,
+                bounce_rate: day.bounce_rate,
+                avg_time_on_site: day.avg_time_on_site || 0
             }));
         }
     } catch (err) {
@@ -202,6 +231,43 @@ $: if (settings.chart_type !== undefined && settings.date_range !== undefined) {
 // Limit selected data points to a maximum of 7
 $: previewSlice = previewData.slice(-7);
 $: previewMax = previewSlice.length ? Math.max(...previewSlice.map(d => d.value), 1) : 100;
+
+// Aggregated preview stats for the metrics card
+$: previewStats = (() => {
+    if (!previewData.length) return null;
+    let totalVisits = 0;
+    let totalPageviews = 0;
+    let totalBounce = 0;
+    let bounceCount = 0;
+    let totalTime = 0;
+    let timeCount = 0;
+
+    previewData.forEach(day => {
+        totalVisits += day.value || 0;
+        totalPageviews += day.nb_pageviews || 0;
+        const br = day.bounce_rate;
+        if (br !== undefined && br !== null && br !== '') {
+            const brNum = typeof br === 'string' ? parseFloat(br.replace('%', '')) : parseFloat(br);
+            if (!isNaN(brNum)) {
+                totalBounce += brNum;
+                bounceCount++;
+            }
+        }
+        const time = parseFloat(day.avg_time_on_site);
+        if (!isNaN(time)) {
+            totalTime += time;
+            timeCount++;
+        }
+    });
+
+    return {
+        totalVisits,
+        avgVisitsPerDay: Math.round(totalVisits / previewData.length),
+        avgBounceRate: bounceCount > 0 ? Math.round(totalBounce / bounceCount) : 0,
+        avgSessionDuration: timeCount > 0 ? totalTime / timeCount : 0,
+        pagesPerVisit: totalVisits > 0 ? (totalPageviews / totalVisits).toFixed(1) : '0.0'
+    };
+})();
 
 // Line-chart points for SVG
 $: previewLinePoints = previewSlice.map((d, i) => {
@@ -331,7 +397,7 @@ async function useMatomoWP(silent = false) {
             settings.token_auth = '';
             autoConnected = true;
             connectionStatus = 'success';
-            connectionMessage = i18n.autoConnected || 'WordPress Authentifizierung aktiv - kein Token erforderlich';
+            connectionMessage = i18n.autoConnected || 'WordPress Authentifizierung aktiv';
         } else if (settings.token_auth) {
             // A token was found and set
             autoConnected = true;
@@ -421,11 +487,11 @@ onMount(() => {
                 {#if autoConnecting}
                     <span class="dashlytics-detection-spinner"></span>
                 {:else if connectionStatus === 'success' && settings.auto_detect_matomo}
-                    ✓
+                    <span class="dashicons dashicons-yes" aria-hidden="true"></span>
                 {:else if connectionStatus === 'error' && settings.auto_detect_matomo}
-                    ✗
+                    <span class="dashicons dashicons-warning" aria-hidden="true"></span>
                 {:else}
-                    🔍
+                    <span class="dashicons dashicons-search" aria-hidden="true"></span>
                 {/if}
             </div>
             <div class="dashlytics-detection-content">
@@ -548,77 +614,84 @@ onMount(() => {
                             </div>
                         {/if}
 
-                        <div class="dashlytics-form-group">
-                            <label class="dashlytics-label" for="dashlytics-site-id">
-                                {i18n.siteId || 'Site ID'}
-                                <span class="dashlytics-label-hint">({i18n.siteIdHint || 'Standard: 1'})</span>
-                            </label>
-                            <input 
-                                type="number" 
-                                class="dashlytics-input" 
-                                bind:value={settings.site_id}
-                                min="1"
-                                style="max-width: 120px;"
-                            />
-                        </div>
-
-                        <div class="dashlytics-form-group">
-                            <label class="dashlytics-label" for="dashlytics-auth-token">
-                                {i18n.authToken || 'Auth Token'}
-                                <span class="dashlytics-label-hint">
-                                    {#if autoConnected && settings.token_auth}
-                                        ({i18n.autoDetected || 'automatisch erkannt'})
-                                    {:else if autoConnected && !settings.token_auth}
-                                        ({i18n.wpAuth || 'WordPress Authentifizierung'})
-                                    {:else}
-                                        ({i18n.apiAccessToken || 'API Zugriffstoken'})
-                                    {/if}
-                                </span>
-                            </label>
-                            <div class="dashlytics-input-group">
+                        <div class="dashlytics-form-row">
+                            <div class="dashlytics-form-group dashlytics-form-group--compact">
+                                <label class="dashlytics-label" for="dashlytics-site-id">
+                                    {i18n.siteId || 'Site ID'}
+                                    <span class="dashlytics-label-hint">({i18n.siteIdHint || 'Standard: 1'})</span>
+                                </label>
                                 <input 
-                                    type="text"
-                                    class="dashlytics-input" 
-                                    class:dashlytics-input--readonly={autoConnected || (matomoDetected.installed && settings.token_auth)}
-                                    value={showToken ? settings.token_auth : (settings.token_auth ? maskToken(settings.token_auth) : '')}
-                                    placeholder={i18n.authTokenPlaceholder || 'Ihr Matomo API Token'}
-                                    readonly={autoConnected || (matomoDetected.installed && settings.token_auth)}
-                                    on:input={(e) => { if (!autoConnected && !(matomoDetected.installed && settings.token_auth)) settings.token_auth = e.target.value; }}
+                                    type="number" 
+                                    class="dashlytics-input dashlytics-input--compact" 
+                                    bind:value={settings.site_id}
+                                    min="1"
                                 />
-                                <button 
-                                    type="button"
-                                    class="dashlytics-btn dashlytics-btn--icon"
-                                    on:click={() => showToken = !showToken}
-                                    title={showToken ? (i18n.hideToken || 'Token verbergen') : (i18n.showToken || 'Token anzeigen')}
-                                >
-                                    <span class="dashicons" class:dashicons-visibility={!showToken} class:dashicons-hidden={showToken}></span>
-                                </button>
-                                {#if matomoDetected.installed && !autoConnected && !settings.token_auth}
+                            </div>
+
+                            <div class="dashlytics-form-group dashlytics-form-group--grow">
+                                <label class="dashlytics-label" for="dashlytics-auth-token">
+                                    {i18n.authToken || 'Auth Token'}
+                                    <span class="dashlytics-label-hint">
+                                        {#if autoConnected && settings.token_auth}
+                                            ({i18n.autoDetected || 'automatisch erkannt'})
+                                        {:else if autoConnected && !settings.token_auth}
+                                            ({i18n.wpAuth || 'WordPress Authentifizierung'})
+                                        {:else}
+                                            ({i18n.apiAccessToken || 'API Zugriffstoken'})
+                                        {/if}
+                                    </span>
+                                </label>
+                                <div class="dashlytics-input-group">
+                                    <input 
+                                        type={autoConnected && !settings.token_auth ? 'password' : 'text'}
+                                        class="dashlytics-input" 
+                                        class:dashlytics-input--readonly={autoConnected || (matomoDetected.installed && settings.token_auth)}
+                                        value={autoConnected && !settings.token_auth
+                                            ? (showToken ? wpAuthPlaceholder : maskToken(wpAuthPlaceholder))
+                                            : (showToken ? settings.token_auth : (settings.token_auth ? maskToken(settings.token_auth) : ''))
+                                        }
+                                        placeholder={i18n.authTokenPlaceholder || 'Ihr Matomo API Token'}
+                                        readonly={autoConnected || (matomoDetected.installed && settings.token_auth)}
+                                        on:input={(e) => { if (!autoConnected && !(matomoDetected.installed && settings.token_auth)) settings.token_auth = e.target.value; }}
+                                    />
                                     <button 
                                         type="button"
-                                        class="dashlytics-btn dashlytics-btn--secondary"
-                                        on:click={detectToken}
-                                        title={i18n.autoDetect || 'Token automatisch erkennen'}
+                                        class="dashlytics-btn dashlytics-btn--icon"
+                                        on:click={() => showToken = !showToken}
+                                        title={showToken ? (i18n.hideToken || 'Token verbergen') : (i18n.showToken || 'Token anzeigen')}
                                     >
-                                        🔍 Auto
+                                        <span class="dashicons" class:dashicons-visibility={!showToken} class:dashicons-hidden={showToken}></span>
                                     </button>
+                                    {#if matomoDetected.installed && !autoConnected && !settings.token_auth}
+                                        <button 
+                                            type="button"
+                                            class="dashlytics-btn dashlytics-btn--secondary"
+                                            on:click={detectToken}
+                                            title={i18n.autoDetect || 'Token automatisch erkennen'}
+                                        >
+                                            <span class="dashicons dashicons-search" aria-hidden="true"></span>
+                                            <span class="screen-reader-text">{i18n.autoDetect || 'Token automatisch erkennen'}</span>
+                                        </button>
+                                    {/if}
+                                </div>
+                                {#if autoConnected && settings.token_auth}
+                                    <p class="dashlytics-field-info">
+                                        <span class="dashicons dashicons-yes" aria-hidden="true"></span>
+                                        {i18n.tokenAutoImported || 'Token wurde automatisch von Matomo for WordPress übernommen'}
+                                    </p>
+                                {:else if autoConnected && !settings.token_auth}
+                                    <p class="dashlytics-field-info">
+                                        <span class="dashicons dashicons-yes" aria-hidden="true"></span>
+                                        {i18n.wpAuthActive || 'WordPress Authentifizierung aktiv'}
+                                    </p>
                                 {/if}
                             </div>
-                            {#if autoConnected && settings.token_auth}
-                                <p class="dashlytics-field-info">
-                                    ✓ {i18n.tokenAutoImported || 'Token wurde automatisch von Matomo for WordPress übernommen'}
-                                </p>
-                            {:else if autoConnected && !settings.token_auth}
-                                <p class="dashlytics-field-info">
-                                    ✓ {i18n.autoConnected || 'WordPress Authentifizierung aktiv - kein Token erforderlich'}
-                                </p>
-                            {/if}
                         </div>
 
                         {#if connectionMessage}
                             <div class="dashlytics-alert" class:dashlytics-alert--success={connectionStatus === 'success'} class:dashlytics-alert--error={connectionStatus === 'error'}>
                                 <span class="dashlytics-alert-icon">
-                                    {connectionStatus === 'success' ? '✓' : '✗'}
+                                    <span class="dashicons" class:dashicons-yes={connectionStatus === 'success'} class:dashicons-no={connectionStatus === 'error'} aria-hidden="true"></span>
                                 </span>
                                 <div class="dashlytics-alert-content">
                                     <p>{connectionMessage}</p>
@@ -634,7 +707,8 @@ onMount(() => {
                                 on:click={resetConnectionTest}
                                 title={i18n.resetConnectionTest || 'Verbindungstest zurücksetzen'}
                             >
-                                🔄 {i18n.reset || 'Zurücksetzen'}
+                                <span class="dashicons dashicons-undo" aria-hidden="true"></span>
+                                {i18n.reset || 'Zurücksetzen'}
                             </button>
                         {/if}
                         <button 
@@ -646,7 +720,16 @@ onMount(() => {
                             aria-busy={testing}
                             aria-live="polite"
                         >
-                            {testing ? '' : '🔄'} {i18n.testConnection || 'Verbindung testen'}
+                            {#if testing}
+                                <span class="dashlytics-btn-spinner" aria-hidden="true"></span>
+                            {:else if connectionStatus === 'success'}
+                                <span class="dashicons dashicons-yes-alt" aria-hidden="true"></span>
+                            {:else if connectionStatus === 'error'}
+                                <span class="dashicons dashicons-warning" aria-hidden="true"></span>
+                            {:else}
+                                <span class="dashicons dashicons-update" aria-hidden="true"></span>
+                            {/if}
+                            {i18n.testConnection || 'Verbindung testen'}
                         </button>
                         <button 
                             type="button"
@@ -657,7 +740,12 @@ onMount(() => {
                             aria-busy={saving}
                             aria-live="polite"
                         >
-                            {saving ? '' : '💾'} {i18n.save || 'Speichern'}
+                            {#if saving}
+                                <span class="dashlytics-btn-spinner" aria-hidden="true"></span>
+                            {:else}
+                                <span class="dashicons dashicons-saved" aria-hidden="true"></span>
+                            {/if}
+                            {i18n.save || 'Speichern'}
                         </button>
                     </div>
                 </div>
@@ -666,33 +754,55 @@ onMount(() => {
                 <div class="dashlytics-card">
                     <div class="dashlytics-card-header">
                         <h2 class="dashlytics-card-title">
-                            <span class="dashlytics-card-icon">📈</span>
-                            {i18n.preview || 'Vorschau'}
+                            <span class="dashlytics-card-icon"><span class="dashicons dashicons-chart-line" aria-hidden="true"></span></span>
+                            {i18n.kpiPreview || 'KPI Vorschau'}
                         </h2>
                     </div>
                     <div class="dashlytics-card-body">
-                        <div class="dashlytics-preview">
-                            <div class="dashlytics-preview-chart" aria-live="polite">
-                                {#if previewLoading}
-                                    <div class="dashlytics-preview-status" role="status">
+                        <div class="dashlytics-metrics-grid">
+                            <div class="dashlytics-metric-card">
+                                <div class="dashlytics-metric-header">
+                                    <span class="dashlytics-metric-icon dashicons dashicons-clock" aria-hidden="true"></span>
+                                    <span class="dashlytics-metric-label">{i18n.avgSessionDuration || 'Ø Verweildauer'}</span>
+                                </div>
+                                <div class="dashlytics-metric-value">
+                                    {#if previewLoading}
                                         <span class="dashlytics-preview-spinner" aria-hidden="true"></span>
-                                        {i18n.loadingPreview || 'Lade Vorschau…'}
-                                    </div>
-                                {:else if previewError || !previewSlice.length}
-                                    <div class="dashlytics-preview-status" role="status">{i18n.noPreviewData || 'Keine Vorschaudaten'}</div>
-                                {:else}
-                                    {#each previewSlice as d, i}
-                                        <div 
-                                            class="dashlytics-preview-bar" 
-                                            style="height: {(d.value / previewMax) * 100}%; background: {settings.chart_color}; animation-delay: {i * 0.1}s;"
-                                            aria-hidden="true"
-                                        ></div>
-                                    {/each}
-                                {/if}
+                                    {:else if previewError || !previewStats}
+                                        -
+                                    {:else}
+                                        {formatTime(previewStats.avgSessionDuration)}
+                                    {/if}
+                                </div>
+                                <p class="dashlytics-metric-hint">{i18n.avgSessionDurationHint || 'Content-Engagement im Zeitraum'}</p>
                             </div>
-                            <p style="color: #666; font-size: 13px;">
-                                {chartTypes.find(t => t.value === settings.chart_type)?.label || i18n.chart || 'Diagramm'}
-                            </p>
+
+                            <div class="dashlytics-metric-card dashlytics-metric-card--coming-soon">
+                                <div class="dashlytics-metric-header">
+                                    <span class="dashlytics-metric-icon dashicons dashicons-chart-pie" aria-hidden="true"></span>
+                                    <span class="dashlytics-metric-label">{i18n.topTrafficSource || 'Top Traffic-Quelle'}</span>
+                                </div>
+                                <div class="dashlytics-metric-value">--</div>
+                                <span class="dashlytics-coming-soon-badge">{i18n.comingSoon || 'Coming soon'}</span>
+                            </div>
+
+                            <div class="dashlytics-metric-card dashlytics-metric-card--coming-soon">
+                                <div class="dashlytics-metric-header">
+                                    <span class="dashlytics-metric-icon dashicons dashicons-admin-page" aria-hidden="true"></span>
+                                    <span class="dashlytics-metric-label">{i18n.pagesPerVisit || 'Seiten/Besuch'}</span>
+                                </div>
+                                <div class="dashlytics-metric-value">--</div>
+                                <span class="dashlytics-coming-soon-badge">{i18n.comingSoon || 'Coming soon'}</span>
+                            </div>
+
+                            <div class="dashlytics-metric-card dashlytics-metric-card--coming-soon">
+                                <div class="dashlytics-metric-header">
+                                    <span class="dashlytics-metric-icon dashicons dashicons-megaphone" aria-hidden="true"></span>
+                                    <span class="dashlytics-metric-label">{i18n.conversionRate || 'Conversion Rate'}</span>
+                                </div>
+                                <div class="dashlytics-metric-value">--</div>
+                                <span class="dashlytics-coming-soon-badge">{i18n.comingSoon || 'Coming soon'}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -705,7 +815,7 @@ onMount(() => {
                 <div class="dashlytics-card">
                     <div class="dashlytics-card-header">
                         <h2 class="dashlytics-card-title">
-                            <span class="dashlytics-card-icon">📊</span>
+                            <span class="dashlytics-card-icon"><span class="dashicons dashicons-admin-customizer" aria-hidden="true"></span></span>
                             {i18n.chartSettings || 'Chart Einstellungen'}
                         </h2>
                     </div>
@@ -721,7 +831,7 @@ onMount(() => {
                                             value={type.value}
                                             bind:group={settings.chart_type}
                                         />
-                                        <span class="dashlytics-chart-type-icon">{type.icon}</span>
+                                        <span class="dashlytics-chart-type-icon dashicons {type.iconClass}" aria-hidden="true"></span>
                                         <span class="dashlytics-chart-type-label">{type.label}</span>
                                     </label>
                                 {/each}
@@ -755,8 +865,15 @@ onMount(() => {
                             on:click={saveSettings}
                             disabled={saving}
                             class:dashlytics-btn--loading={saving}
+                            aria-busy={saving}
+                            aria-live="polite"
                         >
-                            {saving ? '' : '💾'} {i18n.save || 'Speichern'}
+                            {#if saving}
+                                <span class="dashlytics-btn-spinner" aria-hidden="true"></span>
+                            {:else}
+                                <span class="dashicons dashicons-saved" aria-hidden="true"></span>
+                            {/if}
+                            {i18n.save || 'Speichern'}
                         </button>
                     </div>
                 </div>
@@ -765,12 +882,12 @@ onMount(() => {
                 <div class="dashlytics-card">
                     <div class="dashlytics-card-header">
                         <h2 class="dashlytics-card-title">
-                            <span class="dashlytics-card-icon">👁️</span>
+                            <span class="dashlytics-card-icon"><span class="dashicons dashicons-visibility" aria-hidden="true"></span></span>
                             {i18n.livePreview || 'Live Vorschau'}
                         </h2>
                     </div>
                     <div class="dashlytics-card-body">
-                        <div class="dashlytics-preview" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                        <div class="dashlytics-preview dashlytics-preview--live" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
                             <div class="dashlytics-preview-chart" aria-live="polite">
                                 {#if previewLoading}
                                     <div class="dashlytics-preview-status" role="status">
@@ -781,19 +898,21 @@ onMount(() => {
                                     <div class="dashlytics-preview-status">{i18n.noPreviewData || 'Keine Vorschaudaten'}</div>
                                 {:else if settings.chart_type === 'line'}
                                     <!-- Line chart with real points -->
-                                    <svg viewBox="0 0 140 80" style="width: 100%; height: 100px;">
+                                    <svg class="dashlytics-preview-svg" viewBox="0 0 140 80" aria-label={chartTypes.find(t => t.value === 'line')?.label || 'Liniendiagramm'}>
                                         {#if previewLinePoints}
                                             <polyline 
                                                 fill="none" 
                                                 stroke="{settings.chart_color}" 
-                                                stroke-width="2"
+                                                stroke-width="2.5"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
                                                 points={previewLinePoints}
                                             />
                                         {/if}
                                         {#each previewSlice as d, i}
                                             {@const x = 10 + (i / Math.max(previewSlice.length - 1, 1)) * 120}
                                             {@const y = 70 - ((d.value / previewMax) * 60)}
-                                            <circle cx={x} cy={y} r="4" fill="{settings.chart_color}"/>
+                                            <circle cx={x} cy={y} r="3.5" fill="{settings.chart_color}"/>
                                         {/each}
                                     </svg>
                                 {:else if settings.chart_type === 'bar'}
@@ -802,16 +921,25 @@ onMount(() => {
                                         <div 
                                             class="dashlytics-preview-bar" 
                                             style="height: {(d.value / previewMax) * 100}%; background: {settings.chart_color}; border-radius: 4px 4px 0 0; width: 20px; animation-delay: {i * 0.1}s;"
+                                            role="img"
+                                            aria-label="{d.label}: {d.value}"
                                         ></div>
                                     {/each}
                                 {:else}
                                     <!-- Pie chart with real shares -->
-                                    <div style="width: 120px; height: 120px; border-radius: 50%; background: conic-gradient({previewPieGradient});"></div>
+                                    <div class="dashlytics-preview-pie" style="background: conic-gradient({previewPieGradient});"></div>
                                 {/if}
                             </div>
-                            <p style="margin: 16px 0 0; color: #666; font-size: 13px;">
-                                {chartTypes.find(t => t.value === settings.chart_type)?.label || i18n.chart || 'Diagramm'}
-                            </p>
+                            <div class="dashlytics-preview-meta">
+                                <span class="dashlytics-preview-type">
+                                    <span class="dashicons {chartTypes.find(t => t.value === settings.chart_type)?.iconClass || 'dashicons-chart-line'}" aria-hidden="true"></span>
+                                    {chartTypes.find(t => t.value === settings.chart_type)?.label || i18n.chart || 'Diagramm'}
+                                </span>
+                                <span class="dashlytics-preview-color">
+                                    <span class="dashlytics-preview-color-dot" style="background: {settings.chart_color};"></span>
+                                    {settings.chart_color}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1138,5 +1266,172 @@ onMount(() => {
         to {
             transform: scaleY(1);
         }
+    }
+
+    /* Form row: Site ID + Auth Token side by side */
+    .dashlytics-form-row {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 16px;
+        align-items: start;
+    }
+
+    @media (max-width: 600px) {
+        .dashlytics-form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .dashlytics-form-group--compact {
+        margin-bottom: 0;
+    }
+
+    .dashlytics-form-group--grow {
+        margin-bottom: 0;
+    }
+
+    .dashlytics-input--compact {
+        max-width: 100%;
+    }
+
+    /* KPI preview metric cards */
+    .dashlytics-metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+        .dashlytics-metrics-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .dashlytics-metric-card {
+        position: relative;
+        padding: 20px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .dashlytics-metric-card:not(.dashlytics-metric-card--coming-soon):hover {
+        border-color: #2271b1;
+        box-shadow: 0 4px 12px rgba(34, 113, 177, 0.08);
+    }
+
+    .dashlytics-metric-card--coming-soon {
+        background: #f8fafc;
+        border-style: dashed;
+        filter: blur(0.4px);
+        opacity: 0.75;
+    }
+
+    .dashlytics-metric-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .dashlytics-metric-icon {
+        color: #2271b1;
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .dashlytics-metric-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #64748b;
+    }
+
+    .dashlytics-metric-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1e293b;
+        line-height: 1.2;
+        min-height: 34px;
+        display: flex;
+        align-items: center;
+    }
+
+    .dashlytics-metric-hint {
+        margin: 8px 0 0;
+        font-size: 12px;
+        color: #94a3b8;
+    }
+
+    .dashlytics-coming-soon-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        padding: 3px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        color: #64748b;
+        background: #f1f5f9;
+        border-radius: 999px;
+    }
+
+    /* Live preview enhancements */
+    .dashlytics-preview--live .dashlytics-preview-svg {
+        width: 100%;
+        height: 120px;
+        overflow: visible;
+    }
+
+    .dashlytics-preview-pie {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+    }
+
+    .dashlytics-preview-meta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #e2e8f0;
+        font-size: 13px;
+        color: #64748b;
+    }
+
+    .dashlytics-preview-type {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 500;
+    }
+
+    .dashlytics-preview-color {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: monospace;
+    }
+
+    .dashlytics-preview-color-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Chart type selector with Dashicons */
+    .dashlytics-chart-type-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #2271b1;
     }
 </style>
