@@ -42,3 +42,4 @@ app/public/build/
 # (hosted separately for matt-interfaces.ch).
 divi5/
 *.xcf
+.wordpress-org/*.webp
