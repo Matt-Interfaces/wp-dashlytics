@@ -143,6 +143,13 @@ class Dashlytics {
 				DASHLYTICS_VERSION
 			);
 
+			wp_enqueue_style(
+				'dashlytics-settings-bundle',
+				DASHLYTICS_PLUGIN_URL . 'app/public/build/bundle.css',
+				array( 'dashlytics-admin' ),
+				DASHLYTICS_VERSION
+			);
+
 			wp_enqueue_script(
 				'dashlytics-settings',
 				DASHLYTICS_PLUGIN_URL . 'app/public/build/settings.js',
