@@ -801,17 +801,6 @@ onMount(() => {
                                         </button>
                                     {/if}
                                 </div>
-                                {#if autoConnected && settings.token_auth}
-                                    <p class="dashlytics-field-info">
-                                        <span class="dashicons dashicons-yes" aria-hidden="true"></span>
-                                        {i18n.tokenAutoImported || 'Token wurde automatisch von Matomo for WordPress übernommen'}
-                                    </p>
-                                {:else if autoConnected && !settings.token_auth}
-                                    <p class="dashlytics-field-info">
-                                        <span class="dashicons dashicons-yes" aria-hidden="true"></span>
-                                        {i18n.wpAuthActive || 'WordPress Authentifizierung aktiv'}
-                                    </p>
-                                {/if}
                             </div>
                         </div>
 
@@ -945,7 +934,7 @@ onMount(() => {
                             </div>
                         </div>
 
-                        <div class="dashlytics-form-row dashlytics-form-row--equal">
+                        <div class="dashlytics-form-row">
                             <div class="dashlytics-form-group">
                                 <label class="dashlytics-label" for="dashlytics-chart-color">{i18n.primaryColor || 'Hauptfarbe'}</label>
                                 <div class="dashlytics-color-picker">
@@ -1218,12 +1207,6 @@ onMount(() => {
         letter-spacing: 1px;
     }
 
-    .dashlytics-field-info {
-        margin: 8px 0 0;
-        font-size: 12px;
-        color: #00a32a;
-    }
-
     /* Features Section */
     .dashlytics-features-section {
         margin-top: 24px;
@@ -1345,16 +1328,8 @@ onMount(() => {
         align-items: start;
     }
 
-    .dashlytics-form-row--equal {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     @media (max-width: 600px) {
         .dashlytics-form-row {
-            grid-template-columns: 1fr;
-        }
-
-        .dashlytics-form-row--equal {
             grid-template-columns: 1fr;
         }
     }
@@ -1365,6 +1340,7 @@ onMount(() => {
     }
 
     .dashlytics-input--compact {
+        width: 100%;
         max-width: 100%;
     }
 
