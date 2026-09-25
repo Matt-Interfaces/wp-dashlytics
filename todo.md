@@ -30,6 +30,6 @@
 - [x] Plugin-ZIP via `build-plugin.sh` erstellt
 
 ## Offen / Nächste Schritte
+- [x] Commit & Push (erledigt: `e966944`)
+- [x] Handling für untracked PNGs im Repo-Root geprüft — Dateien sind nicht mehr vorhanden
 - [ ] Browser-Verifikation auf WP-Admin Einstellungsseite
-- [ ] Commit & Push
-- [ ] Handling für untracked PNGs im Repo-Root klären (`example-cards.png`, `dashlytics-ist-stand.png`)
