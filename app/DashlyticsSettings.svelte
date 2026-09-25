@@ -945,25 +945,27 @@ onMount(() => {
                             </div>
                         </div>
 
-                        <div class="dashlytics-form-group">
-                            <label class="dashlytics-label" for="dashlytics-chart-color">{i18n.primaryColor || 'Hauptfarbe'}</label>
-                            <div class="dashlytics-color-picker">
-                                <input id="dashlytics-chart-color" 
-                                    type="color" 
-                                    class="dashlytics-color-input"
-                                    bind:value={settings.chart_color}
-                                />
-                                <span class="dashlytics-color-value">{settings.chart_color}</span>
+                        <div class="dashlytics-form-row dashlytics-form-row--equal">
+                            <div class="dashlytics-form-group">
+                                <label class="dashlytics-label" for="dashlytics-chart-color">{i18n.primaryColor || 'Hauptfarbe'}</label>
+                                <div class="dashlytics-color-picker">
+                                    <input id="dashlytics-chart-color" 
+                                        type="color" 
+                                        class="dashlytics-color-input"
+                                        bind:value={settings.chart_color}
+                                    />
+                                    <span class="dashlytics-color-value">{settings.chart_color}</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="dashlytics-form-group">
-                            <label class="dashlytics-label" for="dashlytics-date-range">{i18n.defaultPeriod || 'Standard Zeitraum'}</label>
-                            <select id="dashlytics-date-range" class="dashlytics-select" bind:value={settings.date_range}>
-                                {#each dateRanges as range}
-                                    <option value={range.value}>{range.label}</option>
-                                {/each}
-                            </select>
+                            <div class="dashlytics-form-group">
+                                <label class="dashlytics-label" for="dashlytics-date-range">{i18n.defaultPeriod || 'Standard Zeitraum'}</label>
+                                <select id="dashlytics-date-range" class="dashlytics-select" bind:value={settings.date_range}>
+                                    {#each dateRanges as range}
+                                        <option value={range.value}>{range.label}</option>
+                                    {/each}
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="dashlytics-card-footer">
@@ -1006,16 +1008,6 @@ onMount(() => {
                                 {:else}
                                     <canvas bind:this={previewCanvas} class="dashlytics-preview-canvas"></canvas>
                                 {/if}
-                            </div>
-                            <div class="dashlytics-preview-meta">
-                                <span class="dashlytics-preview-type">
-                                    <span class="dashicons {chartTypes.find(t => t.value === settings.chart_type)?.iconClass || 'dashicons-chart-line'}" aria-hidden="true"></span>
-                                    {chartTypes.find(t => t.value === settings.chart_type)?.label || i18n.chart || 'Diagramm'}
-                                </span>
-                                <span class="dashlytics-preview-color">
-                                    <span class="dashlytics-preview-color-dot" style="background: {settings.chart_color};"></span>
-                                    {settings.chart_color}
-                                </span>
                             </div>
                         </div>
                     </div>
@@ -1348,21 +1340,26 @@ onMount(() => {
     /* Form row: Site ID + Auth Token side by side */
     .dashlytics-form-row {
         display: grid;
-        grid-template-columns: 120px 1fr;
+        grid-template-columns: 1fr 2fr;
         gap: 16px;
         align-items: start;
+    }
+
+    .dashlytics-form-row--equal {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     @media (max-width: 600px) {
         .dashlytics-form-row {
             grid-template-columns: 1fr;
         }
+
+        .dashlytics-form-row--equal {
+            grid-template-columns: 1fr;
+        }
     }
 
-    .dashlytics-form-group--compact {
-        margin-bottom: 0;
-    }
-
+    .dashlytics-form-group--compact,
     .dashlytics-form-group--grow {
         margin-bottom: 0;
     }
@@ -1390,45 +1387,45 @@ onMount(() => {
         flex-direction: column;
         min-height: 152px;
         padding: 24px;
-        background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-        border: 1px solid rgba(226, 232, 240, 0.8);
-        border-radius: 18px;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        transition: all 0.2s ease;
         box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
         overflow: hidden;
     }
 
-    .dashlytics-metric-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #2271b1 0%, #4f94d4 100%);
-        opacity: 0;
-        transition: opacity 0.25s ease;
-    }
-
     .dashlytics-metric-card:not(.dashlytics-metric-card--coming-soon):hover {
-        transform: translateY(-4px);
-        box-shadow: 0 16px 36px rgba(34, 113, 177, 0.12), 0 4px 10px rgba(34, 113, 177, 0.06);
-        border-color: rgba(34, 113, 177, 0.25);
-    }
-
-    .dashlytics-metric-card:not(.dashlytics-metric-card--coming-soon):hover::before {
-        opacity: 1;
+        border-color: #2271b1;
+        box-shadow: 0 4px 12px rgba(34, 113, 177, 0.1);
+        transform: translateY(-2px);
     }
 
     .dashlytics-metric-card--coming-soon {
         background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
         border-style: dashed;
         opacity: 0.72;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .dashlytics-metric-card--coming-soon .dashlytics-metric-header {
+        margin-bottom: 12px;
+        justify-content: center;
     }
 
     .dashlytics-metric-card--coming-soon .dashlytics-metric-value {
         color: #94a3b8;
         font-weight: 500;
+        margin-top: 0;
+        margin-bottom: 12px;
+        min-height: auto;
+    }
+
+    .dashlytics-metric-card--coming-soon .dashlytics-coming-soon-badge {
+        position: static;
+        margin-top: 4px;
     }
 
     .dashlytics-metric-header {
@@ -1477,9 +1474,8 @@ onMount(() => {
     }
 
     .dashlytics-coming-soon-badge {
-        position: absolute;
-        top: 18px;
-        right: 18px;
+        display: inline-flex;
+        align-items: center;
         padding: 4px 10px;
         font-size: 10px;
         font-weight: 700;
@@ -1505,39 +1501,6 @@ onMount(() => {
         left: 0;
         width: 100% !important;
         height: 100% !important;
-    }
-
-    .dashlytics-preview-meta {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        margin-top: 16px;
-        padding-top: 16px;
-        border-top: 1px solid #e2e8f0;
-        font-size: 13px;
-        color: #64748b;
-    }
-
-    .dashlytics-preview-type {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-weight: 500;
-    }
-
-    .dashlytics-preview-color {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-family: monospace;
-    }
-
-    .dashlytics-preview-color-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        border: 1px solid rgba(0,0,0,0.1);
     }
 
     /* Chart type selector with Dashicons */
