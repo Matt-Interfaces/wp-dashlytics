@@ -1,6 +1,7 @@
 <script>
-import { onMount } from "svelte";
+import { onMount, onDestroy } from "svelte";
 import { fade } from "svelte/transition";
+import { Chart } from 'chart.js/auto';
 
 // Global WordPress data
 const wpData = window.dashlyticsAdmin || {};
@@ -40,6 +41,8 @@ const wpAuthPlaceholder = generatePlaceholderToken();
 let previewLoading = false;
 let previewError = null;
 let previewData = [];
+let previewCanvas;
+let previewChart = null;
 
 // Helpers
 function generatePlaceholderToken() {
@@ -269,26 +272,150 @@ $: previewStats = (() => {
     };
 })();
 
-// Line-chart points for SVG
-$: previewLinePoints = previewSlice.map((d, i) => {
-    const count = previewSlice.length || 1;
-    const x = 10 + (i / Math.max(count - 1, 1)) * 120;
-    const y = 70 - ((d.value / previewMax) * 60);
-    return `${x},${y}`;
-}).join(' ');
+// Format preview date labels
+function formatPreviewLabel(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return dateStr;
+    return date.toLocaleDateString(i18n.locale || 'de-DE', { day: '2-digit', month: '2-digit' });
+}
 
-// Kreisdiagramm-Farbverlauf
-$: previewPieGradient = (() => {
-    if (!previewData.length) return 'transparent';
-    const total = previewData.reduce((sum, d) => sum + (d.value || 0), 0) || 1;
-    let acc = 0;
-    return previewData.map((d, i) => {
-        const start = acc;
-        acc += ((d.value || 0) / total) * 100;
-        const color = i === 0 ? settings.chart_color : (i % 2 === 0 ? settings.chart_color + 'cc' : '#d1d5db');
-        return `${color} ${start.toFixed(2)}% ${acc.toFixed(2)}%`;
-    }).join(', ');
-})();
+function safeHex(color) {
+    if (!color || color[0] !== '#') return '#2271b1';
+    return color.length === 4 ? '#' + color[1] + color[1] + color[2] + color[2] + color[3] + color[3] : color;
+}
+
+function createPreviewGradient(ctx, color) {
+    const safeColor = safeHex(color);
+    const gradient = ctx.createLinearGradient(0, 0, 0, 220);
+    gradient.addColorStop(0, safeColor + '50');
+    gradient.addColorStop(1, safeColor + '08');
+    return gradient;
+}
+
+function generatePreviewColors(length, baseColor) {
+    const safeBase = safeHex(baseColor);
+    const colors = [];
+    for (let i = 0; i < length; i++) {
+        const opacity = 0.55 + (i / Math.max(length, 1)) * 0.45;
+        colors.push(safeBase + Math.round(opacity * 255).toString(16).padStart(2, '0'));
+    }
+    return colors;
+}
+
+function createPreviewChart() {
+    if (!previewCanvas || previewLoading || previewError || !previewData.length) return;
+
+    const ctx = previewCanvas.getContext('2d');
+    if (previewChart) {
+        previewChart.destroy();
+        previewChart = null;
+    }
+
+    const isPie = settings.chart_type === 'pie';
+    const labels = isPie
+        ? previewData.map(d => d.label)
+        : previewSlice.map(d => formatPreviewLabel(d.label));
+    const data = isPie
+        ? previewData.map(d => d.value)
+        : previewSlice.map(d => d.value);
+
+    const datasetLabel = isPie ? (i18n.osFamilies || 'OS-Familien') : (i18n.visits || 'Besuche');
+
+    previewChart = new Chart(ctx, {
+        type: settings.chart_type,
+        data: {
+            labels,
+            datasets: [{
+                label: datasetLabel,
+                data,
+                borderColor: isPie ? '#ffffff' : settings.chart_color,
+                backgroundColor: settings.chart_type === 'line'
+                    ? createPreviewGradient(ctx, settings.chart_color)
+                    : generatePreviewColors(data.length, settings.chart_color),
+                tension: 0.4,
+                fill: settings.chart_type === 'line',
+                borderWidth: settings.chart_type === 'line' ? 3 : 0,
+                pointRadius: settings.chart_type === 'line' ? 4 : 0,
+                pointBackgroundColor: settings.chart_color,
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointHoverRadius: 6,
+                borderRadius: settings.chart_type === 'bar' ? 6 : 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 700,
+                easing: 'easeOutQuart'
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            },
+            plugins: {
+                legend: {
+                    display: isPie,
+                    position: 'bottom',
+                    labels: {
+                        padding: 12,
+                        usePointStyle: true,
+                        font: { size: 11 }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                    padding: 12,
+                    titleFont: { size: 12, weight: '600' },
+                    bodyFont: { size: 12 },
+                    cornerRadius: 8,
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            const value = context.parsed.y !== undefined ? context.parsed.y : context.parsed;
+                            return `${datasetLabel}: ${value}`;
+                        }
+                    }
+                }
+            },
+            scales: isPie ? {} : {
+                x: {
+                    grid: { display: false },
+                    ticks: {
+                        font: { size: 10, weight: '500' },
+                        color: '#64748b',
+                        maxRotation: 0,
+                        autoSkip: true,
+                        maxTicksLimit: 7
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0,0,0,0.04)', drawBorder: false },
+                    ticks: {
+                        font: { size: 10, weight: '500' },
+                        color: '#64748b',
+                        padding: 6
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Recreate chart whenever data, type or color changes
+$: if (previewCanvas && !previewLoading && previewData.length) {
+    createPreviewChart();
+}
+
+onDestroy(() => {
+    if (previewChart) {
+        previewChart.destroy();
+        previewChart = null;
+    }
+});
 
 // Test connection to Matomo
 async function testConnection(silent = false) {
@@ -713,26 +840,6 @@ onMount(() => {
                         {/if}
                         <button 
                             type="button"
-                            class="dashlytics-btn dashlytics-btn--secondary"
-                            on:click={testConnection}
-                            disabled={testing}
-                            class:dashlytics-btn--loading={testing}
-                            aria-busy={testing}
-                            aria-live="polite"
-                        >
-                            {#if testing}
-                                <span class="dashlytics-btn-spinner" aria-hidden="true"></span>
-                            {:else if connectionStatus === 'success'}
-                                <span class="dashicons dashicons-yes-alt" aria-hidden="true"></span>
-                            {:else if connectionStatus === 'error'}
-                                <span class="dashicons dashicons-warning" aria-hidden="true"></span>
-                            {:else}
-                                <span class="dashicons dashicons-update" aria-hidden="true"></span>
-                            {/if}
-                            {i18n.testConnection || 'Verbindung testen'}
-                        </button>
-                        <button 
-                            type="button"
                             class="dashlytics-btn dashlytics-btn--primary"
                             on:click={saveSettings}
                             disabled={saving}
@@ -888,46 +995,16 @@ onMount(() => {
                     </div>
                     <div class="dashlytics-card-body">
                         <div class="dashlytics-preview dashlytics-preview--live" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-                            <div class="dashlytics-preview-chart" aria-live="polite">
+                            <div class="dashlytics-preview-chart dashlytics-preview-chart--canvas" aria-live="polite">
                                 {#if previewLoading}
                                     <div class="dashlytics-preview-status" role="status">
                                         <span class="dashlytics-preview-spinner" aria-hidden="true"></span>
                                         {i18n.loadingPreview || 'Lade Vorschau…'}
                                     </div>
-                                {:else if previewError || !previewSlice.length}
+                                {:else if previewError || !previewData.length}
                                     <div class="dashlytics-preview-status">{i18n.noPreviewData || 'Keine Vorschaudaten'}</div>
-                                {:else if settings.chart_type === 'line'}
-                                    <!-- Line chart with real points -->
-                                    <svg class="dashlytics-preview-svg" viewBox="0 0 140 80" aria-label={chartTypes.find(t => t.value === 'line')?.label || 'Liniendiagramm'}>
-                                        {#if previewLinePoints}
-                                            <polyline 
-                                                fill="none" 
-                                                stroke="{settings.chart_color}" 
-                                                stroke-width="2.5"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                points={previewLinePoints}
-                                            />
-                                        {/if}
-                                        {#each previewSlice as d, i}
-                                            {@const x = 10 + (i / Math.max(previewSlice.length - 1, 1)) * 120}
-                                            {@const y = 70 - ((d.value / previewMax) * 60)}
-                                            <circle cx={x} cy={y} r="3.5" fill="{settings.chart_color}"/>
-                                        {/each}
-                                    </svg>
-                                {:else if settings.chart_type === 'bar'}
-                                    <!-- Bar chart with real data -->
-                                    {#each previewSlice as d, i}
-                                        <div 
-                                            class="dashlytics-preview-bar" 
-                                            style="height: {(d.value / previewMax) * 100}%; background: {settings.chart_color}; border-radius: 4px 4px 0 0; width: 20px; animation-delay: {i * 0.1}s;"
-                                            role="img"
-                                            aria-label="{d.label}: {d.value}"
-                                        ></div>
-                                    {/each}
                                 {:else}
-                                    <!-- Pie chart with real shares -->
-                                    <div class="dashlytics-preview-pie" style="background: conic-gradient({previewPieGradient});"></div>
+                                    <canvas bind:this={previewCanvas} class="dashlytics-preview-canvas"></canvas>
                                 {/if}
                             </div>
                             <div class="dashlytics-preview-meta">
@@ -1309,86 +1386,121 @@ onMount(() => {
 
     .dashlytics-metric-card {
         position: relative;
-        padding: 20px;
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        transition: all 0.2s ease;
+        padding: 22px;
+        background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        border-radius: 16px;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
+        overflow: hidden;
+    }
+
+    .dashlytics-metric-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #2271b1 0%, #4f94d4 100%);
+        opacity: 0;
+        transition: opacity 0.25s ease;
     }
 
     .dashlytics-metric-card:not(.dashlytics-metric-card--coming-soon):hover {
-        border-color: #2271b1;
-        box-shadow: 0 4px 12px rgba(34, 113, 177, 0.08);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(34, 113, 177, 0.12), 0 4px 8px rgba(34, 113, 177, 0.06);
+        border-color: rgba(34, 113, 177, 0.2);
+    }
+
+    .dashlytics-metric-card:not(.dashlytics-metric-card--coming-soon):hover::before {
+        opacity: 1;
     }
 
     .dashlytics-metric-card--coming-soon {
-        background: #f8fafc;
+        background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
         border-style: dashed;
-        filter: blur(0.4px);
-        opacity: 0.75;
+        opacity: 0.72;
+    }
+
+    .dashlytics-metric-card--coming-soon .dashlytics-metric-value {
+        color: #94a3b8;
+        font-weight: 500;
     }
 
     .dashlytics-metric-header {
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
+        gap: 10px;
+        margin-bottom: 14px;
     }
 
     .dashlytics-metric-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background: rgba(34, 113, 177, 0.1);
         color: #2271b1;
-        font-size: 18px;
-        width: 18px;
-        height: 18px;
+        border-radius: 10px;
+        font-size: 16px;
     }
 
     .dashlytics-metric-label {
         font-size: 13px;
-        font-weight: 500;
-        color: #64748b;
+        font-weight: 600;
+        color: #475569;
+        letter-spacing: 0.15px;
     }
 
     .dashlytics-metric-value {
-        font-size: 28px;
-        font-weight: 700;
+        font-size: 32px;
+        font-weight: 800;
         color: #1e293b;
-        line-height: 1.2;
-        min-height: 34px;
+        line-height: 1.1;
+        min-height: 38px;
         display: flex;
         align-items: center;
+        letter-spacing: -0.5px;
     }
 
     .dashlytics-metric-hint {
-        margin: 8px 0 0;
+        margin: 10px 0 0;
         font-size: 12px;
         color: #94a3b8;
+        line-height: 1.4;
     }
 
     .dashlytics-coming-soon-badge {
         position: absolute;
-        top: 12px;
-        right: 12px;
-        padding: 3px 8px;
-        font-size: 11px;
-        font-weight: 600;
+        top: 14px;
+        right: 14px;
+        padding: 4px 10px;
+        font-size: 10px;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.5px;
         color: #64748b;
-        background: #f1f5f9;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #e2e8f0;
         border-radius: 999px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
 
     /* Live preview enhancements */
-    .dashlytics-preview--live .dashlytics-preview-svg {
+    .dashlytics-preview-chart--canvas {
+        position: relative;
         width: 100%;
-        height: 120px;
-        overflow: visible;
+        height: 240px;
     }
 
-    .dashlytics-preview-pie {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
+    .dashlytics-preview-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
     }
 
     .dashlytics-preview-meta {

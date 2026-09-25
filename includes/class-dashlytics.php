@@ -903,25 +903,33 @@ class Dashlytics {
 		if ( $auto_wp ) {
 			$matomo = $this->detect_matomo_plugin();
 			if ( $matomo['installed'] ) {
-				// Try a single short internal API call to confirm runtime.
-				$wp_check = $this->get_matomo_wp_analytics(
-					(object) array(
-						'get_param' => function ( $key ) use ( $site_id ) {
-							$map = array(
-								'date'   => 'today',
-								'period' => 'day',
-							);
-							return isset( $map[ $key ] ) ? $map[ $key ] : $site_id;
-						},
-					)
-				);
-
-				if ( ! is_wp_error( $wp_check ) ) {
-					return rest_ensure_response(
-						array(
-							'success' => true,
-							'message' => __( 'Matomo for WordPress verbunden.', 'dashlytics-matomo-analytics-widget' ),
+				try {
+					// Try a single short internal API call to confirm runtime.
+					$wp_check = $this->get_matomo_wp_analytics(
+						(object) array(
+							'get_param' => function ( $key ) use ( $site_id ) {
+								$map = array(
+									'date'   => 'today',
+									'period' => 'day',
+								);
+								return isset( $map[ $key ] ) ? $map[ $key ] : $site_id;
+							},
 						)
+					);
+
+					if ( ! is_wp_error( $wp_check ) ) {
+						return rest_ensure_response(
+							array(
+								'success' => true,
+								'message' => __( 'Matomo for WordPress verbunden.', 'dashlytics-matomo-analytics-widget' ),
+							)
+						);
+					}
+				} catch ( \Exception $e ) {
+					return new WP_Error(
+						'matomo_wp_test_failed',
+						$e->getMessage(),
+						array( 'status' => 500 )
 					);
 				}
 			}

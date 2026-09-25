@@ -801,16 +801,16 @@
 
 .dashlytics-detection-icon {
     flex-shrink: 0;
-    width: 52px;
-    height: 52px;
+    width: 80px;
+    height: 80px;
     background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
     color: var(--dashlytics-white);
-    border-radius: 14px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+    font-size: 40px;
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.28);
 }
 
 .dashlytics-detection--success .dashlytics-detection-icon {
