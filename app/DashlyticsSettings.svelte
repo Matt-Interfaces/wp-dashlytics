@@ -1371,11 +1371,11 @@ onMount(() => {
         max-width: 100%;
     }
 
-    /* KPI preview metric cards */
+    /* KPI preview metric cards - BI dashboard style */
     .dashlytics-metrics-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
+        gap: 20px;
     }
 
     @media (max-width: 600px) {
@@ -1386,10 +1386,13 @@ onMount(() => {
 
     .dashlytics-metric-card {
         position: relative;
-        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        min-height: 152px;
+        padding: 24px;
         background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
         border: 1px solid rgba(226, 232, 240, 0.8);
-        border-radius: 16px;
+        border-radius: 18px;
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
         overflow: hidden;
@@ -1408,9 +1411,9 @@ onMount(() => {
     }
 
     .dashlytics-metric-card:not(.dashlytics-metric-card--coming-soon):hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 28px rgba(34, 113, 177, 0.12), 0 4px 8px rgba(34, 113, 177, 0.06);
-        border-color: rgba(34, 113, 177, 0.2);
+        transform: translateY(-4px);
+        box-shadow: 0 16px 36px rgba(34, 113, 177, 0.12), 0 4px 10px rgba(34, 113, 177, 0.06);
+        border-color: rgba(34, 113, 177, 0.25);
     }
 
     .dashlytics-metric-card:not(.dashlytics-metric-card--coming-soon):hover::before {
@@ -1431,42 +1434,43 @@ onMount(() => {
     .dashlytics-metric-header {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 14px;
+        gap: 12px;
+        margin-bottom: 18px;
     }
 
     .dashlytics-metric-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        height: 32px;
+        width: 38px;
+        height: 38px;
         background: rgba(34, 113, 177, 0.1);
         color: #2271b1;
-        border-radius: 10px;
-        font-size: 16px;
+        border-radius: 12px;
+        font-size: 20px;
     }
 
     .dashlytics-metric-label {
         font-size: 13px;
         font-weight: 600;
         color: #475569;
-        letter-spacing: 0.15px;
+        letter-spacing: 0.2px;
     }
 
     .dashlytics-metric-value {
-        font-size: 32px;
+        font-size: 34px;
         font-weight: 800;
         color: #1e293b;
-        line-height: 1.1;
-        min-height: 38px;
+        line-height: 1.05;
+        min-height: 42px;
         display: flex;
         align-items: center;
-        letter-spacing: -0.5px;
+        letter-spacing: -0.8px;
+        margin-top: auto;
     }
 
     .dashlytics-metric-hint {
-        margin: 10px 0 0;
+        margin: 14px 0 0;
         font-size: 12px;
         color: #94a3b8;
         line-height: 1.4;
@@ -1474,8 +1478,8 @@ onMount(() => {
 
     .dashlytics-coming-soon-badge {
         position: absolute;
-        top: 14px;
-        right: 14px;
+        top: 18px;
+        right: 18px;
         padding: 4px 10px;
         font-size: 10px;
         font-weight: 700;

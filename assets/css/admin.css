@@ -801,17 +801,25 @@
 
 .dashlytics-detection-icon {
     flex-shrink: 0;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
     color: var(--dashlytics-white);
-    border-radius: 20px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 40px;
-    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.28);
+    box-shadow: 0 6px 18px rgba(14, 165, 233, 0.26);
 }
+
+.dashlytics-detection-icon .dashicons,
+.dashlytics-detection-icon .dashlytics-detection-spinner {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    line-height: 1;
+}
+
 
 .dashlytics-detection--success .dashlytics-detection-icon {
     background: linear-gradient(135deg, var(--dashlytics-success) 0%, #008a24 100%);
@@ -857,9 +865,9 @@
     color: #7f1d1d;
 }
 
-.dashlytics-detection-spinner {
-    width: 22px;
-    height: 22px;
+.dashlytics-detection-icon .dashlytics-detection-spinner {
+    width: 26px;
+    height: 26px;
     border: 3px solid rgba(255, 255, 255, 0.4);
     border-right-color: transparent;
     border-radius: 50%;
