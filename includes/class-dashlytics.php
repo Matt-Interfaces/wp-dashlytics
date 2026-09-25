@@ -183,7 +183,7 @@ class Dashlytics {
 						'last60days'             => __( 'Letzte 60 Tage', 'dashlytics-matomo-analytics-widget' ),
 						'last90days'             => __( 'Letzte 90 Tage', 'dashlytics-matomo-analytics-widget' ),
 						'connection'             => __( 'Verbindung', 'dashlytics-matomo-analytics-widget' ),
-						'display'                => __( 'Anzeige', 'dashlytics-matomo-analytics-widget' ),
+						'settings'               => __( 'Einstellungen', 'dashlytics-matomo-analytics-widget' ),
 						'matomoUrl'              => __( 'Matomo URL', 'dashlytics-matomo-analytics-widget' ),
 						'siteId'                 => __( 'Site ID', 'dashlytics-matomo-analytics-widget' ),
 						'authToken'              => __( 'Auth Token', 'dashlytics-matomo-analytics-widget' ),

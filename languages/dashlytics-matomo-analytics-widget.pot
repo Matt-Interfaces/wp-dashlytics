@@ -303,7 +303,7 @@ msgid "Verbindung"
 msgstr ""
 
 #: includes/class-dashlytics.php:193
-msgid "Anzeige"
+msgid "Einstellungen"
 msgstr ""
 
 #: includes/class-dashlytics.php:194

@@ -2,6 +2,7 @@
 import { onMount, onDestroy } from "svelte";
 import { fade } from "svelte/transition";
 import { Chart } from 'chart.js/auto';
+import DashlyticsInput from './components/DashlyticsInput.svelte';
 
 // Global WordPress data
 const wpData = window.dashlyticsAdmin || {};
@@ -30,7 +31,7 @@ let autoConnecting = false;
 let connectionStatus = null; // null, 'success', 'error'
 let connectionMessage = '';
 let toast = null;
-let activeTab = 'connection';
+let activeTab = 'settings';
 let showToken = false;
 let autoConnected = false;
 
@@ -52,19 +53,6 @@ function generatePlaceholderToken() {
         token += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return token;
-}
-
-function formatTime(seconds) {
-    if (!seconds) return '0:00';
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-}
-
-function formatPercent(value) {
-    if (value === undefined || value === null || value === '') return '0%';
-    const num = typeof value === 'string' ? parseFloat(value.replace('%', '')) : parseFloat(value);
-    return !isNaN(num) ? Math.round(num) + '%' : '0%';
 }
 
 // Mask token for display
@@ -233,44 +221,8 @@ $: if (settings.chart_type !== undefined && settings.date_range !== undefined) {
 
 // Limit selected data points to a maximum of 7
 $: previewSlice = previewData.slice(-7);
-$: previewMax = previewSlice.length ? Math.max(...previewSlice.map(d => d.value), 1) : 100;
 
 // Aggregated preview stats for the metrics card
-$: previewStats = (() => {
-    if (!previewData.length) return null;
-    let totalVisits = 0;
-    let totalPageviews = 0;
-    let totalBounce = 0;
-    let bounceCount = 0;
-    let totalTime = 0;
-    let timeCount = 0;
-
-    previewData.forEach(day => {
-        totalVisits += day.value || 0;
-        totalPageviews += day.nb_pageviews || 0;
-        const br = day.bounce_rate;
-        if (br !== undefined && br !== null && br !== '') {
-            const brNum = typeof br === 'string' ? parseFloat(br.replace('%', '')) : parseFloat(br);
-            if (!isNaN(brNum)) {
-                totalBounce += brNum;
-                bounceCount++;
-            }
-        }
-        const time = parseFloat(day.avg_time_on_site);
-        if (!isNaN(time)) {
-            totalTime += time;
-            timeCount++;
-        }
-    });
-
-    return {
-        totalVisits,
-        avgVisitsPerDay: Math.round(totalVisits / previewData.length),
-        avgBounceRate: bounceCount > 0 ? Math.round(totalBounce / bounceCount) : 0,
-        avgSessionDuration: timeCount > 0 ? totalTime / timeCount : 0,
-        pagesPerVisit: totalVisits > 0 ? (totalPageviews / totalVisits).toFixed(1) : '0.0'
-    };
-})();
 
 // Format preview date labels
 function formatPreviewLabel(dateStr) {
@@ -669,27 +621,15 @@ onMount(() => {
     <div class="dashlytics-tabs" role="tablist" aria-label={i18n.settingsTabs || 'Einstellungsbereiche'}>
         <button 
             class="dashlytics-tab" 
-            class:dashlytics-tab--active={activeTab === 'connection'}
-            on:click={() => activeTab = 'connection'}
+            class:dashlytics-tab--active={activeTab === 'settings'}
+            on:click={() => activeTab = 'settings'}
             role="tab"
-            aria-selected={activeTab === 'connection'}
+            aria-selected={activeTab === 'settings'}
             aria-controls="dashlytics-tab-panel"
-            id="dashlytics-tab-connection"
+            id="dashlytics-tab-settings"
             type="button"
         >
-            🔗 {i18n.connection || 'Verbindung'}
-        </button>
-        <button 
-            class="dashlytics-tab" 
-            class:dashlytics-tab--active={activeTab === 'display'}
-            on:click={() => activeTab = 'display'}
-            role="tab"
-            aria-selected={activeTab === 'display'}
-            aria-controls="dashlytics-tab-panel"
-            id="dashlytics-tab-display"
-            type="button"
-        >
-            🎨 {i18n.display || 'Darstellung'}
+            ⚙️ {i18n.settings || 'Einstellungen'}
         </button>
         <button 
             class="dashlytics-tab" 
@@ -715,14 +655,14 @@ onMount(() => {
     {:else}
     {#key activeTab}
     <div class="dashlytics-tab-panel" id="dashlytics-tab-panel" role="tabpanel" aria-labelledby="dashlytics-tab-{activeTab}" in:fade={{ duration: 200, delay: 50 }}>
-        <!-- Connection Tab -->
-        {#if activeTab === 'connection'}
+        <!-- Settings Tab -->
+        {#if activeTab === 'settings'}
             <div class="dashlytics-grid">
                 <div class="dashlytics-card dashlytics-card--flex">
                     <div class="dashlytics-card-header">
                         <h2 class="dashlytics-card-title">
-                            <span class="dashlytics-card-icon">🔌</span>
-                            {i18n.apiConnection || 'API Verbindung'}
+                            <span class="dashlytics-card-icon"><span class="dashicons dashicons-admin-customizer" aria-hidden="true"></span></span>
+                            {i18n.chartSettings || 'Chart Einstellungen'}
                         </h2>
                     </div>
                     <div class="dashlytics-card-body dashlytics-card-body--grow">
@@ -732,9 +672,9 @@ onMount(() => {
                                     {i18n.matomoUrl || 'Matomo URL'}
                                     <span class="dashlytics-label-hint">({i18n.matomoUrlHint || 'Ihre Matomo Installation'})</span>
                                 </label>
-                                <input 
-                                    type="url" 
-                                    class="dashlytics-input" 
+                                <DashlyticsInput
+                                    id="dashlytics-matomo-url"
+                                    type="url"
                                     bind:value={settings.matomo_url}
                                     placeholder={i18n.matomoUrlPlaceholder || 'https://analytics.ihre-domain.de'}
                                 />
@@ -747,9 +687,10 @@ onMount(() => {
                                     {i18n.siteId || 'Site ID'}
                                     <span class="dashlytics-label-hint">({i18n.siteIdHint || 'Standard: 1'})</span>
                                 </label>
-                                <input 
-                                    type="number" 
-                                    class="dashlytics-input dashlytics-input--compact" 
+                                <DashlyticsInput
+                                    id="dashlytics-site-id"
+                                    type="number"
+                                    compact={true}
                                     bind:value={settings.site_id}
                                     min="1"
                                 />
@@ -805,7 +746,7 @@ onMount(() => {
                         </div>
 
                         {#if connectionMessage}
-                            <div class="dashlytics-alert" class:dashlytics-alert--success={connectionStatus === 'success'} class:dashlytics-alert--error={connectionStatus === 'error'}>
+                            <div class="dashlytics-alert dashlytics-alert--inline" class:dashlytics-alert--success={connectionStatus === 'success'} class:dashlytics-alert--error={connectionStatus === 'error'}>
                                 <span class="dashlytics-alert-icon">
                                     <span class="dashicons" class:dashicons-yes={connectionStatus === 'success'} class:dashicons-no={connectionStatus === 'error'} aria-hidden="true"></span>
                                 </span>
@@ -814,108 +755,7 @@ onMount(() => {
                                 </div>
                             </div>
                         {/if}
-                    </div>
-                    <div class="dashlytics-card-footer dashlytics-card-footer--sticky">
-                        {#if connectionStatus !== null}
-                            <button 
-                                type="button"
-                                class="dashlytics-btn dashlytics-btn--tertiary"
-                                on:click={resetConnectionTest}
-                                title={i18n.resetConnectionTest || 'Verbindungstest zurücksetzen'}
-                            >
-                                <span class="dashicons dashicons-undo" aria-hidden="true"></span>
-                                {i18n.reset || 'Zurücksetzen'}
-                            </button>
-                        {/if}
-                        <button 
-                            type="button"
-                            class="dashlytics-btn dashlytics-btn--primary"
-                            on:click={saveSettings}
-                            disabled={saving}
-                            class:dashlytics-btn--loading={saving}
-                            aria-busy={saving}
-                            aria-live="polite"
-                        >
-                            {#if saving}
-                                <span class="dashlytics-btn-spinner" aria-hidden="true"></span>
-                            {:else}
-                                <span class="dashicons dashicons-saved" aria-hidden="true"></span>
-                            {/if}
-                            {i18n.save || 'Speichern'}
-                        </button>
-                    </div>
-                </div>
 
-                <!-- Quick Stats Preview -->
-                <div class="dashlytics-card">
-                    <div class="dashlytics-card-header">
-                        <h2 class="dashlytics-card-title">
-                            <span class="dashlytics-card-icon"><span class="dashicons dashicons-chart-line" aria-hidden="true"></span></span>
-                            {i18n.kpiPreview || 'KPI Vorschau'}
-                        </h2>
-                    </div>
-                    <div class="dashlytics-card-body">
-                        <div class="dashlytics-metrics-grid">
-                            <div class="dashlytics-metric-card">
-                                <div class="dashlytics-metric-header">
-                                    <span class="dashlytics-metric-icon dashicons dashicons-clock" aria-hidden="true"></span>
-                                    <span class="dashlytics-metric-label">{i18n.avgSessionDuration || 'Ø Verweildauer'}</span>
-                                </div>
-                                <div class="dashlytics-metric-value">
-                                    {#if previewLoading}
-                                        <span class="dashlytics-preview-spinner" aria-hidden="true"></span>
-                                    {:else if previewError || !previewStats}
-                                        -
-                                    {:else}
-                                        {formatTime(previewStats.avgSessionDuration)}
-                                    {/if}
-                                </div>
-                                <p class="dashlytics-metric-hint">{i18n.avgSessionDurationHint || 'Content-Engagement im Zeitraum'}</p>
-                            </div>
-
-                            <div class="dashlytics-metric-card dashlytics-metric-card--coming-soon">
-                                <div class="dashlytics-metric-header">
-                                    <span class="dashlytics-metric-icon dashicons dashicons-chart-pie" aria-hidden="true"></span>
-                                    <span class="dashlytics-metric-label">{i18n.topTrafficSource || 'Top Traffic-Quelle'}</span>
-                                </div>
-                                <div class="dashlytics-metric-value">--</div>
-                                <span class="dashlytics-coming-soon-badge">{i18n.comingSoon || 'Coming soon'}</span>
-                            </div>
-
-                            <div class="dashlytics-metric-card dashlytics-metric-card--coming-soon">
-                                <div class="dashlytics-metric-header">
-                                    <span class="dashlytics-metric-icon dashicons dashicons-admin-page" aria-hidden="true"></span>
-                                    <span class="dashlytics-metric-label">{i18n.pagesPerVisit || 'Seiten/Besuch'}</span>
-                                </div>
-                                <div class="dashlytics-metric-value">--</div>
-                                <span class="dashlytics-coming-soon-badge">{i18n.comingSoon || 'Coming soon'}</span>
-                            </div>
-
-                            <div class="dashlytics-metric-card dashlytics-metric-card--coming-soon">
-                                <div class="dashlytics-metric-header">
-                                    <span class="dashlytics-metric-icon dashicons dashicons-megaphone" aria-hidden="true"></span>
-                                    <span class="dashlytics-metric-label">{i18n.conversionRate || 'Conversion Rate'}</span>
-                                </div>
-                                <div class="dashlytics-metric-value">--</div>
-                                <span class="dashlytics-coming-soon-badge">{i18n.comingSoon || 'Coming soon'}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {/if}
-
-        <!-- Display Tab -->
-        {#if activeTab === 'display'}
-            <div class="dashlytics-grid">
-                <div class="dashlytics-card">
-                    <div class="dashlytics-card-header">
-                        <h2 class="dashlytics-card-title">
-                            <span class="dashlytics-card-icon"><span class="dashicons dashicons-admin-customizer" aria-hidden="true"></span></span>
-                            {i18n.chartSettings || 'Chart Einstellungen'}
-                        </h2>
-                    </div>
-                    <div class="dashlytics-card-body">
                         <div class="dashlytics-form-group">
                             <span class="dashlytics-label" id="dashlytics-chart-type-label">{i18n.chartType || 'Diagramm-Typ'}</span>
                             <div class="dashlytics-chart-types">
@@ -957,7 +797,18 @@ onMount(() => {
                             </div>
                         </div>
                     </div>
-                    <div class="dashlytics-card-footer">
+                    <div class="dashlytics-card-footer dashlytics-card-footer--sticky">
+                        {#if connectionStatus !== null}
+                            <button 
+                                type="button"
+                                class="dashlytics-btn dashlytics-btn--tertiary"
+                                on:click={resetConnectionTest}
+                                title={i18n.resetConnectionTest || 'Verbindungstest zurücksetzen'}
+                            >
+                                <span class="dashicons dashicons-undo" aria-hidden="true"></span>
+                                {i18n.reset || 'Zurücksetzen'}
+                            </button>
+                        {/if}
                         <button 
                             class="dashlytics-btn dashlytics-btn--primary"
                             on:click={saveSettings}
@@ -1305,21 +1156,6 @@ onMount(() => {
         color: #334155;
     }
 
-    /* Animations */
-    .dashlytics-preview-bar {
-        animation: growUp 0.6s ease-out forwards;
-        transform-origin: bottom;
-    }
-
-    @keyframes growUp {
-        from {
-            transform: scaleY(0);
-        }
-        to {
-            transform: scaleY(1);
-        }
-    }
-
     /* Form row: Site ID + Auth Token side by side */
     .dashlytics-form-row {
         display: grid;
@@ -1342,126 +1178,6 @@ onMount(() => {
     .dashlytics-input--compact {
         width: 100%;
         max-width: 100%;
-    }
-
-    /* KPI preview metric cards - BI dashboard style */
-    .dashlytics-metrics-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-
-    @media (max-width: 600px) {
-        .dashlytics-metrics-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .dashlytics-metric-card {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        min-height: 152px;
-        padding: 24px;
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        transition: all 0.2s ease;
-        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
-        overflow: hidden;
-    }
-
-    .dashlytics-metric-card:not(.dashlytics-metric-card--coming-soon):hover {
-        border-color: #2271b1;
-        box-shadow: 0 4px 12px rgba(34, 113, 177, 0.1);
-        transform: translateY(-2px);
-    }
-
-    .dashlytics-metric-card--coming-soon {
-        background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
-        border-style: dashed;
-        opacity: 0.72;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .dashlytics-metric-card--coming-soon .dashlytics-metric-header {
-        margin-bottom: 12px;
-        justify-content: center;
-    }
-
-    .dashlytics-metric-card--coming-soon .dashlytics-metric-value {
-        color: #94a3b8;
-        font-weight: 500;
-        margin-top: 0;
-        margin-bottom: 12px;
-        min-height: auto;
-    }
-
-    .dashlytics-metric-card--coming-soon .dashlytics-coming-soon-badge {
-        position: static;
-        margin-top: 4px;
-    }
-
-    .dashlytics-metric-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 18px;
-    }
-
-    .dashlytics-metric-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 38px;
-        height: 38px;
-        background: rgba(34, 113, 177, 0.1);
-        color: #2271b1;
-        border-radius: 12px;
-        font-size: 20px;
-    }
-
-    .dashlytics-metric-label {
-        font-size: 13px;
-        font-weight: 600;
-        color: #475569;
-        letter-spacing: 0.2px;
-    }
-
-    .dashlytics-metric-value {
-        font-size: 34px;
-        font-weight: 800;
-        color: #1e293b;
-        line-height: 1.05;
-        min-height: 42px;
-        display: flex;
-        align-items: center;
-        letter-spacing: -0.8px;
-        margin-top: auto;
-    }
-
-    .dashlytics-metric-hint {
-        margin: 14px 0 0;
-        font-size: 12px;
-        color: #94a3b8;
-        line-height: 1.4;
-    }
-
-    .dashlytics-coming-soon-badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 4px 10px;
-        font-size: 10px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: #64748b;
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid #e2e8f0;
-        border-radius: 999px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
 
     /* Live preview enhancements */
