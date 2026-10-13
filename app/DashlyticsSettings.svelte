@@ -629,7 +629,7 @@ onMount(() => {
             id="dashlytics-tab-settings"
             type="button"
         >
-            ⚙️ {i18n.settings || 'Einstellungen'}
+            <span class="dashicons dashicons-admin-generic" aria-hidden="true"></span>{i18n.settings || 'Einstellungen'}
         </button>
         <button 
             class="dashlytics-tab" 
@@ -641,7 +641,7 @@ onMount(() => {
             id="dashlytics-tab-help"
             type="button"
         >
-            ❓ {i18n.help || 'Hilfe'}
+            <span class="dashicons dashicons-editor-help" aria-hidden="true"></span>{i18n.help || 'Hilfe'}
         </button>
     </div>
 
@@ -836,7 +836,7 @@ onMount(() => {
                         </h2>
                     </div>
                     <div class="dashlytics-card-body">
-                        <div class="dashlytics-preview dashlytics-preview--live" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                        <div class="dashlytics-preview dashlytics-preview--live">
                             <div class="dashlytics-preview-chart dashlytics-preview-chart--canvas" aria-live="polite">
                                 {#if previewLoading}
                                     <div class="dashlytics-preview-status" role="status">
@@ -857,11 +857,11 @@ onMount(() => {
 
         <!-- Help Tab -->
         {#if activeTab === 'help'}
-            <div class="dashlytics-grid dashlytics-grid--full">
+            <div class="dashlytics-grid">
                 <div class="dashlytics-card">
                     <div class="dashlytics-card-header">
                         <h2 class="dashlytics-card-title">
-                            <span class="dashlytics-card-icon">📖</span>
+                            <span class="dashlytics-card-icon"><span class="dashicons dashicons-book-alt" aria-hidden="true"></span></span>
                             {i18n.quickstart || 'Schnellstart Anleitung'}
                         </h2>
                     </div>
@@ -921,8 +921,8 @@ onMount(() => {
                             <h3 class="dashlytics-features-title">{i18n.widgetFeatures || 'Widget Funktionen'}</h3>
                             <div class="dashlytics-feature-cards">
                                 <div class="dashlytics-feature-card">
-                                    <div class="dashlytics-feature-card-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
-                                        <span class="dashicons dashicons-chart-bar"></span>
+                                    <div class="dashlytics-feature-card-icon">
+                                        <span class="dashicons dashicons-chart-bar" aria-hidden="true"></span>
                                     </div>
                                     <div class="dashlytics-feature-card-content">
                                         <h4>{i18n.statsCards || 'Statistik-Karten'}</h4>
@@ -930,7 +930,7 @@ onMount(() => {
                                     </div>
                                 </div>
                                 <div class="dashlytics-feature-card">
-                                    <div class="dashlytics-feature-card-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                                    <div class="dashlytics-feature-card-icon">
                                         <span class="dashicons dashicons-chart-line"></span>
                                     </div>
                                     <div class="dashlytics-feature-card-content">
@@ -939,7 +939,7 @@ onMount(() => {
                                     </div>
                                 </div>
                                 <div class="dashlytics-feature-card">
-                                    <div class="dashlytics-feature-card-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                                    <div class="dashlytics-feature-card-icon">
                                         <span class="dashicons dashicons-calendar-alt"></span>
                                     </div>
                                     <div class="dashlytics-feature-card-content">
@@ -948,7 +948,7 @@ onMount(() => {
                                     </div>
                                 </div>
                                 <div class="dashlytics-feature-card">
-                                    <div class="dashlytics-feature-card-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                                    <div class="dashlytics-feature-card-icon">
                                         <span class="dashicons dashicons-download"></span>
                                     </div>
                                     <div class="dashlytics-feature-card-content">
@@ -959,32 +959,37 @@ onMount(() => {
                             </div>
                         </div>
 
+                    </div>
+                </div>
+
+                <div class="dashlytics-card">
+                    <div class="dashlytics-card-header">
+                        <h2 class="dashlytics-card-title">
+                            <span class="dashlytics-card-icon"><span class="dashicons dashicons-heart" aria-hidden="true"></span></span>
+                            {i18n.supportTitle || 'Matt Interfaces unterstützen'}
+                        </h2>
+                    </div>
+                    <div class="dashlytics-card-body">
+                        <p class="dashlytics-desc">{i18n.supportDesc || 'Dieses Plugin ist kostenlos. Eine Spende oder eine Bewertung hilft bei der Weiterentwicklung.'}</p>
                         <div class="dashlytics-support">
                             <a href="https://matt-interfaces.ch/wp-dashlytics" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link" aria-label="Plugin-Seite für Dashlytics - Matomo Analytics Widget besuchen">
-                                <span class="dashlytics-support-link-icon">🌐</span>
+                                <span class="dashicons dashicons-admin-site-alt3" aria-hidden="true"></span>
                                 <span>{i18n.pluginWebsite || 'Plugin-Website'}</span>
                             </a>
                             <a href="https://github.com/Matt-Interfaces/wp-dashlytics" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link" aria-label="GitHub Repository für Dashlytics öffnen">
-                                <span class="dashlytics-support-link-icon">📦</span>
+                                <span class="dashicons dashicons-editor-code" aria-hidden="true"></span>
                                 <span>{i18n.githubRepository || 'GitHub Repository'}</span>
                             </a>
-                            <a href="https://developer.matomo.org/api-reference/reporting-api" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link">
-                                <span class="dashlytics-support-link-icon">📚</span>
+                            <a href="https://developer.matomo.org/api-reference/reporting-api" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link" >
+                                <span class="dashicons dashicons-book-alt" aria-hidden="true"></span>
                                 <span>{i18n.matomoApiDocs || 'Matomo API Docs'}</span>
                             </a>
-                            <a href="https://matt-interfaces.ch/zahlen" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link">
-                                <span class="dashlytics-support-link-icon">☕</span>
+                            <a href="https://matt-interfaces.ch/zahlen" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link" >
+                                <span class="dashicons dashicons-heart" aria-hidden="true"></span>
                                 <span>{i18n.supportDeveloper || 'Entwickler unterstützen'}</span>
                             </a>
-                            <a href="https://www.matt-interfaces.ch" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link">
-                                <img 
-                                    src="{pluginUrl}assets/images/matt-interface-logo-v3-100x40px.png" 
-                                    alt="Matt Interfaces" 
-                                    class="dashlytics-support-link-logo"
-                                    width="24"
-                                    height="10"
-                                    loading="lazy"
-                                />
+                            <a href="https://matt-interfaces.ch" target="_blank" rel="noopener noreferrer" class="dashlytics-support-link">
+                                <span class="dashicons dashicons-admin-links" aria-hidden="true"></span>
                                 <span>matt-interfaces.ch</span>
                             </a>
                         </div>
@@ -1005,182 +1010,10 @@ onMount(() => {
 </div>
 
 <style>
-    .dashlytics-settings {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    }
-
-    .dashlytics-chart-types {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 12px;
-    }
-
-    .dashlytics-chart-type {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        padding: 16px;
-        background: #f0f0f1;
-        border: 2px solid transparent;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .dashlytics-chart-type:hover {
-        background: #e7f3ff;
-    }
-
-    .dashlytics-chart-type.active {
-        background: #e7f3ff;
-        border-color: #2271b1;
-    }
-
     .dashlytics-chart-type input {
         display: none;
     }
 
-    .dashlytics-chart-type-icon {
-        font-size: 28px;
-    }
-
-    .dashlytics-chart-type-label {
-        font-size: 13px;
-        font-weight: 500;
-        color: #1d2327;
-    }
-
-    /* Token Field */
-    .dashlytics-input--readonly {
-        background: #f6f7f7;
-        font-family: monospace;
-        letter-spacing: 1px;
-    }
-
-    /* Features Section */
-    .dashlytics-features-section {
-        margin-top: 24px;
-        padding-top: 24px;
-        border-top: 1px solid #e2e8f0;
-    }
-
-    .dashlytics-features-title {
-        margin: 0 0 20px;
-        font-size: 16px;
-        font-weight: 600;
-        color: #1e293b;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .dashlytics-features-title::before {
-        content: '';
-        width: 4px;
-        height: 20px;
-        background: linear-gradient(135deg, #2271b1 0%, #135e96 100%);
-        border-radius: 2px;
-    }
-
-    .dashlytics-feature-cards {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
-    @media (max-width: 768px) {
-        .dashlytics-feature-cards {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .dashlytics-feature-card {
-        display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 20px;
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        transition: all 0.2s ease;
-    }
-
-    .dashlytics-feature-card:hover {
-        border-color: #2271b1;
-        box-shadow: 0 4px 12px rgba(34, 113, 177, 0.1);
-        transform: translateY(-2px);
-    }
-
-    .dashlytics-feature-card-icon {
-        flex-shrink: 0;
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 12px;
-        color: #ffffff;
-    }
-
-    .dashlytics-feature-card-icon .dashicons {
-        font-size: 24px;
-        width: 24px;
-        height: 24px;
-    }
-
-    .dashlytics-feature-card-content h4 {
-        margin: 0 0 6px;
-        font-size: 15px;
-        font-weight: 600;
-        color: #1e293b;
-    }
-
-    .dashlytics-feature-card-content p {
-        margin: 0;
-        font-size: 13px;
-        color: #64748b;
-        line-height: 1.5;
-    }
-
-    /* Button Styles - Tertiary */
-    .dashlytics-btn--tertiary {
-        background-color: transparent;
-        border: 1px solid #e2e8f0;
-        color: #64748b;
-    }
-
-    .dashlytics-btn--tertiary:hover {
-        background-color: #f8fafc;
-        border-color: #cbd5e1;
-        color: #334155;
-    }
-
-    /* Form row: Site ID + Auth Token side by side */
-    .dashlytics-form-row {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 16px;
-        align-items: start;
-    }
-
-    @media (max-width: 600px) {
-        .dashlytics-form-row {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .dashlytics-form-group--compact,
-    .dashlytics-form-group--grow {
-        margin-bottom: 0;
-    }
-
-    .dashlytics-input--compact {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    /* Live preview enhancements */
     .dashlytics-preview-chart--canvas {
         position: relative;
         width: 100%;
@@ -1193,16 +1026,5 @@ onMount(() => {
         left: 0;
         width: 100% !important;
         height: 100% !important;
-    }
-
-    /* Chart type selector with Dashicons */
-    .dashlytics-chart-type-icon {
-        font-size: 24px;
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #2271b1;
     }
 </style>
